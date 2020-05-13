@@ -1,6 +1,7 @@
 package com.lpc.snowmusic.application
 
 import android.app.Application
+import com.blankj.utilcode.util.LogUtils
 
 /**
  * Author: liupengchao
@@ -12,5 +13,7 @@ class MusicApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        LogUtils.e("onCreate=============>>")
+
     }
 }
