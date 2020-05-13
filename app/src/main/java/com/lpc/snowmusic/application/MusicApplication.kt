@@ -1,4 +1,4 @@
-package com.example.lpc.snowmusic.application
+package com.lpc.snowmusic.application
 
 import android.app.Application
 

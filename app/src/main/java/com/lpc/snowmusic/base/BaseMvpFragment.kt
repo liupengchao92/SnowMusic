@@ -1,26 +1,25 @@
-package com.example.lpc.snowmusic.base
+package com.lpc.snowmusic.base
 
+import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 
 /**
  * Author: liupengchao
- * Date: 2020/5/12
- * ClassName :BaseMvpActivity
- * Desc:MVP Activity基类
+ * Date: 2020/5/13
+ * ClassName :BaseMvpFragment
+ * Desc:MVP Fragment基类
  */
-abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity(), IView {
+abstract class BaseMvpFragment<V : IView, P : IPresenter<V>> : BaseFragment(), IView {
 
     protected var presenter: P? = null
-
     /**
      * 创建Presenter实例
      */
     protected abstract fun createPresenter(): P
 
-    override fun initView() {
+    override fun initView(view: View) {
         presenter = createPresenter()
         presenter?.attachView(this as V)
-
     }
 
     override fun onDestroy() {
@@ -33,7 +32,6 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
     }
 
     override fun hideLoading() {
-
     }
 
     override fun showMsg(msg: String) {
@@ -48,3 +46,4 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
         multipleStatusView?.showEmpty()
     }
 }
+

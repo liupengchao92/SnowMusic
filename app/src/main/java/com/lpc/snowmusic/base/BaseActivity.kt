@@ -1,4 +1,4 @@
-package com.example.lpc.snowmusic.base
+package com.lpc.snowmusic.base
 
 import android.os.Bundle
 import android.os.PersistableBundle

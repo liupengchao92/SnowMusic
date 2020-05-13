@@ -1,8 +1,8 @@
-package com.example.lpc.snowmusic.ui
+package com.lpc.snowmusic.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.lpc.snowmusic.R
+import com.lpc.snowmusic.R
 
 class MainActivity : AppCompatActivity() {
 
