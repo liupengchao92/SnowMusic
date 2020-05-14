@@ -1,4 +1,4 @@
-package com.example.lpc.snowmusic
+package com.lpc.snowmusic
 
 import org.junit.Test
 

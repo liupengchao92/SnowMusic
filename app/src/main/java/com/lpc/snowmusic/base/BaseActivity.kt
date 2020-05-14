@@ -1,10 +1,13 @@
-package com.example.lpc.snowmusic.base
+package com.lpc.snowmusic.base
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.LogUtils
 import com.classic.common.MultipleStatusView
+import com.lpc.snowmusic.R
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -13,9 +16,10 @@ import org.greenrobot.eventbus.EventBus
  * ClassName :BaseActivity
  * Desc:Activity基础类
  */
+@SuppressWarnings("unchecked")
 abstract class BaseActivity : AppCompatActivity() {
 
-   //多种状态的 View 的切换
+    //多种状态的 View 的切换
     protected var multipleStatusView: MultipleStatusView? = null
 
     /**
@@ -26,6 +30,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
+        LogUtils.e("className===>>"+this.javaClass.name)
         setContentView(getLayoutResId())
         if (useEventBus()) {
             EventBus.getDefault().register(this)
@@ -63,5 +68,12 @@ abstract class BaseActivity : AppCompatActivity() {
         if (useEventBus()) {
             EventBus.getDefault().unregister(this)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

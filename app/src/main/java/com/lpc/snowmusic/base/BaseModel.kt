@@ -1,4 +1,4 @@
-package com.example.lpc.snowmusic.base
+package com.lpc.snowmusic.base
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
