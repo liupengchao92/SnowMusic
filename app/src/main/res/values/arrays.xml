@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--主页面标题-->
+    <array name="main_tab_title">
+        <item>@string/mine</item>
+        <item>@string/discover</item>
+        <item>@string/top</item>
+        <item>@string/mv</item>
+    </array>
+</resources>

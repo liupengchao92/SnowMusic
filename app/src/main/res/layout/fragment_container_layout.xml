@@ -6,9 +6,9 @@
               android:layout_height="match_parent">
 
     <com.google.android.material.tabs.TabLayout
-
+            app:tabIndicatorHeight="4dp"
             app:tabMode="fixed"
-            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorColor="@color/color_white"
             app:tabSelectedTextColor="@color/common_white_text"
             android:background="@color/colorPrimary"
             android:id="@+id/tab_layout"

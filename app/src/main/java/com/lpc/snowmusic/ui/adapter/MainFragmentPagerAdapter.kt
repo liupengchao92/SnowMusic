@@ -1,8 +1,10 @@
 package com.lpc.snowmusic.ui.adapter
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.ui.MineFragment
 
@@ -12,11 +14,11 @@ import com.lpc.snowmusic.ui.MineFragment
  * ClassName :MainFragmentPagerAdapter
  * Desc:主页面PagerAdapter
  */
-class MainFragmentPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class MainFragmentPagerAdapter(context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     private val fragments = mutableListOf<BaseFragment>()
 
-    private val titles = arrayOf("我的", "发现", "排行榜", "MV")
+    private var titles = context.resources.getStringArray(R.array.main_tab_title)
 
     init {
         titles.forEach {
