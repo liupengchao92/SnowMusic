@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ToastUtils
  * ClassName :BaseMvpActivity
  * Desc:MVP Activity基类
  */
+@SuppressWarnings("unchecked")
 abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity(), IView {
 
     protected var presenter: P? = null

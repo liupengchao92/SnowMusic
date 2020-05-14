@@ -1,21 +1,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
-    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--ToolBar主题-->
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--toolbar背景色-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!--手机最上方通知栏颜色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--toolbar里文本颜色-->
         <item name="android:textColorPrimary">@color/color_white</item>
+    </style>
+
+    <!--侧滑菜单主题-->
+    <style name="SideMenuTheme" parent="Widget.Design.NavigationView">
+        <item name="android:textColor">@color/common_black_text</item>
+        <item name="android:textSize">16sp</item>
+
     </style>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.ui.activity
 
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +27,16 @@ class MainActivity : BaseActivity() {
 
         }
 
+        //ToolBar与DrawerLayout关联
         drawer_layout.run {
+
+            val toggle = ActionBarDrawerToggle(
+                this@MainActivity, this, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+            )
+
+            toggle.syncState()
 
         }
 

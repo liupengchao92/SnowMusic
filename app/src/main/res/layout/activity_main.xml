@@ -8,21 +8,25 @@
         tools:openDrawer="start"
         android:fitsSystemWindows="true">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <!--ToolBar-->
         <include layout="@layout/toolbar_layout"/>
         <!--内容-->
         <include layout="@layout/fragment_container_layout"/>
-        <!--侧滑菜单-->
-        <com.google.android.material.navigation.NavigationView
-                app:menu="@menu/menu_drawer_layout"
-                app:headerLayout="@layout/nav_header_drawer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 
+    <!--侧滑菜单-->
+    <com.google.android.material.navigation.NavigationView
+            android:background="@color/common_white_background"
+            style="@style/SideMenuTheme"
+            android:layout_gravity="start"
+            app:menu="@menu/menu_drawer_layout"
+            app:headerLayout="@layout/nav_header_drawer_layout"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

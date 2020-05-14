@@ -7,4 +7,9 @@
 
 
     <color name="color_white">#ffffff</color>
+    <color name="common_white_background">#ffffff</color>
+    <color name="common_black_text">#191919</color>
+    <color name="common_white_text">#ffffff</color>
+
+
 </resources>

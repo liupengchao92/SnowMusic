@@ -27,10 +27,8 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     open fun useEventBus(): Boolean = false
 
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        LogUtils.e("className===>>"+this.javaClass.name)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
         if (useEventBus()) {
             EventBus.getDefault().register(this)
