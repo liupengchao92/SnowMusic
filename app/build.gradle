@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.lpc.snowmusic"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -39,14 +39,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
-    //(今日头条屏幕适配方案终极版，一个极低成本的 Android 屏幕适配方案
-    implementation 'me.jessyan:autosize:1.2.1'
-    //一个支持多种状态的自定义View,可以方便的切换到：加载中视图、错误视图、空数据视图、网络异常视图、内容视图。
-    implementation 'com.classic.common:multiple-status-view:1.7'
-    //Android智能下拉刷新框架-SmartRefreshLayout
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
-    //EventBus
-    implementation 'org.greenrobot:eventbus:3.2.0'
+
     //RxJava相关库
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
@@ -57,7 +50,18 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
     //工具类
     implementation 'com.blankj:utilcodex:1.28.0'
-    //
+    //Design包
     implementation 'com.google.android.material:material:1.0.0-rc01'
+    //BaseRecyclerViewAdapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.3'
+    //(今日头条屏幕适配方案终极版，一个极低成本的 Android 屏幕适配方案
+    implementation 'me.jessyan:autosize:1.2.1'
+    //一个支持多种状态的自定义View,可以方便的切换到：加载中视图、错误视图、空数据视图、网络异常视图、内容视图。
+    implementation 'com.classic.common:multiple-status-view:1.7'
+    //Android智能下拉刷新框架-SmartRefreshLayout
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    //EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
 
 }

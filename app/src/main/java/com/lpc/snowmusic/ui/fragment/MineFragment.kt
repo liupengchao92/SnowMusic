@@ -1,11 +1,10 @@
-package com.lpc.snowmusic.ui
+package com.lpc.snowmusic.ui.fragment
 
 import android.os.Bundle
 import android.view.View
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.constant.Constant
-import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
  * Author: liupengchao
@@ -30,7 +29,7 @@ class MineFragment : BaseFragment() {
 
     override fun initView(view: View) {
         val title: String = arguments?.getString(Constant.FRAGMENT_KEY) as String
-        text_content.text = title
+
     }
 
     override fun lazyLoad() {

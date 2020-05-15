@@ -22,7 +22,6 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
 
-
         viewpager.run {
             adapter = MainFragmentPagerAdapter(this@MainActivity,supportFragmentManager)
             tab_layout.setupWithViewPager(this)

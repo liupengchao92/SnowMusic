@@ -25,4 +25,12 @@
 
     </style>
 
+    <!--我的音乐ItemView-->
+    <declare-styleable name="MyMusicItemView">
+        <attr name="item_icon" format="integer|reference"/>
+        <attr name="item_desc" format="reference|string"/>
+        <attr name="item_name" format="reference|string"/>
+        <attr name="item_icon_color" format="reference|color"/>
+    </declare-styleable>
+
 </resources>

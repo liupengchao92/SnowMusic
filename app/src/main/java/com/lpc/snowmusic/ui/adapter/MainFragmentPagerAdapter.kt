@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
-import com.lpc.snowmusic.ui.MineFragment
+import com.lpc.snowmusic.ui.fragment.MineFragment
 
 /**
  * Author: liupengchao
@@ -25,6 +26,8 @@ class MainFragmentPagerAdapter(context: Context, fm: FragmentManager) : Fragment
             fragments.add(MineFragment.getInstance(it))
         }
     }
+
+    override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
 
     override fun getItem(position: Int): Fragment = fragments[position]
 

@@ -1,16 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:scrollbars="none"
+        android:background="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/common_black_text"
-            android:textSize="20sp"
-            android:id="@+id/text_content"
+
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content">
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+                android:elevation="2dp"
+                app:cardCornerRadius="3.5dp"
+                android:layout_margin="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <com.lpc.snowmusic.widget.MyMusicItemView
+                        app:item_desc="@string/default_num"
+                        android:gravity="center_vertical"
+                        app:item_icon="@drawable/item_music"
+                        app:item_name="@string/item_local"
+                        app:item_icon_color="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"/>
+
+                <com.lpc.snowmusic.widget.MyMusicItemView
+                        app:item_desc="@string/default_num"
+                        android:gravity="center_vertical"
+                        app:item_icon="@drawable/ic_history_black"
+                        app:item_name="@string/item_history"
+                        app:item_icon_color="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"/>
+
+                <com.lpc.snowmusic.widget.MyMusicItemView
+                        app:item_desc="@string/default_num"
+                        android:gravity="center_vertical"
+                        app:item_icon="@drawable/item_favorite"
+                        app:item_name="@string/item_favorite"
+                        app:item_icon_color="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"/>
+
+                <com.lpc.snowmusic.widget.MyMusicItemView
+                        app:item_desc="@string/default_num"
+                        android:gravity="center_vertical"
+                        app:item_icon="@drawable/ic_video_library"
+                        app:item_name="@string/item_video"
+                        app:item_icon_color="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"/>
+
+                <com.lpc.snowmusic.widget.MyMusicItemView
+                        app:item_desc="@string/default_num"
+                        android:gravity="center_vertical"
+                        app:item_icon="@drawable/item_download"
+                        app:item_name="@string/item_download"
+                        app:item_icon_color="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
