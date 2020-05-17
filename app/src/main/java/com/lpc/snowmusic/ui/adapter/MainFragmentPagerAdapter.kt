@@ -7,7 +7,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
-import com.lpc.snowmusic.ui.fragment.MineFragment
+import com.lpc.snowmusic.ui.fragment.DiscoverFragment
+import com.lpc.snowmusic.ui.fragment.MvFragment
+import com.lpc.snowmusic.ui.fragment.MyMusicFragment
+import com.lpc.snowmusic.ui.fragment.TopFragment
 
 /**
  * Author: liupengchao
@@ -22,8 +25,15 @@ class MainFragmentPagerAdapter(context: Context, fm: FragmentManager) : Fragment
     private var titles = context.resources.getStringArray(R.array.main_tab_title)
 
     init {
-        titles.forEach {
-            fragments.add(MineFragment.getInstance(it))
+        for ((position, title) in titles.withIndex()) {
+            val fragment = when (position) {
+                0 -> MyMusicFragment.getInstance(title)
+                1 -> DiscoverFragment.getInstance(title)
+                2 -> TopFragment.getInstance(title)
+                else -> MvFragment.getInstance(title)
+
+            }
+            fragments.add(fragment)
         }
     }
 

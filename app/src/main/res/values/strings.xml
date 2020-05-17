@@ -18,7 +18,9 @@
     <string name="local_music">本地歌曲</string>
     <string name="song_num">%1$d 首</string>
     <string name="default_num">0 首</string>
-
+    <string name="local_play_list">本地歌单</string>
+    <string name="online_list">在线歌单</string>
+    <string name="netease_list">网易歌单</string>
 
 
 </resources>

@@ -12,11 +12,11 @@ import com.lpc.snowmusic.constant.Constant
  * ClassName :MineFragment
  * Desc:我的
  */
-class MineFragment : BaseFragment() {
+class MyMusicFragment : BaseFragment() {
 
     companion object {
-        fun getInstance(title: String): MineFragment {
-            val fragment = MineFragment()
+        fun getInstance(title: String): MyMusicFragment {
+            val fragment = MyMusicFragment()
             val args = Bundle()
             args.putString(Constant.FRAGMENT_KEY, title)
             fragment.arguments = args
@@ -24,7 +24,7 @@ class MineFragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutResId(): Int = R.layout.fragment_mine
+    override fun getLayoutResId(): Int = R.layout.fragment_my_music
 
 
     override fun initView(view: View) {
