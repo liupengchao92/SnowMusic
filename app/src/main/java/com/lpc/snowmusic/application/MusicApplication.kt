@@ -2,8 +2,10 @@ package com.lpc.snowmusic.application
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
+import kotlin.properties.Delegates
 
 /**
  * Author: liupengchao
@@ -13,8 +15,15 @@ import com.blankj.utilcode.util.LogUtils
  */
 class MusicApplication : Application() {
 
+    companion object {
+        var context: Context by Delegates.notNull()
+            private set
+    }
+
     override fun onCreate() {
         super.onCreate()
+        context = applicationContext
+
         LogUtils.e("onCreate=============>>")
 
 

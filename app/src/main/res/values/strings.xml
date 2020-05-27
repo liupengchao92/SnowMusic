@@ -21,6 +21,8 @@
     <string name="local_play_list">本地歌单</string>
     <string name="online_list">在线歌单</string>
     <string name="netease_list">网易歌单</string>
+    <string name="network_unavailable_tip">网络连接不可用,请检查网络设置!</string>
+
 
 
 </resources>
