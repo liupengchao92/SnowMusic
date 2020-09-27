@@ -22,6 +22,11 @@
     <string name="online_list">在线歌单</string>
     <string name="netease_list">网易歌单</string>
     <string name="network_unavailable_tip">网络连接不可用,请检查网络设置!</string>
+    <string name="recommend_song">推荐歌曲</string>
+    <string name="hot_singer">热门歌手</string>
+    <string name="broadcasting">电台</string>
+    <string name="look_all">查看全部</string>
+    <string name="recommend_song_list">推荐歌单</string>
 
 
 
