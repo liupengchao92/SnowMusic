@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.LogUtils
 import kotlin.properties.Delegates
 
@@ -23,6 +24,8 @@ class MusicApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+
+        MultiDex.install(this)
 
         LogUtils.e("onCreate=============>>")
 

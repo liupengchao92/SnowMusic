@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.http.function
 
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.R
@@ -50,7 +51,9 @@ fun <T : BaseBean> Observable<T>.request(
 
             override fun onNext(t: T) {
                 when (t.errorCode) {
-                    ErrorStatus.SUCCESS -> onSuccess.invoke(t)
+                    ErrorStatus.SUCCESS -> {
+                        onSuccess.invoke(t)
+                    }
                     ErrorStatus.TOKEN_INVALID -> {
                         //Token失效
                     }

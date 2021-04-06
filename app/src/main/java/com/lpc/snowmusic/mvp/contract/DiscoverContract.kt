@@ -4,7 +4,7 @@ import com.lpc.snowmusic.base.IModel
 import com.lpc.snowmusic.base.IPresenter
 import com.lpc.snowmusic.base.IView
 import com.lpc.snowmusic.http.bean.BannerBean
-import com.lpc.snowmusic.http.bean.HttpResult
+import com.lpc.snowmusic.http.bean.BannerResult
 import io.reactivex.Observable
 
 /**
@@ -35,10 +35,10 @@ interface DiscoverContract {
         fun loadRaios()
     }
 
-    interface Model:IModel {
+    interface Model : IModel {
 
-        fun loadBanner(): Observable<HttpResult<MutableList<BannerBean>>>
+        fun loadBanner(): Observable<BannerResult>
 
-        fun loadBaidu(): Observable<HttpResult<MutableList<BannerBean>>>
+        fun loadBaidu(): Observable<BannerResult>
     }
 }

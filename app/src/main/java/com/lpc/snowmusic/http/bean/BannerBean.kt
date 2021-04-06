@@ -8,6 +8,13 @@ import com.google.gson.annotations.SerializedName
  * ClassName :BannerBean
  * Desc:
  */
+data class BannerResult(
+    @SerializedName("banners")
+    val banners: MutableList<BannerBean>,
+    @SerializedName("code")
+    val code: Int = 0
+) : BaseBean()
+
 data class BannerBean(
     @SerializedName("imageUrl")
     val picUrl: String,

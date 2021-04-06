@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.http.interceptor
 
-import com.blankj.utilcode.util.LogUtils
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -25,7 +24,7 @@ class HeadInterceptor : Interceptor {
         val domain = request.url.host
         //url
         val url = request.url.toString()
-        LogUtils.d(TAG, url)
+
         return chain.proceed(request)
     }
 }

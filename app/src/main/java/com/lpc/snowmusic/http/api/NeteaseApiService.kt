@@ -1,6 +1,6 @@
 package com.lpc.snowmusic.http.api
 
-import com.lpc.snowmusic.http.bean.BannerBean
+import com.lpc.snowmusic.http.bean.BannerResult
 import com.lpc.snowmusic.http.bean.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -14,5 +14,5 @@ import retrofit2.http.GET
 interface NeteaseApiService {
 
     @GET("banner")
-    fun getBanner(): Observable<HttpResult<MutableList<BannerBean>>>
+    fun getBanner(): Observable<BannerResult>
 }
