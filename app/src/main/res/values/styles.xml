@@ -52,4 +52,13 @@
         <item name="android:background">@color/Grey400</item>
     </style>
 
+    <!--发现页标签-->
+    <style name="DiscoverTagTextStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/common_black_text</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
 </resources>

@@ -1,9 +1,8 @@
 package com.lpc.snowmusic.mvp.model
 
 import com.lpc.snowmusic.base.BaseModel
-import com.lpc.snowmusic.http.bean.BannerBean
-import com.lpc.snowmusic.http.bean.BannerResult
-import com.lpc.snowmusic.http.bean.HttpResult
+import com.lpc.snowmusic.bean.ArtistsInfo
+import com.lpc.snowmusic.bean.BannerResult
 import com.lpc.snowmusic.http.retrofit.RetrofitHelper
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import io.reactivex.Observable
@@ -15,11 +14,11 @@ import io.reactivex.Observable
  * Desc:
  */
 class DiscoverModel : BaseModel(), DiscoverContract.Model {
-    override fun loadBanner(): Observable<BannerResult> {
-        return RetrofitHelper.nesteaseService.getBanner()
+    override fun getHotSinger(offset: Int, limit: Int): Observable<ArtistsInfo> {
+        return RetrofitHelper.nesteaseService.getTopArtists(offset, limit)
     }
 
-    override fun loadBaidu(): Observable<BannerResult> {
+    override fun loadBanner(): Observable<BannerResult> {
         return RetrofitHelper.nesteaseService.getBanner()
     }
 }

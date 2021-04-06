@@ -1,13 +1,17 @@
 package com.lpc.snowmusic.ui.fragment
 
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
-import com.lpc.snowmusic.http.bean.BannerBean
+import com.lpc.snowmusic.bean.ArtistInfo
+import com.lpc.snowmusic.bean.BannerBean
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
+import com.lpc.snowmusic.ui.adapter.HotSingerAdapter
 import com.lpc.snowmusic.ui.adapter.MyBannerAdapter
-import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.fragment_discover.*
 
 /**
@@ -18,10 +22,20 @@ import kotlinx.android.synthetic.main.fragment_discover.*
  */
 class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract.Presenter>(), DiscoverContract.View {
     //轮播图数据
-    val mBanners: MutableList<BannerBean> = mutableListOf()
+    private val mBanners: MutableList<BannerBean> = mutableListOf()
+    //热门歌手
+    private val mArtists: MutableList<ArtistInfo> = mutableListOf()
     //轮播图适配器
-    val bannerAdapter: MyBannerAdapter by lazy {
+    private val bannerAdapter: MyBannerAdapter by lazy {
         MyBannerAdapter(mBanners)
+    }
+    //热门歌手适配器
+    private val hotSingerAdapter: HotSingerAdapter by lazy {
+        HotSingerAdapter(mArtists)
+    }
+    //热门歌手
+    private val hotSingerLayoutManager: GridLayoutManager by lazy {
+        GridLayoutManager(activity, 2, RecyclerView.HORIZONTAL, false)
     }
 
     override fun createPresenter(): DiscoverContract.Presenter = DiscoverPresenter()
@@ -37,10 +51,16 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
 
     override fun initView(view: View) {
         super.initView(view)
+
+        rv_hot_singer.run {
+            layoutManager = hotSingerLayoutManager
+            adapter = hotSingerAdapter
+        }
     }
 
     override fun lazyLoad() {
         presenter?.loadBannerView()
+        presenter?.getHotSinger(30, 0)
     }
 
     override fun showBannerView(banners: MutableList<BannerBean>) {
@@ -48,11 +68,16 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
         mBanners.addAll(banners)
         banner.apply {
             adapter = bannerAdapter
-            indicator = CircleIndicator(activity)
+            indicator = RectangleIndicator(activity)
             addBannerLifecycleObserver(this@DiscoverFragment)
+            setBannerRound(4f)
         }
     }
 
-    override fun showHotSinger() {
+    override fun showHotSinger(artists: MutableList<ArtistInfo>) {
+        hotSingerAdapter.run {
+            setNewInstance(artists)
+            notifyDataSetChanged()
+        }
     }
 }

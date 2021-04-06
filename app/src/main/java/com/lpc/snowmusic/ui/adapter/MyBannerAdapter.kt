@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lpc.snowmusic.R
-import com.lpc.snowmusic.http.bean.BannerBean
+import com.lpc.snowmusic.bean.BannerBean
 import com.lpc.snowmusic.imageload.GlideUtils
 import com.youth.banner.adapter.BannerAdapter
 

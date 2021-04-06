@@ -14,6 +14,7 @@
                 android:layout_height="wrap_content">
 
             <com.youth.banner.Banner
+                    android:layout_marginTop="8dp"
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"/>
@@ -41,12 +42,8 @@
                             android:layout_height="wrap_content"/>
 
                     <TextView
-                            android:layout_marginTop="10dp"
-                            android:text="@string/recommend_song"
-                            android:textSize="@dimen/common_text_size"
-                            android:textColor="@color/common_black_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            style="@style/DiscoverTagTextStyle"
+                            android:text="@string/recommend_song"/>
                 </LinearLayout>
 
 
@@ -63,12 +60,8 @@
                             android:layout_height="wrap_content"/>
 
                     <TextView
-                            android:layout_marginTop="10dp"
-                            android:text="@string/hot_singer"
-                            android:textSize="@dimen/common_text_size"
-                            android:textColor="@color/common_black_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            style="@style/DiscoverTagTextStyle"
+                            android:text="@string/hot_singer"/>
 
                 </LinearLayout>
 
@@ -86,12 +79,8 @@
                             android:layout_height="wrap_content"/>
 
                     <TextView
-                            android:layout_marginTop="10dp"
-                            android:text="@string/recommend_song"
-                            android:textSize="@dimen/common_text_size"
-                            android:textColor="@color/common_black_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            style="@style/DiscoverTagTextStyle"
+                            android:text="@string/recommend_song"/>
 
                 </LinearLayout>
 
@@ -109,12 +98,8 @@
                             android:layout_height="wrap_content"/>
 
                     <TextView
-                            android:layout_marginTop="10dp"
-                            android:text="@string/recommend_song"
-                            android:textSize="@dimen/common_text_size"
-                            android:textColor="@color/common_black_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            style="@style/DiscoverTagTextStyle"
+                            android:text="@string/recommend_song"/>
 
                 </LinearLayout>
 
@@ -152,7 +137,9 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView_hot_singer"
+                        android:focusable="false"
+                        android:nestedScrollingEnabled="false"
+                        android:id="@+id/rv_hot_singer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 

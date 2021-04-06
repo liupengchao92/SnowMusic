@@ -1,6 +1,7 @@
-package com.lpc.snowmusic.http.bean
+package com.lpc.snowmusic.bean
 
 import com.google.gson.annotations.SerializedName
+import com.lpc.snowmusic.http.bean.BaseBean
 
 /**
  * Author: liupengchao

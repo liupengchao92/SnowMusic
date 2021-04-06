@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
-import com.lpc.snowmusic.constant.Constant
+import com.lpc.snowmusic.constant.Constants
 
 /**
  * Author: liupengchao
@@ -18,7 +18,7 @@ class MyMusicFragment : BaseFragment() {
         fun getInstance(title: String): MyMusicFragment {
             val fragment = MyMusicFragment()
             val args = Bundle()
-            args.putString(Constant.FRAGMENT_KEY, title)
+            args.putString(Constants.FRAGMENT_KEY, title)
             fragment.arguments = args
             return fragment
         }
@@ -28,7 +28,7 @@ class MyMusicFragment : BaseFragment() {
 
 
     override fun initView(view: View) {
-        val title: String = arguments?.getString(Constant.FRAGMENT_KEY) as String
+        val title: String = arguments?.getString(Constants.FRAGMENT_KEY) as String
 
     }
 
