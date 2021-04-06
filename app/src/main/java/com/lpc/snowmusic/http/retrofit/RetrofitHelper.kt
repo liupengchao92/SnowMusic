@@ -4,6 +4,7 @@ import com.lpc.snowmusic.BuildConfig
 import com.lpc.snowmusic.application.MusicApplication
 import com.lpc.snowmusic.constant.HttpConstant
 import com.lpc.snowmusic.http.api.ApiService
+import com.lpc.snowmusic.http.api.NeteaseApiService
 import com.lpc.snowmusic.http.interceptor.HeadInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -24,17 +25,23 @@ object RetrofitHelper {
 
     private var retrofit: Retrofit? = null
 
-    val service: ApiService by lazy { getRetrofit()!!.create(ApiService::class.java) }
+    val service: ApiService by lazy { getRetrofit(HttpConstant.BASE_NETEASE_URL)!!.create(ApiService::class.java) }
+
+    val nesteaseService: NeteaseApiService by lazy {
+        getRetrofit(HttpConstant.BASE_NETEASE_URL)!!.create(
+            NeteaseApiService::class.java
+        )
+    }
 
     /**
      *获取 Retrofit
      * */
-    private fun getRetrofit(): Retrofit? {
+    private fun getRetrofit(baseUrl: String): Retrofit? {
         if (retrofit == null) {
             synchronized(RetrofitHelper::class.java) {
                 if (retrofit == null) {
                     retrofit = Retrofit.Builder()
-                        .baseUrl(HttpConstant.BASE_URL)
+                        .baseUrl(baseUrl)
                         .client(getOkHttpClient())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())

@@ -6,7 +6,7 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.application.MusicApplication
 import com.lpc.snowmusic.base.IModel
 import com.lpc.snowmusic.base.IView
-import com.lpc.snowmusic.http.bean.BaseResult
+import com.lpc.snowmusic.http.bean.BaseBean
 import com.lpc.snowmusic.http.exception.ErrorStatus
 import com.lpc.snowmusic.http.exception.ExceptionHandle
 import io.reactivex.Observable
@@ -21,7 +21,12 @@ import io.reactivex.schedulers.Schedulers
  * ClassName :RxExt
  * Desc:Observable的扩展函数
  */
-fun <T : BaseResult> Observable<T>.request(model: IModel?, view: IView, isShowLoading: Boolean = true,onSuccess:(T)->Unit ) {
+fun <T : BaseBean> Observable<T>.request(
+    model: IModel?,
+    view: IView,
+    isShowLoading: Boolean = true,
+    onSuccess: (T) -> Unit
+) {
 
     this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

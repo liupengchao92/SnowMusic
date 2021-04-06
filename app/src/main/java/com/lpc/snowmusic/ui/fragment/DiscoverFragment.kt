@@ -1,8 +1,11 @@
 package com.lpc.snowmusic.ui.fragment
 
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.lpc.snowmusic.R
-import com.lpc.snowmusic.base.BaseFragment
+import com.lpc.snowmusic.base.BaseMvpFragment
+import com.lpc.snowmusic.mvp.contract.DiscoverContract
+import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
 
 /**
  * Author: liupengchao
@@ -10,7 +13,10 @@ import com.lpc.snowmusic.base.BaseFragment
  * ClassName :DiscoverFragment
  * Desc: 发现
  */
-class DiscoverFragment : BaseFragment() {
+class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract.Presenter>() {
+
+    override fun createPresenter(): DiscoverContract.Presenter = DiscoverPresenter()
+
 
     companion object {
         fun getInstance(title: String): DiscoverFragment {
@@ -25,5 +31,7 @@ class DiscoverFragment : BaseFragment() {
     }
 
     override fun lazyLoad() {
+        LogUtils.d("lazyLoad")
+        presenter?.loadBannerView()
     }
 }

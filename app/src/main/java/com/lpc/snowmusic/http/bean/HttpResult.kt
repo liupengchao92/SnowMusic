@@ -6,10 +6,8 @@ package com.lpc.snowmusic.http.bean
  * ClassName :BaseResult
  * Desc:
  */
-class BaseResult {
-    //错误码
-    var errorCode: Int = 0
-    //错误信息
-    var errorMsg: String = ""
+class HttpResult<T> : BaseBean() {
+    //
+    val data: T? = null
 
 }
