@@ -7,4 +7,12 @@
         <item>@string/top</item>
         <item>@string/mv</item>
     </array>
+
+    <!--主页面标题-->
+    <array name="mv_tab_title">
+        <item>@string/mv_recommend</item>
+        <item>@string/mv_rank</item>
+        <item>@string/mv_update_recently</item>
+        <item>@string/mv_search</item>
+    </array>
 </resources>

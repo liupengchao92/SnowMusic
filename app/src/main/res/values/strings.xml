@@ -28,7 +28,10 @@
     <string name="look_all">查看全部</string>
     <string name="recommend_song_list">推荐歌单</string>
     <string name="song_list_square">歌单广场</string>
-
+    <string name="mv_recommend">推荐</string>
+    <string name="mv_rank">排行榜</string>
+    <string name="mv_update_recently">最近更新</string>
+    <string name="mv_search">搜索</string>
 
 
 </resources>

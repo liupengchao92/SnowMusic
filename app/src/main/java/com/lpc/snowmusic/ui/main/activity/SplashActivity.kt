@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.activity
+package com.lpc.snowmusic.ui.main.activity
 
 import android.content.Intent
 import com.lpc.snowmusic.R

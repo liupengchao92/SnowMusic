@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.adapter.decoration
+package com.lpc.snowmusic.ui.main.adapter.decoration
 
 import android.graphics.Rect
 import android.view.View

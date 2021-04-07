@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.SplashActivity">
+        tools:context=".ui.main.activity.SplashActivity">
     <ImageView
             android:scaleType="fitXY"
             android:layout_width="match_parent"

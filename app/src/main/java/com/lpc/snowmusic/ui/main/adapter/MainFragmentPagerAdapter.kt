@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.adapter
+package com.lpc.snowmusic.ui.main.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,10 +7,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
-import com.lpc.snowmusic.ui.fragment.DiscoverFragment
-import com.lpc.snowmusic.ui.fragment.MvFragment
-import com.lpc.snowmusic.ui.fragment.MyMusicFragment
-import com.lpc.snowmusic.ui.fragment.TopFragment
+import com.lpc.snowmusic.ui.main.fragment.DiscoverFragment
+import com.lpc.snowmusic.ui.main.fragment.MvFragment
+import com.lpc.snowmusic.ui.main.fragment.MyMusicFragment
+import com.lpc.snowmusic.ui.main.fragment.TopFragment
 
 /**
  * Author: liupengchao

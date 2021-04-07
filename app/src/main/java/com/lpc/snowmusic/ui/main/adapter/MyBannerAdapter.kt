@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.adapter
+package com.lpc.snowmusic.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View

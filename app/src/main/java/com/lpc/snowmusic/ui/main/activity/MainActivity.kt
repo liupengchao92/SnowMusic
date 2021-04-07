@@ -1,9 +1,9 @@
-package com.lpc.snowmusic.ui.activity
+package com.lpc.snowmusic.ui.main.activity
 
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseActivity
-import com.lpc.snowmusic.ui.adapter.MainFragmentPagerAdapter
+import com.lpc.snowmusic.ui.main.adapter.MainFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_container_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*

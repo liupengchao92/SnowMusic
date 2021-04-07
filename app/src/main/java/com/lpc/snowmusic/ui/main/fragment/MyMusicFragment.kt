@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.fragment
+package com.lpc.snowmusic.ui.main.fragment
 
 import android.os.Bundle
 import android.view.View

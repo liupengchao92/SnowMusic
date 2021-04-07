@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.adapter
+package com.lpc.snowmusic.ui.main.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.ui.fragment
+package com.lpc.snowmusic.ui.main.fragment
 
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,9 +11,9 @@ import com.lpc.snowmusic.bean.BannerBean
 import com.lpc.snowmusic.bean.PersonalizedItem
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
-import com.lpc.snowmusic.ui.adapter.HotSingerAdapter
-import com.lpc.snowmusic.ui.adapter.MyBannerAdapter
-import com.lpc.snowmusic.ui.adapter.RecommendAdapter
+import com.lpc.snowmusic.ui.main.adapter.HotSingerAdapter
+import com.lpc.snowmusic.ui.main.adapter.MyBannerAdapter
+import com.lpc.snowmusic.ui.main.adapter.RecommendAdapter
 import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.fragment_discover.*
 
