@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.http.function
 
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.R
@@ -25,7 +24,7 @@ import io.reactivex.schedulers.Schedulers
 fun <T : BaseBean> Observable<T>.request(
     model: IModel?,
     view: IView,
-    isShowLoading: Boolean = true,
+    isShowLoading: Boolean = false,
     onSuccess: (T) -> Unit
 ) {
 

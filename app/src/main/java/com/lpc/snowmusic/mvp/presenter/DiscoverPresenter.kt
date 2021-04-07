@@ -18,7 +18,7 @@ open class DiscoverPresenter : BasePresenter<DiscoverContract.View, DiscoverCont
     override fun createModel(): DiscoverContract.Model? = DiscoverModel()
 
     override fun loadBannerView() {
-        model?.loadBanner()?.request(model, view as IView) {
+        model?.loadBanner()?.request(model, view as IView, true) {
             view?.showBannerView(it.banners)
         }
     }

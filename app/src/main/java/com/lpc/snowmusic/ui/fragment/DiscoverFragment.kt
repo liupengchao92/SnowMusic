@@ -3,6 +3,7 @@ package com.lpc.snowmusic.ui.fragment
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.LogUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.ArtistInfo
@@ -80,6 +81,15 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
         presenter?.loadBannerView()
         presenter?.getHotSinger(30, 0)
         presenter?.getRecommend()
+    }
+
+    override fun showLoading() {
+        LogUtils.d("showLoading=========>")
+        multiple_StatusView?.showLoading()
+    }
+
+    override fun hideLoading() {
+        multiple_StatusView.showContent()
     }
 
     override fun showBannerView(banners: MutableList<BannerBean>) {

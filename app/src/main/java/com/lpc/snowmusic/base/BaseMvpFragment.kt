@@ -32,6 +32,7 @@ abstract class BaseMvpFragment<V : IView, P : IPresenter<V>> : BaseFragment(), I
     }
 
     override fun hideLoading() {
+
     }
 
     override fun showMsg(msg: String) {
