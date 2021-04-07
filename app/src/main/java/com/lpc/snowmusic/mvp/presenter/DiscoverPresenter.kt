@@ -29,5 +29,9 @@ open class DiscoverPresenter : BasePresenter<DiscoverContract.View, DiscoverCont
         }
     }
 
-
+    override fun getRecommend() {
+        model?.getRecommend()?.request(model, view as IView) {
+            view?.showRecommendList(it.result!!)
+        }
+    }
 }

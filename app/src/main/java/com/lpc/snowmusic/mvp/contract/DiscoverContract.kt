@@ -3,10 +3,7 @@ package com.lpc.snowmusic.mvp.contract
 import com.lpc.snowmusic.base.IModel
 import com.lpc.snowmusic.base.IPresenter
 import com.lpc.snowmusic.base.IView
-import com.lpc.snowmusic.bean.ArtistInfo
-import com.lpc.snowmusic.bean.ArtistsInfo
-import com.lpc.snowmusic.bean.BannerBean
-import com.lpc.snowmusic.bean.BannerResult
+import com.lpc.snowmusic.bean.*
 import io.reactivex.Observable
 
 /**
@@ -22,6 +19,8 @@ interface DiscoverContract {
         fun showBannerView(banners: MutableList<BannerBean>)
 
         fun showHotSinger(artists: MutableList<ArtistInfo>)
+
+        fun showRecommendList(result: MutableList<PersonalizedItem>)
     }
 
     interface Presenter : IPresenter<View> {
@@ -29,6 +28,8 @@ interface DiscoverContract {
         fun loadBannerView()
 
         fun getHotSinger(offset: Int, limit: Int)
+
+        fun getRecommend()
     }
 
     interface Model : IModel {
@@ -36,5 +37,7 @@ interface DiscoverContract {
         fun loadBanner(): Observable<BannerResult>
 
         fun getHotSinger(offset: Int, limit: Int): Observable<ArtistsInfo>
+
+        fun getRecommend(): Observable<PersonalizedInfo>
     }
 }

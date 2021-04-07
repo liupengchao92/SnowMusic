@@ -7,10 +7,12 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.ArtistInfo
 import com.lpc.snowmusic.bean.BannerBean
+import com.lpc.snowmusic.bean.PersonalizedItem
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
 import com.lpc.snowmusic.ui.adapter.HotSingerAdapter
 import com.lpc.snowmusic.ui.adapter.MyBannerAdapter
+import com.lpc.snowmusic.ui.adapter.RecommendAdapter
 import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.fragment_discover.*
 
@@ -25,6 +27,8 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
     private val mBanners: MutableList<BannerBean> = mutableListOf()
     //热门歌手
     private val mArtists: MutableList<ArtistInfo> = mutableListOf()
+    //推荐列表
+    private val mRecommends: MutableList<PersonalizedItem> = mutableListOf()
     //轮播图适配器
     private val bannerAdapter: MyBannerAdapter by lazy {
         MyBannerAdapter(mBanners)
@@ -33,9 +37,17 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
     private val hotSingerAdapter: HotSingerAdapter by lazy {
         HotSingerAdapter(mArtists)
     }
+    //推荐歌单适配器
+    private val recommendAdapter: RecommendAdapter by lazy {
+        RecommendAdapter(mRecommends)
+    }
     //热门歌手
     private val hotSingerLayoutManager: GridLayoutManager by lazy {
         GridLayoutManager(activity, 2, RecyclerView.HORIZONTAL, false)
+    }
+    //推荐歌单
+    private val recommendLayoutManager: GridLayoutManager by lazy {
+        GridLayoutManager(activity, 3)
     }
 
     override fun createPresenter(): DiscoverContract.Presenter = DiscoverPresenter()
@@ -51,16 +63,23 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
 
     override fun initView(view: View) {
         super.initView(view)
-
+        //热门歌手
         rv_hot_singer.run {
             layoutManager = hotSingerLayoutManager
             adapter = hotSingerAdapter
+        }
+        //推荐歌单
+        rv_recommend.run {
+            layoutManager = recommendLayoutManager
+            adapter = recommendAdapter
+            // addItemDecoration(SpaceItemDecoration(SizeUtils.dp2px(10f)))
         }
     }
 
     override fun lazyLoad() {
         presenter?.loadBannerView()
         presenter?.getHotSinger(30, 0)
+        presenter?.getRecommend()
     }
 
     override fun showBannerView(banners: MutableList<BannerBean>) {
@@ -77,6 +96,19 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
     override fun showHotSinger(artists: MutableList<ArtistInfo>) {
         hotSingerAdapter.run {
             setNewInstance(artists)
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun showRecommendList(result: MutableList<PersonalizedItem>) {
+        recommendAdapter.run {
+            mRecommends.clear()
+            if (result.size > 6) {
+                mRecommends.addAll(result.subList(0, 6))
+            } else {
+                mRecommends.addAll(result)
+            }
+            setNewInstance(mRecommends)
             notifyDataSetChanged()
         }
     }

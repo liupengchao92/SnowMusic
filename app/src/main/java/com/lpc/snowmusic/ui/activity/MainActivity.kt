@@ -23,7 +23,8 @@ class MainActivity : BaseActivity() {
     override fun initView() {
 
         viewpager.run {
-            adapter = MainFragmentPagerAdapter(this@MainActivity,supportFragmentManager)
+            offscreenPageLimit = 3
+            adapter = MainFragmentPagerAdapter(this@MainActivity, supportFragmentManager)
             tab_layout.setupWithViewPager(this)
         }
 
