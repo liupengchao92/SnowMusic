@@ -12,13 +12,6 @@
     <color name="common_black_text">#191919</color>
     <color name="common_white_text">#ffffff</color>
     <color name="backgroundColor">#E8E8E0</color>
-    <color name="color_DB4437">#DB4437</color>
-    <color name="color_05b962">#05b962</color>
-    <color name="color_999999">#999999</color>
-    <color name="color_666666">#666666</color>
-    <color name="color_f2f2f2">#f2f2f2</color>
-
-
 
 
     <!--material design 基础色-->
@@ -53,6 +46,13 @@
     <color name="Grey800">#424242</color>
     <color name="Grey900">#212121</color>
 
-
+    <color name="color_DB4437">#DB4437</color>
+    <color name="color_05b962">#05b962</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_09bb07">#09bb07</color>
+    <color name="color_08b106">#08b106</color>
+    <color name="color_8009bb07">#8009bb07</color>
 
 </resources>

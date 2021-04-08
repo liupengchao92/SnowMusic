@@ -15,7 +15,6 @@ import com.lpc.snowmusic.mvp.model.MvListModel
  */
 class MvListPresenter : BasePresenter<MvListContract.View, MvListContract.Model>(), MvListContract.Presenter {
 
-
     override fun createModel(): MvListContract.Model? = MvListModel()
 
 
@@ -50,6 +49,12 @@ class MvListPresenter : BasePresenter<MvListContract.View, MvListContract.Model>
     override fun loadRecentMv(limit: Int) {
         model?.loadRecentMv(limit)?.request(model, view as IView) {
             view?.showMvList(it.data!!)
+        }
+    }
+
+    override fun searchMv(key: String, offset: Int) {
+        model?.searchMv(key, 20, offset, 1004)?.request(model, view as IView, true) {
+            view?.showMvList(it.result.mvs!!)
         }
     }
 }

@@ -6,6 +6,7 @@ import com.lpc.snowmusic.base.IView
 import com.lpc.snowmusic.bean.MvInfo
 import com.lpc.snowmusic.bean.MvInfoDetail
 import com.lpc.snowmusic.bean.PersonalizedInfo
+import com.lpc.snowmusic.bean.SearchInfo
 import io.reactivex.Observable
 
 /**
@@ -28,6 +29,8 @@ interface MvListContract {
         fun loadMv(offset: Int, limit: Int)
 
         fun loadRecentMv(limit: Int)
+
+        fun searchMv(key: String, offset: Int)
     }
 
     interface Model : IModel {
@@ -37,5 +40,7 @@ interface MvListContract {
         fun loadMv(offset: Int, limit: Int): Observable<MvInfo>
 
         fun loadRecentMv(limit: Int): Observable<MvInfo>
+
+        fun searchMv(keywords: String, limit: Int, offset: Int, type: Int): Observable<SearchInfo>
     }
 }

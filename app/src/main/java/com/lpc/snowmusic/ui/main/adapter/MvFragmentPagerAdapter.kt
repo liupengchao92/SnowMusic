@@ -8,6 +8,7 @@ import androidx.viewpager.widget.PagerAdapter
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.ui.mv.fragment.MvListFragment
+import com.lpc.snowmusic.ui.mv.fragment.MvSearchFragment
 
 /**
  * Author: liupengchao
@@ -27,7 +28,7 @@ class MvFragmentPagerAdapter(context: Context, fm: FragmentManager) :
         for ((position, title) in titles.withIndex()) {
             val fragment = when {
                 position < 3 -> MvListFragment.getInstance(position)
-                else -> MvListFragment.getInstance(position)
+                else -> MvSearchFragment.getInstance()
 
             }
             fragments.add(fragment)

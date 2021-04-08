@@ -1,12 +1,10 @@
 package com.lpc.snowmusic.http.api
 
-import com.lpc.snowmusic.bean.ArtistsInfo
-import com.lpc.snowmusic.bean.BannerResult
-import com.lpc.snowmusic.bean.MvInfo
-import com.lpc.snowmusic.bean.PersonalizedInfo
+import com.lpc.snowmusic.bean.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 /**
  * Author: liupengchao
@@ -50,4 +48,10 @@ interface NeteaseApiService {
      */
     @GET("/mv/first")
     fun getRecentlyMv(@Query("limit") limit: Int): Observable<MvInfo>
+
+    /**
+     * 搜索
+     */
+    @GET
+    fun searchNetease(@Url url: String): Observable<SearchInfo>
 }
