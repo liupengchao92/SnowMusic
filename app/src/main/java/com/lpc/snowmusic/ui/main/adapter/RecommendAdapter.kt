@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.bean.PersonalizedItem
 import com.lpc.snowmusic.imageload.GlideUtils
+import com.lpc.snowmusic.utils.FormatUtil
 
 /**
  * Author: liupengchao
@@ -18,17 +19,10 @@ class RecommendAdapter(datas: MutableList<PersonalizedItem>) :
 
     override fun convert(holder: BaseViewHolder, item: PersonalizedItem) {
         //播放次数
-        holder.setText(R.id.tv_play_count, getCountDesc(item.playCount.toLong()))
+        holder.setText(R.id.tv_play_count, FormatUtil.formatPlayCount(item.playCount.toInt()))
         //推荐描述
         holder.setText(R.id.tv_recommend_desc, item.name)
         //封面
         GlideUtils.loadImageView(context, item.picUrl, holder.getView(R.id.iv_cover))
-    }
-
-
-    private fun getCountDesc(count: Long): String = when {
-        count / (10000 * 10000) > 0 -> "${(count / (10000 * 10000)).toInt()}亿"
-        count / 10000 > 0 -> "${(count / 10000).toInt()}万"
-        else -> "${count.toInt()}次"
     }
 }

@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_mv.*
  * Desc: MV
  */
 class MvFragment : BaseFragment() {
-    private val titles = mutableListOf<String>("1", "2")
 
     companion object {
         fun getInstance(title: String): MvFragment {
@@ -26,10 +25,14 @@ class MvFragment : BaseFragment() {
     override fun getLayoutResId(): Int = R.layout.fragment_mv
 
     override fun initView(view: View) {
+        //初始化ViewPager
         viewpager.run {
-            adapter = MvFragmentPagerAdapter(activity as Context, fragmentManager!!)
+            offscreenPageLimit = 3
+            adapter = MvFragmentPagerAdapter(activity as Context, childFragmentManager!!)
             tab_layout.setupWithViewPager(this)
         }
+        //
+
     }
 
     override fun lazyLoad() {

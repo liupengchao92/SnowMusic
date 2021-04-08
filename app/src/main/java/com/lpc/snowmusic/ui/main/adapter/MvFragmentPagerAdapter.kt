@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
-import com.lpc.snowmusic.ui.mv.fragment.MvRecommendFragment
+import com.lpc.snowmusic.ui.mv.fragment.MvListFragment
 
 /**
  * Author: liupengchao
@@ -17,7 +17,7 @@ import com.lpc.snowmusic.ui.mv.fragment.MvRecommendFragment
  */
 class MvFragmentPagerAdapter(context: Context, fm: FragmentManager) :
 
-    FragmentStatePagerAdapter(fm, BEHAVIOR_SET_USER_VISIBLE_HINT) {
+    FragmentStatePagerAdapter(fm) {
 
     private val fragments = mutableListOf<BaseFragment>()
 
@@ -25,11 +25,9 @@ class MvFragmentPagerAdapter(context: Context, fm: FragmentManager) :
 
     init {
         for ((position, title) in titles.withIndex()) {
-            val fragment = when (position) {
-                0 -> MvRecommendFragment.getInstance(title)
-                1 -> MvRecommendFragment.getInstance(title)
-                2 -> MvRecommendFragment.getInstance(title)
-                else -> MvRecommendFragment.getInstance(title)
+            val fragment = when {
+                position < 3 -> MvListFragment.getInstance(position)
+                else -> MvListFragment.getInstance(position)
 
             }
             fragments.add(fragment)

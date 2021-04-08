@@ -2,6 +2,7 @@ package com.lpc.snowmusic.http.api
 
 import com.lpc.snowmusic.bean.ArtistsInfo
 import com.lpc.snowmusic.bean.BannerResult
+import com.lpc.snowmusic.bean.MvInfo
 import com.lpc.snowmusic.bean.PersonalizedInfo
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -31,4 +32,22 @@ interface NeteaseApiService {
      */
     @GET("/personalized")
     fun personalizedRecommend(): Observable<PersonalizedInfo>
+
+    /**
+     * 获取推荐Mv
+     */
+    @GET("/personalized/mv")
+    fun personalizedMv(): Observable<PersonalizedInfo>
+
+    /**
+     * 获取Mv排行榜
+     */
+    @GET("/top/mv")
+    fun getTopMv(@Query("offset") offset: Int, @Query("limit") limit: Int): Observable<MvInfo>
+
+    /**
+     * 获取最新Mv
+     */
+    @GET("/mv/first")
+    fun getRecentlyMv(@Query("limit") limit: Int): Observable<MvInfo>
 }
