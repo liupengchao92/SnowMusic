@@ -15,4 +15,11 @@
         <item>@string/mv_update_recently</item>
         <item>@string/mv_search</item>
     </array>
+
+    <!--歌手详情-->
+    <array name="artist_tab_title">
+        <item>@string/artist_song</item>
+        <item>@string/artist_album</item>
+        <item>@string/artist_detail</item>
+    </array>
 </resources>

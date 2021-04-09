@@ -33,5 +33,8 @@
     <string name="mv_update_recently">最近更新</string>
     <string name="mv_search">搜索</string>
     <string name="tip_empty_song">空空如也</string>
+    <string name="artist_song">歌曲</string>
+    <string name="artist_album">专辑</string>
+    <string name="artist_detail">详情</string>
 
 </resources>
