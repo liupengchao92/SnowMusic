@@ -8,17 +8,37 @@
         tools:openDrawer="start"
         android:fitsSystemWindows="true">
 
-    <LinearLayout
-            android:orientation="vertical"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <!--ToolBar-->
-        <include layout="@layout/toolbar_layout"/>
-        <!--内容-->
-        <include layout="@layout/fragment_container_layout"/>
 
-    </LinearLayout>
+        <com.google.android.material.appbar.AppBarLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <!--ToolBar-->
+            <include layout="@layout/toolbar_layout"/>
+            <!--内容-->
+            <com.google.android.material.tabs.TabLayout
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/color_white"
+                    app:tabSelectedTextColor="@color/common_white_text"
+                    app:tabTextColor="@color/Grey50"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <!--侧滑菜单-->
     <com.google.android.material.navigation.NavigationView
             android:background="@color/common_white_background"
@@ -26,7 +46,7 @@
             android:layout_gravity="start"
             app:menu="@menu/menu_drawer_layout"
             app:headerLayout="@layout/nav_header_drawer_layout"
-            android:layout_width="220dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

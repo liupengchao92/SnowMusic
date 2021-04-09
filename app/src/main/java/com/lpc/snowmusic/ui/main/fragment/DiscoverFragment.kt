@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.LogUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
-import com.lpc.snowmusic.bean.ArtistInfo
+import com.lpc.snowmusic.bean.Artist
 import com.lpc.snowmusic.bean.BannerBean
 import com.lpc.snowmusic.bean.PersonalizedItem
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
@@ -14,6 +14,7 @@ import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
 import com.lpc.snowmusic.ui.main.adapter.HotSingerAdapter
 import com.lpc.snowmusic.ui.main.adapter.MyBannerAdapter
 import com.lpc.snowmusic.ui.main.adapter.RecommendAdapter
+import com.lpc.snowmusic.utils.NavigationHelper
 import com.youth.banner.indicator.RectangleIndicator
 import kotlinx.android.synthetic.main.fragment_discover.*
 
@@ -27,7 +28,7 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
     //轮播图数据
     private val mBanners: MutableList<BannerBean> = mutableListOf()
     //热门歌手
-    private val mArtists: MutableList<ArtistInfo> = mutableListOf()
+    private val mArtists: MutableList<Artist> = mutableListOf()
     //推荐列表
     private val mRecommends: MutableList<PersonalizedItem> = mutableListOf()
     //轮播图适配器
@@ -68,6 +69,11 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
         rv_hot_singer.run {
             layoutManager = hotSingerLayoutManager
             adapter = hotSingerAdapter
+            //OnItemClickListener
+            hotSingerAdapter.setOnItemClickListener { adapter, view, position ->
+                val artist = adapter.data[position] as Artist
+                NavigationHelper.navigateToArtistDetail(context, artist)
+            }
         }
         //推荐歌单
         rv_recommend.run {
@@ -75,6 +81,7 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
             adapter = recommendAdapter
             // addItemDecoration(SpaceItemDecoration(SizeUtils.dp2px(10f)))
         }
+
     }
 
     override fun lazyLoad() {
@@ -103,7 +110,7 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
         }
     }
 
-    override fun showHotSinger(artists: MutableList<ArtistInfo>) {
+    override fun showHotSinger(artists: MutableList<Artist>) {
         hotSingerAdapter.run {
             setNewInstance(artists)
             notifyDataSetChanged()

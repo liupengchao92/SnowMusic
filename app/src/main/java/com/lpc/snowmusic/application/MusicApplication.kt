@@ -21,19 +21,17 @@ class MusicApplication : Application() {
             private set
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
+
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
-
-        MultiDex.install(this)
-
-        LogUtils.e("onCreate=============>>")
-
-
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
 
             override fun onActivityCreated(p0: Activity, p1: Bundle?) {
-                LogUtils.e("Activity=====>>${p0.javaClass.name}")
             }
 
             override fun onActivityStarted(p0: Activity) {

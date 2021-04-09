@@ -1,6 +1,7 @@
 package com.lpc.snowmusic.bean
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Author: liupengchao
@@ -50,31 +51,6 @@ data class BMusic(
     @SerializedName("sr")
     val sr: Int = 0
 )
-
-
-data class Artist(
-    @SerializedName("picUrl")
-    val picUrl: String = "",
-    @SerializedName("img1v1Url")
-    val imgVUrl: String = "",
-    @SerializedName("briefDesc")
-    val briefDesc: String = "",
-    @SerializedName("musicSize")
-    val musicSize: Int = 0,
-    @SerializedName("name")
-    val name: String = "",
-    @SerializedName("img1v1Id")
-    val imgVId: Int = 0,
-    @SerializedName("id")
-    val id: String,
-    @SerializedName("picId")
-    val picId: Int = 0,
-    @SerializedName("albumSize")
-    val albumSize: Int = 0,
-    @SerializedName("trans")
-    val trans: String = ""
-)
-
 
 data class MMusic(
     @SerializedName("extension")

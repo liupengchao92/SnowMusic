@@ -1,11 +1,9 @@
 package com.lpc.snowmusic.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import com.blankj.utilcode.util.LogUtils
 import com.classic.common.MultipleStatusView
 import com.lpc.snowmusic.R
 import org.greenrobot.eventbus.EventBus
@@ -18,7 +16,6 @@ import org.greenrobot.eventbus.EventBus
  */
 @SuppressWarnings("unchecked")
 abstract class BaseActivity : AppCompatActivity() {
-
     //多种状态的 View 的切换
     protected var multipleStatusView: MultipleStatusView? = null
 
@@ -47,7 +44,9 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 初始化ToolBar
      */
-    protected open fun initToolBar() {}
+    protected open fun initToolBar() {
+
+    }
 
     /**
      * 初始化View

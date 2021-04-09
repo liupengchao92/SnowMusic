@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.lpc.snowmusic.R
+import com.lpc.snowmusic.utils.MusicUtils
 
 /**
  * Author: liupengchao
@@ -13,6 +14,8 @@ import com.lpc.snowmusic.R
  * Desc:
  */
 object GlideUtils {
+
+    val default_cover: Int = R.drawable.default_cover
 
     /**
      * 显示图片
@@ -38,6 +41,17 @@ object GlideUtils {
             .load(url)
             .error(defaultUrl)
             .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imageView)
+    }
+
+    fun loadBigImageView(mContext: Context, url: String?, vendor: String?, imageView: ImageView?) {
+        if (imageView == null) return
+        val newUrl = MusicUtils.getAlbumPic(url, vendor, MusicUtils.PIC_SIZE_BIG)
+        Glide.with(mContext)
+            .asBitmap()
+            .load(newUrl)
+            .error(default_cover)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
     }

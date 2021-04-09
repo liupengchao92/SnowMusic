@@ -5,7 +5,6 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseActivity
 import com.lpc.snowmusic.ui.main.adapter.MainFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_container_layout.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class MainActivity : BaseActivity() {
