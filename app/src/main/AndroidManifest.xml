@@ -19,14 +19,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.main.activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity> <!-- 适配方案 -->
+        <!-- 适配方案 -->
         <meta-data
                 android:name="design_width_in_dp"
                 android:value="360"/>
@@ -56,11 +49,18 @@
                 android:exported="true">
         </service>
 
-
+        <activity android:name=".ui.main.activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <!-- 主页面 -->
         <activity android:name=".ui.main.activity.MainActivity"/>
         <!--歌手详情-->
-        <activity android:name=".ui.discover.activity.ArtistDetailActivity"/>
+        <activity android:name=".ui.discover.activity.ArtistDetailActivity"
+                  android:theme="@style/TranslucentTheme"/>
     </application>
 
 </manifest>

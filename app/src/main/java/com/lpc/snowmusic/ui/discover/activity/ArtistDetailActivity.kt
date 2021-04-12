@@ -1,6 +1,8 @@
 package com.lpc.snowmusic.ui.discover.activity
 
+import android.graphics.Color
 import android.view.MenuItem
+import android.view.WindowManager
 import androidx.appcompat.widget.Toolbar
 import com.gyf.immersionbar.ImmersionBar
 import com.lpc.snowmusic.R
@@ -28,6 +30,7 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
 
     override fun initView() {
         super.initView()
+       // window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         //初始化ViewPager
         viewPager2.run {
             offscreenPageLimit = 2
@@ -37,6 +40,10 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
                 tab.text = titles[position]
             }.attach()
         }
+    }
+
+    override fun initImmersionBar() {
+        ImmersionBar.with(this).transparentStatusBar().init()
     }
 
     override fun initToolBar() {
