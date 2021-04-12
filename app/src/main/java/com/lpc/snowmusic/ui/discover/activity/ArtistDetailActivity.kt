@@ -1,6 +1,8 @@
 package com.lpc.snowmusic.ui.discover.activity
 
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
+import com.gyf.immersionbar.ImmersionBar
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpActivity
 import com.lpc.snowmusic.bean.Artist
@@ -46,10 +48,18 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
                 title = it.name
                 GlideUtils.loadBigImageView(this@ArtistDetailActivity, it.picUrl, it.type, iv_cover)
             }
-            setSupportActionBar(this)
+            setSupportActionBar(this as Toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setHomeButtonEnabled(true)
         }
+        /*collapsingToolbarLayout.run {
+            setCollapsedTitleTextColor(Color.WHITE)
+            setExpandedTitleColor(Color.WHITE)
+        }*/
+    }
+
+    override fun start() {
+        super.start()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -61,4 +61,13 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
+    <style name="CollapsedTitleTextStyle">
+        <item name="android:textColor">@color/common_white_text</item>
+    </style>
+
+    <style name="ExpandedTitleTextStyle">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/common_white_text</item>
+    </style>
+
 </resources>
