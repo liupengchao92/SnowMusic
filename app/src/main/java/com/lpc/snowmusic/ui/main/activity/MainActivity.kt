@@ -7,6 +7,11 @@ import com.lpc.snowmusic.ui.main.adapter.MainFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
+/***
+ *
+ *
+ *添加注释
+ */
 class MainActivity : BaseActivity() {
 
     override fun getLayoutResId(): Int = R.layout.activity_main
