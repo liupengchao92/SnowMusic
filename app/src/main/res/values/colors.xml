@@ -12,7 +12,6 @@
     <color name="common_white_text">#ffffff</color>
     <color name="backgroundColor">#E8E8E0</color>
 
-
     <!--material design 基础色-->
     <color name="red">#e51c23</color>
     <color name="pink">#e91e63</color>
@@ -44,6 +43,14 @@
     <color name="Grey700">#616161</color>
     <color name="Grey800">#424242</color>
     <color name="Grey900">#212121</color>
+
+    <color name="translucent">#00FFFFFF</color>
+    <color name="translucent_white">#80FFFFFF</color>
+    <color name="translucent_black">#bb000000</color>
+    <color name="translucent_grey">#809E9E9E</color>
+    <color name="translucent_white_8p">#14FFFFFF</color>
+    <color name="translucent_white_16p">#29FFFFFF</color>
+    <color name="translucent_white_24p">#3DFFFFFF</color>
 
     <color name="color_DB4437">#DB4437</color>
     <color name="color_05b962">#05b962</color>

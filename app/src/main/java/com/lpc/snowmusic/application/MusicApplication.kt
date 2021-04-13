@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDex
-import com.blankj.utilcode.util.LogUtils
+import com.cyl.musicapi.BaseApiImpl
 import kotlin.properties.Delegates
 
 /**
@@ -29,6 +29,8 @@ class MusicApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        //初始化
+        BaseApiImpl.initWebView(this)
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
 
             override fun onActivityCreated(p0: Activity, p1: Bundle?) {

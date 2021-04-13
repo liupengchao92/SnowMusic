@@ -18,4 +18,8 @@ object Constants {
     val NETEASE = "netease"
     val VIDEO = "video"//本地视频
     val YOUTUBE = "youtube"//YouTube
+
+    //在线音乐
+    val FILENAME_MP3 = ".mp3"
+    val FILENAME_LRC = ".lrc"
 }

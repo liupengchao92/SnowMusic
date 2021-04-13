@@ -3,12 +3,13 @@ package com.lpc.snowmusic.bean
 import android.os.Parcel
 import android.os.Parcelable
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.http.bean.BaseBean
 
 /**
  * Created by yonglong on 2016/11/23.
  */
 
-class Artist() : Parcelable {
+class Artist() : Parcelable, BaseBean() {
     var name: String? = null
     var id: Long = 0
     var artistId: String? = null

@@ -1,5 +1,7 @@
 package com.lpc.snowmusic.utils
 
+import com.cyl.musicapi.playlist.MusicInfo
+import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
 
 /**
@@ -64,5 +66,44 @@ object MusicUtils {
                 url
             }
         }
+    }
+
+    /**
+     * 在线歌单歌曲歌曲实体类转化成本地歌曲实体
+     */
+    fun getMusic(musicInfo: MusicInfo): Music {
+        val music = Music()
+        if (musicInfo.songId != null) {
+            music.mid = musicInfo.songId
+        } else if (musicInfo.id != null) {
+            music.mid = musicInfo.id
+        }
+        music.collectId = musicInfo.id
+        music.title = musicInfo.name
+        music.isOnline = true
+        music.type = musicInfo.vendor
+        music.album = musicInfo.album.name
+        music.albumId = musicInfo.album.id
+        music.isCp = musicInfo.cp
+        music.isDl = musicInfo.dl
+        musicInfo.quality?.let {
+            music.sq = it.sq
+            music.hq = it.hq
+            music.high = it.high
+        }
+        if (musicInfo.artists != null) {
+            var artistIds = musicInfo.artists?.get(0)?.id
+            var artistNames = musicInfo.artists?.get(0)?.name
+            for (j in 1 until musicInfo.artists?.size!! - 1) {
+                artistIds += ",${musicInfo.artists?.get(j)?.id}"
+                artistNames += ",${musicInfo.artists?.get(j)?.name}"
+            }
+            music.artist = artistNames
+            music.artistId = artistIds
+        }
+        music.coverUri = getAlbumPic(musicInfo.album.cover, musicInfo.vendor, PIC_SIZE_NORMAL)
+        music.coverBig = getAlbumPic(musicInfo.album.cover, musicInfo.vendor, PIC_SIZE_NORMAL)
+        music.coverSmall = getAlbumPic(musicInfo.album.cover, musicInfo.vendor, PIC_SIZE_SMALL)
+        return music
     }
 }

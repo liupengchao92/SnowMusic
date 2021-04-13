@@ -52,13 +52,17 @@
                 app:tabMode="fixed"
                 app:tabIndicatorColor="@color/color_white"
                 app:tabSelectedTextColor="@color/common_black_text"
-                app:tabTextColor="@color/color_666666"
+                app:tabTextColor="@color/color_999999"
                 android:background="@color/color_white"
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+        <!--分割线-->
+        <View style="@style/CommonLineStyle"/>
+
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.viewpager2.widget.ViewPager2
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
