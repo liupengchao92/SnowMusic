@@ -13,6 +13,7 @@ import com.lpc.snowmusic.imageload.GlideUtils
 import com.lpc.snowmusic.mvp.contract.ArtistDetailContract
 import com.lpc.snowmusic.mvp.presenter.ArtistDetailPresenter
 import com.lpc.snowmusic.ui.discover.adapter.ArtistFragmentAdapter
+import com.lpc.snowmusic.ui.discover.fragment.ArtistAlbumFragment
 import com.lpc.snowmusic.ui.discover.fragment.ArtistDetailFragment
 import com.lpc.snowmusic.ui.discover.fragment.ArtistSongFragment
 import com.lpc.snowmusic.widget.TabLayoutMediator
@@ -28,8 +29,11 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
     }
     //歌曲列表
     private val songFragment: ArtistSongFragment = ArtistSongFragment()
+    //专辑
+    private val albumFragment: ArtistAlbumFragment = ArtistAlbumFragment()
     //歌手详情
     private val detailFragment: ArtistDetailFragment = ArtistDetailFragment()
+
 
     override fun createPresenter(): ArtistDetailContract.Presenter = ArtistDetailPresenter()
 
@@ -40,7 +44,10 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
         //初始化ViewPager
         viewPager2.run {
             offscreenPageLimit = 2
-            adapter = ArtistFragmentAdapter(mutableListOf(songFragment, detailFragment), this@ArtistDetailActivity)
+            adapter = ArtistFragmentAdapter(
+                mutableListOf(songFragment, albumFragment, detailFragment),
+                this@ArtistDetailActivity
+            )
             //设置TabLayout与ViewPager联动
             TabLayoutMediator(tab_layout, viewPager2) { tab, position ->
                 tab.text = titles[position]

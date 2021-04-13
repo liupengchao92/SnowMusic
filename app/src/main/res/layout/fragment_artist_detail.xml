@@ -4,7 +4,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <TextView
+            android:lineSpacingMultiplier="1.2"
             android:textColor="@color/common_black_text"
             android:textSize="14sp"
             android:padding="15dp"
