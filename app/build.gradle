@@ -55,6 +55,8 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.28.0'
     //Design包
     implementation 'com.google.android.material:material:1.0.0-rc01'
+    //Viewpager 升级版
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
     //BaseRecyclerViewAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.3'
     //(今日头条屏幕适配方案终极版，一个极低成本的 Android 屏幕适配方案
@@ -82,5 +84,4 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     //Android音乐接口Api
     implementation 'com.github.caiyonglong:musicapi:1.0.4'
-
 }

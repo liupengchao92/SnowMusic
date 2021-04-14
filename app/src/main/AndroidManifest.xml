@@ -2,11 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lpc.snowmusic">
     <!-- 获取GSM网络信息状态，如当前的网络连接是否有效 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- 允许访问Wi-Fi网络状态信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> <!-- 允许获取Wi-Fi网络状态改变信息 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/> <!-- 访问网络 -->
-    <uses-permission android:name="android.permission.INTERNET"/> <!-- 读取手机状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- SD 卡读写权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 允许访问Wi-Fi网络状态信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 允许获取Wi-Fi网络状态改变信息 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 访问网络 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 读取手机状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- SD 卡读写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -18,7 +23,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
         <!-- 适配方案 -->
         <meta-data
                 android:name="design_width_in_dp"
@@ -26,21 +30,24 @@
         <meta-data
                 android:name="design_height_in_dp"
                 android:value="640"/>
-
-        <!--适配全面屏-->
+        <!-- 适配全面屏 -->
         <meta-data
                 android:name="android.max_aspect"
                 android:value="2.4"/>
-
-        <!--适配华为（huawei）刘海屏-->
+        <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
                 android:name="android.notch_support"
                 android:value="true"/>
-        <!--适配小米（xiaomi）刘海屏-->
+        <!-- 适配小米（xiaomi）刘海屏 -->
         <meta-data
                 android:name="notch.config"
                 android:value="portrait|landscape"/>
-
+        <!--TBS内核首次加载时优化Service-->
+        <service
+                android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+                android:label="dexopt"
+                android:process=":dexopt">
+        </service>
 
         <!-- 音乐播放服务 -->
         <service
@@ -53,14 +60,20 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <!-- 主页面 -->
         <activity android:name=".ui.main.activity.MainActivity"/>
-        <!--歌手详情-->
-        <activity android:name=".ui.discover.activity.ArtistDetailActivity"
-                  android:theme="@style/TranslucentTheme"/>
+        <!-- 歌手详情 -->
+        <activity
+                android:name=".ui.discover.activity.ArtistDetailActivity"
+                android:theme="@style/TranslucentTheme"/>
+
+        <!--通用WebView页面-->
+        <activity android:name=".ui.discover.activity.CommonWebViewActivity"/>
+
     </application>
 
 </manifest>

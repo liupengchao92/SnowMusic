@@ -1,6 +1,7 @@
 package com.lpc.snowmusic.ui.discover.activity
 
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.gyf.immersionbar.ImmersionBar
 import com.lpc.snowmusic.R
@@ -16,6 +17,7 @@ import com.lpc.snowmusic.ui.discover.adapter.ArtistFragmentAdapter
 import com.lpc.snowmusic.ui.discover.fragment.ArtistAlbumFragment
 import com.lpc.snowmusic.ui.discover.fragment.ArtistDetailFragment
 import com.lpc.snowmusic.ui.discover.fragment.ArtistSongFragment
+import com.lpc.snowmusic.utils.FontUtils
 import com.lpc.snowmusic.widget.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_artist_detail.*
 
@@ -71,11 +73,9 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
             setSupportActionBar(this as Toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setHomeButtonEnabled(true)
+            val titleTextView = getChildAt(0) as TextView
+            FontUtils.setTypeface(titleTextView)
         }
-        /*collapsingToolbarLayout.run {
-            setCollapsedTitleTextColor(Color.WHITE)
-            setExpandedTitleColor(Color.WHITE)
-        }*/
     }
 
     override fun start() {

@@ -9,5 +9,7 @@ package com.lpc.snowmusic.constant
 object Extras {
     //艺术家
     val ARTIST = "artist"
+    //连接地址
+    val URL = "URL"
 
 }

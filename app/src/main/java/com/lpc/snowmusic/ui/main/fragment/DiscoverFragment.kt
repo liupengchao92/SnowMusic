@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.ui.main.fragment
 
+import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,13 +10,16 @@ import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.Artist
 import com.lpc.snowmusic.bean.BannerBean
 import com.lpc.snowmusic.bean.PersonalizedItem
+import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
+import com.lpc.snowmusic.ui.discover.activity.CommonWebViewActivity
 import com.lpc.snowmusic.ui.main.adapter.HotSingerAdapter
 import com.lpc.snowmusic.ui.main.adapter.MyBannerAdapter
 import com.lpc.snowmusic.ui.main.adapter.RecommendAdapter
 import com.lpc.snowmusic.utils.NavigationHelper
 import com.youth.banner.indicator.RectangleIndicator
+import com.youth.banner.listener.OnBannerListener
 import kotlinx.android.synthetic.main.fragment_discover.*
 
 /**
@@ -65,6 +69,40 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
 
     override fun initView(view: View) {
         super.initView(view)
+        //轮播图
+        banner.run {
+            adapter = bannerAdapter
+            indicator = RectangleIndicator(activity)
+            addBannerLifecycleObserver(this@DiscoverFragment)
+            setBannerRound(4f)
+            adapter.setOnBannerListener(OnBannerListener<BannerBean> { data, position ->
+                LogUtils.d("targetType  :${data.targetType}")
+                when (data.targetType) {
+                    "3000" -> {
+                        val intent = Intent(context, CommonWebViewActivity::class.java).apply {
+                            putExtra(Extras.URL, data.url)
+                        }
+                        activity?.startActivity(intent)
+                    }
+                    "10" -> {
+                        //专辑
+
+                    }
+                    "1000" -> {
+                        //歌单
+
+                    }
+                    "1004" -> {
+                        //mv
+
+                    }
+                    "1" -> {
+                        //单曲
+
+                    }
+                }
+            })
+        }
         //热门歌手
         rv_hot_singer.run {
             layoutManager = hotSingerLayoutManager
@@ -102,12 +140,8 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
     override fun showBannerView(banners: MutableList<BannerBean>) {
         mBanners.clear()
         mBanners.addAll(banners)
-        banner.apply {
-            adapter = bannerAdapter
-            indicator = RectangleIndicator(activity)
-            addBannerLifecycleObserver(this@DiscoverFragment)
-            setBannerRound(4f)
-        }
+        bannerAdapter.setDatas(mBanners)
+        bannerAdapter.notifyDataSetChanged()
     }
 
     override fun showHotSinger(artists: MutableList<Artist>) {
