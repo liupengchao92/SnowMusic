@@ -9,7 +9,7 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.Artist
 import com.lpc.snowmusic.bean.BannerBean
-import com.lpc.snowmusic.bean.PersonalizedItem
+import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
@@ -34,7 +34,7 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
     //热门歌手
     private val mArtists: MutableList<Artist> = mutableListOf()
     //推荐列表
-    private val mRecommends: MutableList<PersonalizedItem> = mutableListOf()
+    private val mRecommends: MutableList<Playlist> = mutableListOf()
     //轮播图适配器
     private val bannerAdapter: MyBannerAdapter by lazy {
         MyBannerAdapter(mBanners)
@@ -151,7 +151,7 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
         }
     }
 
-    override fun showRecommendList(result: MutableList<PersonalizedItem>) {
+    override fun showRecommendList(result: MutableList<Playlist>) {
         recommendAdapter.run {
             mRecommends.clear()
             if (result.size > 6) {
@@ -161,6 +161,11 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
             }
             setNewInstance(mRecommends)
             notifyDataSetChanged()
+
+            setOnItemClickListener { adapter, view, position ->
+                val playlist = adapter.data[position] as Playlist
+                NavigationHelper.navigateToSongDetail(context!!, playlist)
+            }
         }
     }
 }

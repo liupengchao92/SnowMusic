@@ -20,7 +20,7 @@ interface DiscoverContract {
 
         fun showHotSinger(artists: MutableList<Artist>)
 
-        fun showRecommendList(result: MutableList<PersonalizedItem>)
+        fun showRecommendList(result: MutableList<Playlist>)
     }
 
     interface Presenter : IPresenter<View> {

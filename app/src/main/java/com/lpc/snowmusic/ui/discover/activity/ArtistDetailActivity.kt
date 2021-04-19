@@ -21,6 +21,9 @@ import com.lpc.snowmusic.utils.FontUtils
 import com.lpc.snowmusic.widget.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_artist_detail.*
 
+/**
+ * 歌手详情
+ * */
 class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDetailContract.Presenter>(),
     ArtistDetailContract.View {
     //歌手信息实体

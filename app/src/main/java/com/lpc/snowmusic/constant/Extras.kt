@@ -7,9 +7,11 @@ package com.lpc.snowmusic.constant
  * Desc:
  */
 object Extras {
-    //艺术家
-    val ARTIST = "artist"
     //连接地址
-    val URL = "URL"
+    const val URL = "URL"
+    //艺术家
+   const val ARTIST = "artist"
+    //歌单
+   const val SONG_LIST = "song_list"
 
 }
