@@ -54,4 +54,10 @@ interface NeteaseApiService {
      */
     @GET
     fun searchNetease(@Url url: String): Observable<SearchInfo>
+
+    /**
+     * 歌单详情
+     */
+    @GET("/playlist/detail")
+    fun getPlaylistDetail(@Query("id") id: String): Observable<PlaylistDetail>
 }

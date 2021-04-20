@@ -46,8 +46,9 @@ object FormatUtil {
     fun formatPlayCount(count: Int): String {
         return when {
             count < 10000 -> "$count"
+            count < 10000 * 10000 -> "${count / 10000}.${count / 1000 % 10}万"
             else -> {
-                "${count / 10000}.${count / 1000 % 10}万"
+                "${count / (10000 * 10000)}.${count / (1000 * 10000) % 10}亿"
             }
         }
     }
@@ -135,8 +136,10 @@ object FormatUtil {
         return s
     }
 
-    fun Distance(long1: Double, lat1: Double, long2: Double,
-                 lat2: Double): Float {
+    fun Distance(
+        long1: Double, lat1: Double, long2: Double,
+        lat2: Double
+    ): Float {
         var lat1 = lat1
         var lat2 = lat2
         val a: Double
@@ -154,8 +157,12 @@ object FormatUtil {
         sb2 = Math.sin(b / 2.0)
         d = (2.0
                 * R
-                * Math.asin(Math.sqrt(sa2 * sa2 + (Math.cos(lat1)
-                * Math.cos(lat2) * sb2 * sb2))))
+                * Math.asin(
+            Math.sqrt(
+                sa2 * sa2 + (Math.cos(lat1)
+                        * Math.cos(lat2) * sb2 * sb2)
+            )
+        ))
 
         return Math.ceil(d).toFloat()
     }
@@ -242,7 +249,8 @@ object FormatUtil {
 
         override fun initialValue(): SoftReference<Map<String, SimpleDateFormat>> {
             return SoftReference(
-                    HashMap())
+                HashMap()
+            )
         }
 
     }
@@ -253,7 +261,8 @@ object FormatUtil {
         if (formats == null) {
             formats = HashMap()
             THREADLOCAL_FORMATS.set(
-                    SoftReference<Map<String, SimpleDateFormat>>(formats))
+                SoftReference<Map<String, SimpleDateFormat>>(formats)
+            )
         }
 
         var format = formats[pattern]

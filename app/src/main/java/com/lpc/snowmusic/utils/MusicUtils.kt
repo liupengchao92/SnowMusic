@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.utils
 
+import com.cyl.musicapi.netease.TracksItem
 import com.cyl.musicapi.playlist.MusicInfo
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
@@ -105,5 +106,36 @@ object MusicUtils {
         music.coverBig = getAlbumPic(musicInfo.album.cover, musicInfo.vendor, PIC_SIZE_NORMAL)
         music.coverSmall = getAlbumPic(musicInfo.album.cover, musicInfo.vendor, PIC_SIZE_SMALL)
         return music
+    }
+
+
+    fun getNeteaseMusicList(tracks: MutableList<TracksItem>?): MutableList<Music> {
+        val musicList = mutableListOf<Music>()
+        tracks?.forEach {
+            val music = Music()
+            music.mid = it.id.toString()
+            music.title = it.name
+            music.type = Constants.NETEASE
+            music.album = it.al.name
+            music.isOnline = true
+            music.albumId = it.al.id.toString()
+            if (it.ar != null) {
+                var artistIds = it.ar?.get(0)?.id.toString()
+                var artistNames = it.ar?.get(0)?.name
+                for (j in 1 until it.ar?.size!! - 1) {
+                    artistIds += ",${it.ar?.get(j)?.id}"
+                    artistNames += ",${it.ar?.get(j)?.name}"
+                }
+                music.artist = artistNames
+                music.artistId = artistIds
+            }
+            music.coverUri = getAlbumPic(it.al.picUrl, Constants.NETEASE, PIC_SIZE_NORMAL)
+            music.coverBig = getAlbumPic(it.al.picUrl, Constants.NETEASE, PIC_SIZE_BIG)
+            music.coverSmall = getAlbumPic(it.al.picUrl, Constants.NETEASE, PIC_SIZE_SMALL)
+//            if (it.cp != 0) {
+            musicList.add(music)
+//            }
+        }
+        return musicList
     }
 }
