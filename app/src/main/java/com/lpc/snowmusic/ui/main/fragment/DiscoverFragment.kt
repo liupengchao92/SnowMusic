@@ -10,6 +10,7 @@ import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.Artist
 import com.lpc.snowmusic.bean.BannerBean
 import com.lpc.snowmusic.bean.Playlist
+import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
@@ -90,7 +91,11 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
                     }
                     "1000" -> {
                         //歌单
-
+                        NavigationHelper.navigateToSongDetail(context, Playlist().apply {
+                            pid = data.targetId
+                            coverUrl = data.picUrl
+                            type = Constants.PLAYLIST_WY_ID
+                        })
                     }
                     "1004" -> {
                         //mv

@@ -85,7 +85,8 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
     }
 
     override fun showSongListDetail(playlist: Playlist) {
-        playlist.let {
+        playlist?.let {
+            this.playList = playList
             //歌单封面
             GlideUtils.loadImageView(this, it.coverUrl, iv_cover)
             //歌单标题

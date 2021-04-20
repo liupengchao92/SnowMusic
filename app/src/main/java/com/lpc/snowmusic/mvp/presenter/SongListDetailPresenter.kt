@@ -21,7 +21,7 @@ class SongListDetailPresenter : BasePresenter<SongListDetailContract.View, SongL
     override fun createModel(): SongListDetailContract.Model? = SongListDetailModel()
 
     override fun getSongListDetail(id: String) {
-        model?.getSongListDetail(id)?.request(model, view as IView) {
+        model?.getSongListDetail(id)?.request(model, view as IView, true) {
             it.playlist?.let {
                 val playlist = Playlist()
                 playlist.pid = it.id.toString()

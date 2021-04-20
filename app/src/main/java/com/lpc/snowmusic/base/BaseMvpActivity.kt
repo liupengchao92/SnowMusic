@@ -1,6 +1,11 @@
 package com.lpc.snowmusic.base
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.blankj.utilcode.util.ToastUtils
+import com.lpc.snowmusic.R
+import com.lpc.snowmusic.utils.AnimationUtils.animateView
 
 /**
  * Author: liupengchao
@@ -12,6 +17,13 @@ import com.blankj.utilcode.util.ToastUtils
 abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity(), IView {
 
     protected var presenter: P? = null
+
+    private val contentView: ViewGroup by lazy {
+        window.decorView.findViewById<ViewGroup>(android.R.id.content)
+    }
+    private val loadView: View by lazy {
+        LayoutInflater.from(this).inflate(R.layout.layout_custom_view, null, false)
+    }
 
     /**
      * 创建Presenter实例
@@ -30,11 +42,21 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
     }
 
     override fun showLoading() {
-        multipleStatusView?.showLoading()
+        loadView.let {
+            //加载视图
+            contentView.addView(it)
+            //动画
+            animateView(it, true, 400)
+        }
     }
 
     override fun hideLoading() {
-
+        loadView.let {
+            //加载视图
+            contentView.removeView(it)
+            //动画
+            animateView(it, false, 400)
+        }
     }
 
     override fun showMsg(msg: String) {
