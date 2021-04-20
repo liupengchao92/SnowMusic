@@ -1,10 +1,9 @@
 package com.lpc.snowmusic.application
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.os.Bundle
 import androidx.multidex.MultiDex
+import com.blankj.utilcode.util.Utils
 import com.cyl.musicapi.BaseApiImpl
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
@@ -32,12 +31,13 @@ class MusicApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        //初始化工具类
+        Utils.init(this)
         //初始化
         BaseApiImpl.initWebView(this)
         //初始化腾讯X5内核
         initTBS()
     }
-
 
 
     /**

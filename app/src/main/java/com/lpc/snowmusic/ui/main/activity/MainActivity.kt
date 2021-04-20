@@ -17,11 +17,8 @@ class MainActivity : BaseActivity() {
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun initToolBar() {
-        toolbar.run {
-            title = getString(R.string.snow_music)
-            setSupportActionBar(this)
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        }
+        super.initToolBar()
+        toolBar.title = getString(R.string.snow_music)
     }
 
     override fun initView() {
@@ -43,6 +40,5 @@ class MainActivity : BaseActivity() {
 
             toggle.syncState()
         }
-
     }
 }

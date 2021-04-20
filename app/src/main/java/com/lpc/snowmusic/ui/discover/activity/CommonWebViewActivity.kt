@@ -3,7 +3,6 @@ package com.lpc.snowmusic.ui.discover.activity
 import android.graphics.Bitmap
 import android.text.TextUtils
 import android.view.KeyEvent
-import android.view.MenuItem
 import android.view.View
 import android.webkit.WebSettings
 import com.blankj.utilcode.util.LogUtils
@@ -26,16 +25,6 @@ class CommonWebViewActivity : BaseActivity() {
 
     override fun initImmersionBar() {
 
-    }
-
-    override fun initToolBar() {
-        super.initToolBar()
-
-        toolbar.run {
-            setSupportActionBar(this)
-            supportActionBar?.setHomeButtonEnabled(true)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
     }
 
     override fun initView() {
@@ -163,13 +152,6 @@ class CommonWebViewActivity : BaseActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (event?.action == KeyEvent.ACTION_DOWN && webView.canGoBack()) {

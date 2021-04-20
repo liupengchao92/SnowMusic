@@ -3,6 +3,7 @@ package com.lpc.snowmusic.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import java.util.*
 
 /**
  * Author: liupengchao
@@ -11,31 +12,45 @@ import android.os.Bundle
  * Desc:
  */
 object ActivityStack {
+    //任务栈
+    private val activityStacks = Stack<Activity>()
+    //
+
 
     fun registerActivityLifecycle(application: Application) {
-
         application.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
 
-            override fun onActivityCreated(p0: Activity, p1: Bundle?) {
+            override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+                //入栈
+                activityStacks?.push(activity)
             }
 
-            override fun onActivityStarted(p0: Activity) {
+            override fun onActivityStarted(activity: Activity) {
             }
 
-            override fun onActivityResumed(p0: Activity) {
+            override fun onActivityResumed(activity: Activity) {
             }
 
-            override fun onActivityPaused(p0: Activity) {
+            override fun onActivityPaused(activity: Activity) {
             }
 
-            override fun onActivityDestroyed(p0: Activity) {
+            override fun onActivityDestroyed(activity: Activity) {
+                //移除栈
+                activityStacks?.remove(activity)
             }
 
-            override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {
+            override fun onActivitySaveInstanceState(activity: Activity, p1: Bundle) {
             }
 
-            override fun onActivityStopped(p0: Activity) {
+            override fun onActivityStopped(activity: Activity) {
             }
         })
+    }
+
+    /**
+     * 获取当前的Activity
+     * */
+    fun currentActivity(): Activity? {
+        return if (activityStacks.isNotEmpty()) activityStacks.peek() else null
     }
 }

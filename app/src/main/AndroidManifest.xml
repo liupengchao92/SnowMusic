@@ -49,18 +49,17 @@
                 android:enabled="true"
                 android:exported="true">
         </service>
-
         <!-- 启动页 -->
-        <activity android:name=".ui.main.activity.SplashActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+                android:name=".ui.main.activity.SplashActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <!-- 主页面 -->
+        </activity> <!-- 主页面 -->
         <activity android:name=".ui.main.activity.MainActivity"/>
         <!-- 歌手详情 -->
         <activity
@@ -68,10 +67,12 @@
                 android:theme="@style/TranslucentTheme"/>
         <!-- 通用WebView页面 -->
         <activity android:name=".ui.discover.activity.CommonWebViewActivity"/>
-        <!--歌单详情-->
-        <activity android:name=".ui.discover.activity.SongListDetailActivity"
-                  android:theme="@style/TranslucentTheme"/>
-
+        <!-- 歌单详情 -->
+        <activity
+                android:name=".ui.discover.activity.SongListDetailActivity"
+                android:theme="@style/TranslucentTheme"/>
+        <!-- 歌单广场 -->
+        <activity android:name=".ui.discover.activity.SongListSquareActivity"/>
     </application>
 
 </manifest>

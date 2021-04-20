@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.classic.common.MultipleStatusView
 import com.gyf.immersionbar.ImmersionBar
 import com.lpc.snowmusic.R
@@ -19,6 +20,10 @@ import org.greenrobot.eventbus.EventBus
 abstract class BaseActivity : AppCompatActivity() {
     //多种状态的 View 的切换
     protected var multipleStatusView: MultipleStatusView? = null
+    //
+    protected val toolBar by lazy {
+        findViewById<Toolbar>(R.id.toolbar)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +68,11 @@ abstract class BaseActivity : AppCompatActivity() {
      * 初始化ToolBar
      */
     protected open fun initToolBar() {
-
+        toolBar?.run {
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeButtonEnabled(true)
+        }
     }
 
     /**
@@ -86,8 +95,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.home) {
+        if (item.itemId == android.R.id.home) {
             finish()
+            return true
         }
         return super.onOptionsItemSelected(item)
     }

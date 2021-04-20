@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.ui.discover.activity
 
-import android.view.MenuItem
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
@@ -36,15 +35,6 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
 
     override fun createPresenter(): SongListDetailContract.Presenter = SongListDetailPresenter()
 
-    override fun initToolBar() {
-        super.initToolBar()
-
-        toolbar.run {
-            setSupportActionBar(this)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setHomeButtonEnabled(true)
-        }
-    }
 
     override fun initView() {
         super.initView()
@@ -66,13 +56,13 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State, verticalOffset: Int) {
                 when (state) {
                     State.COLLAPSED -> {
-                        toolbar.title = playList?.name
+                        toolBar.title = playList?.name
                     }
                     State.EXPANDED -> {
-                        toolbar.title = resources.getString(R.string.song_list)
+                        toolBar.title = resources.getString(R.string.song_list)
                     }
                     else -> {
-                        toolbar.title = resources.getString(R.string.song_list)
+                        toolBar.title = resources.getString(R.string.song_list)
                     }
                 }
             }
@@ -103,13 +93,5 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
             setNewInstance(mutableList)
             notifyDataSetChanged()
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

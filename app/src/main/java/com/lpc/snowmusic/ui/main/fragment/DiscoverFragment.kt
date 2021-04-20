@@ -15,6 +15,7 @@ import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.mvp.contract.DiscoverContract
 import com.lpc.snowmusic.mvp.presenter.DiscoverPresenter
 import com.lpc.snowmusic.ui.discover.activity.CommonWebViewActivity
+import com.lpc.snowmusic.ui.discover.activity.SongListSquareActivity
 import com.lpc.snowmusic.ui.main.adapter.HotSingerAdapter
 import com.lpc.snowmusic.ui.main.adapter.MyBannerAdapter
 import com.lpc.snowmusic.ui.main.adapter.RecommendAdapter
@@ -123,6 +124,12 @@ class DiscoverFragment : BaseMvpFragment<DiscoverContract.View, DiscoverContract
             layoutManager = recommendLayoutManager
             adapter = recommendAdapter
             // addItemDecoration(SpaceItemDecoration(SizeUtils.dp2px(10f)))
+        }
+
+        //
+        tv_song_square.setOnClickListener {
+            val intent = Intent(activity, SongListSquareActivity::class.java)
+            startActivity(intent)
         }
 
     }

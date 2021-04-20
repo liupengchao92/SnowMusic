@@ -178,6 +178,7 @@
                             android:layout_height="wrap_content"/>
 
                     <TextView
+                            android:id="@+id/tv_song_square"
                             android:text="@string/song_list_square"
                             android:textColor="@color/orange"
                             android:textSize="@dimen/common_text_size"
