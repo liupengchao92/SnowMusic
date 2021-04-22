@@ -1,13 +1,20 @@
 package com.lpc.snowmusic.base
 
+import android.content.ComponentName
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.blankj.utilcode.util.LogUtils
 import com.classic.common.MultipleStatusView
 import com.gyf.immersionbar.ImmersionBar
+import com.lpc.snowmusic.IMusicService
 import com.lpc.snowmusic.R
+import com.lpc.snowmusic.player.PlayManager
+import com.lpc.snowmusic.player.ServiceToken
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -17,7 +24,7 @@ import org.greenrobot.eventbus.EventBus
  * Desc:Activity基础类
  */
 @SuppressWarnings("unchecked")
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
     //多种状态的 View 的切换
     protected var multipleStatusView: MultipleStatusView? = null
     //
@@ -25,9 +32,13 @@ abstract class BaseActivity : AppCompatActivity() {
         findViewById<Toolbar>(R.id.toolbar)
     }
 
+    //ServiceToken
+    private var token: ServiceToken? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
+        token = PlayManager.bindToService(this, this)
         initEventBus()
         initImmersionBar()
         initToolBar()
@@ -92,6 +103,10 @@ abstract class BaseActivity : AppCompatActivity() {
         if (useEventBus()) {
             EventBus.getDefault().unregister(this)
         }
+        //解除绑定服雾
+        token?.let {
+            PlayManager.unbindFromService(token!!)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -100,5 +115,17 @@ abstract class BaseActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onServiceDisconnected(name: ComponentName?) {
+        PlayManager.mService = null
+        LogUtils.d("onServiceDisconnected====>>$name")
+
+    }
+
+    override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+        PlayManager.mService = IMusicService.Stub.asInterface(service)
+
+        LogUtils.d("onServiceConnected====>>$name")
     }
 }

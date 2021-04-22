@@ -121,6 +121,7 @@
                             android:layout_height="12dp"/>
 
                     <TextView
+                            android:layout_marginLeft="5dp"
                             android:id="@+id/tv_play_count"
                             android:textColor="@color/common_white_text"
                             android:textSize="12sp"
