@@ -14,6 +14,7 @@ import com.lpc.snowmusic.mvp.presenter.SongListDetailPresenter
 import com.lpc.snowmusic.ui.discover.adapter.SongAdapter
 import com.lpc.snowmusic.ui.discover.listener.AppBarStateChangeListener
 import com.lpc.snowmusic.utils.FormatUtil
+import com.lpc.snowmusic.utils.NavigationHelper
 import kotlinx.android.synthetic.main.activity_song_list_detail.*
 
 /**
@@ -48,6 +49,11 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
             layoutManager = LinearLayoutManager(this@SongListDetailActivity)
             adapter = songAdapter
             itemAnimator = DefaultItemAnimator()
+        }
+        //
+        songAdapter.setOnItemClickListener { adapter, view, position ->
+
+            NavigationHelper.navigateToPlaying(this)
         }
 
         //AppBarLayout的监听

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        tools:context=".ui.discover.PlayerActivity">
+
+    <ImageView
+            android:scaleType="centerCrop"
+            android:background="@color/color_black"
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <LinearLayout
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+                android:paddingLeft="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ToolbarTheme"
+                android:id="@+id/toolbar">
+
+            <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:id="@+id/backIv"
+                        android:tint="@color/color_white"
+                        android:src="@drawable/ic_arrow_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/title"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:textColor="@color/color_white"
+                            android:textSize="16sp"
+                            android:text="标题"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:layout_marginTop="6dp"
+                            android:id="@+id/subTitle"
+                            android:textColor="@color/color_white"
+                            android:textSize="12sp"
+                            android:text="副标题"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_margin="15dp"
+                        android:id="@+id/operateSongIv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_more"
+                        android:tint="@color/color_white"/>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.viewpager2.widget.ViewPager2
+                android:layout_weight="1"
+                android:id="@+id/viewPager2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <LinearLayout
+                android:id="@+id/ll_progress"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="00:00"
+                    android:textColor="@color/color_white"
+                    android:textSize="13sp"/>
+
+            <SeekBar
+                    android:id="@+id/progress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.0"
+                    android:background="@null"
+                    android:max="100"
+                    android:maxHeight="1dp"
+                    android:minHeight="1dp"
+                    android:paddingLeft="13dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="13dp"
+                    android:paddingBottom="8dp"
+                    android:progressDrawable="@drawable/drawable_seek_progress_bg"
+                    android:thumb="@drawable/drawable_seek_thumb"/>
+
+            <TextView
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="00:00"
+                    android:textColor="@color/color_white"
+                    android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <ImageView
+                    android:id="@+id/playModeIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    android:src="@drawable/ic_repeat"/>
+
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/prevPlayIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_skip_previous"
+                    app:materialIcon="skip_previous"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="32dp"/>
+
+            <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_weight="1">
+
+
+                <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_play_big_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <ProgressBar
+                        android:id="@+id/loadingPb"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:visibility="gone"/>
+
+            </FrameLayout>
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/nextPlayIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:scaleType="center"
+                    app:materialIcon="skip_next"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="32dp"/>
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/playQueueIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    app:materialIcon="playlist_play"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="24dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <ImageView
+                    android:id="@+id/collectIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/item_favorite"/>
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/downloadIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    app:materialIcon="download"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="24dp"/>
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/shareIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    app:materialIcon="share"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="24dp"/>
+
+            <ImageView
+                    android:id="@+id/equalizerIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    android:src="@drawable/ic_equalizer"
+                    android:visibility="gone"/>
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/playlistAddIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    app:materialIcon="playlist_plus"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="24dp"/>
+
+            <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/songCommentTv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    app:materialIcon="comment_multiple_outline"
+                    app:materialIconColor="@color/color_white"
+                    app:materialIconSize="24dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

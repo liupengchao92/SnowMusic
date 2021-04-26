@@ -5,6 +5,7 @@ import android.content.Intent
 import com.lpc.snowmusic.bean.Artist
 import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.constant.Extras
+import com.lpc.snowmusic.ui.discover.PlayerActivity
 import com.lpc.snowmusic.ui.discover.activity.ArtistDetailActivity
 import com.lpc.snowmusic.ui.discover.activity.SongListDetailActivity
 
@@ -31,6 +32,14 @@ object NavigationHelper {
     fun navigateToSongDetail(context: Context, playlist: Playlist) {
         val intent = Intent(context, SongListDetailActivity::class.java)
         intent.putExtra(Extras.SONG_LIST, playlist)
+        context.startActivity(intent)
+    }
+
+    /**
+     *跳转播放详情页面
+     * */
+    fun navigateToPlaying(context: Context) {
+        val intent = Intent(context, PlayerActivity::class.java)
         context.startActivity(intent)
     }
 }
