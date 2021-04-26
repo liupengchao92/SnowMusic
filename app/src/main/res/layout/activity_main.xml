@@ -38,7 +38,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
+        <!--底部控制栏-->
+        <include layout="@layout/fragment_control"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <!--侧滑菜单-->
     <com.google.android.material.navigation.NavigationView
             android:background="@color/common_white_background"

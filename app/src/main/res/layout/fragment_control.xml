@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/control_fragment"
+          android:layout_gravity="bottom"
+          android:layout_width="match_parent"
+          android:name="com.lpc.snowmusic.ui.discover.fragment.ControlFragment"
+          android:layout_height="56dp">
+
+</fragment>
