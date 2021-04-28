@@ -12,13 +12,13 @@ import java.lang.ref.WeakReference
  * Desc:
  */
 class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.Stub() {
-    //
+    //弱引用MusicPlayerService
     private val mService: WeakReference<MusicPlayerService> by lazy {
         WeakReference<MusicPlayerService>(musicPlayerService)
     }
 
     override fun nextPlay(music: Music?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun playMusic(music: Music?) {

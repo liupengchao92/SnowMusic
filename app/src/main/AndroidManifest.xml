@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- SD 卡读写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.WAKE_LOCK"/><!--唤醒锁-->
     <application
             android:name=".application.MusicApplication"
             android:allowBackup="true"
