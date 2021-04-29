@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.*
 import android.content.Context.BIND_AUTO_CREATE
 import android.os.IBinder
+import android.os.RemoteException
 import com.lpc.snowmusic.IMusicService
+import com.lpc.snowmusic.bean.Music
 import java.util.*
 
 /**
@@ -61,6 +63,18 @@ object PlayManager {
             if (connectionMap.isNullOrEmpty()) {
                 mService = null
             }
+        }
+    }
+
+    /**
+     *播放音乐
+     *
+     */
+    fun play(musicList: List<Music>, id: Int, pid: String) {
+        try {
+            mService?.playPlaylist(musicList, id, pid)
+        } catch (e: RemoteException) {
+            e.printStackTrace()
         }
     }
 

@@ -11,6 +11,7 @@ import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.imageload.GlideUtils
 import com.lpc.snowmusic.mvp.contract.SongListDetailContract
 import com.lpc.snowmusic.mvp.presenter.SongListDetailPresenter
+import com.lpc.snowmusic.player.PlayManager
 import com.lpc.snowmusic.ui.discover.adapter.SongAdapter
 import com.lpc.snowmusic.ui.discover.listener.AppBarStateChangeListener
 import com.lpc.snowmusic.utils.FormatUtil
@@ -52,7 +53,7 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
         }
         //
         songAdapter.setOnItemClickListener { adapter, view, position ->
-
+            PlayManager.play(adapter.data as List<Music>, position, playList?.pid!!)
             NavigationHelper.navigateToPlaying(this)
         }
 

@@ -26,7 +26,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     }
 
     override fun playPlaylist(playlist: MutableList<Music>?, id: Int, pid: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.play(playlist!!, id, pid!!)
     }
 
     override fun play(id: Int) {
