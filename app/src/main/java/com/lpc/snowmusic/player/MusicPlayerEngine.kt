@@ -5,9 +5,7 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Message
 import android.os.PowerManager
-import android.preference.PreferenceManager
 import com.blankj.utilcode.util.LogUtils
-import com.lpc.snowmusic.application.MusicApplication
 import com.lpc.snowmusic.player.MusicPlayerService.Companion.PLAYER_PREPARED
 import com.lpc.snowmusic.player.MusicPlayerService.Companion.PREPARE_ASYNC_UPDATE
 import com.lpc.snowmusic.player.MusicPlayerService.Companion.RELEASE_WAKELOCK
@@ -67,9 +65,8 @@ class MusicPlayerEngine(musicPlayerService: MusicPlayerService) : MediaPlayer.On
                 //重置播放器
                 reset()
                 //是否缓存
-                val cacheSetting = PreferenceManager.getDefaultSharedPreferences(MusicApplication.context)
-                    .getBoolean("key_cache_mode", true)
-                LogUtils.d("缓存设置: $cacheSetting")
+                val cacheSetting = false
+
                 //本地歌曲不需要缓存
                 if (path.startsWith("content://") || path.startsWith("/storage")) {
                     setDataSource(mService.get(), Uri.parse(path))

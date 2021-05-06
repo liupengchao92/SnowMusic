@@ -68,3 +68,31 @@ fun <T : BaseBean> Observable<T>.request(
             }
         })
 }
+
+fun <T> Observable<T>.request(callBack: RequestCallBack<T>) {
+    this.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .retryWhen(RetryWithDelay())
+        .subscribe(object : Observer<T> {
+
+            override fun onComplete() {
+
+            }
+
+            override fun onSubscribe(d: Disposable) {
+                //检测网络
+                if (!NetworkUtils.isConnected()) {
+                    ToastUtils.showShort(MusicApplication.context.getString(R.string.network_unavailable_tip))
+                    onComplete()
+                }
+            }
+
+            override fun onNext(t: T) {
+                callBack.onSuccess(t)
+            }
+
+            override fun onError(e: Throwable) {
+               callBack.onError(e)
+            }
+        })
+}

@@ -10,6 +10,9 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.http.function.RequestCallBack
+import com.lpc.snowmusic.http.function.request
+import com.lpc.snowmusic.music.MusicApi
 import java.lang.ref.WeakReference
 
 /**
@@ -197,8 +200,20 @@ class MusicPlayerService : Service() {
             playingMusic?.let {
                 //
                 if (it.uri.isNullOrEmpty() || Constants.LOCAL != it.type) {
-                    if (!NetworkUtils.isAvailable()) {
+                    if (!NetworkUtils.isConnected()) {
                         ToastUtils.showShort("网络不可用，请检查网络连接")
+                    } else {
+                        MusicApi.getMusicInfo(it).request(object : RequestCallBack<Music> {
+                            override fun onSuccess(t: Music) {
+                                LogUtils.e("音乐URL :${t.toString()}")
+                                playingMusic = t
+                                saveHistory()
+                                mediaPlayer.setDataSource(t.uri!!)
+                            }
+
+                            override fun onError(e: Throwable) {
+                            }
+                        })
                     }
                 } else {
 
