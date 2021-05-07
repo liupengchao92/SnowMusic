@@ -52,6 +52,8 @@
     <color name="translucent_white_16p">#29FFFFFF</color>
     <color name="translucent_white_24p">#3DFFFFFF</color>
 
+
+
     <color name="color_DB4437">#DB4437</color>
     <color name="color_05b962">#05b962</color>
     <color name="color_999999">#999999</color>
@@ -60,5 +62,6 @@
     <color name="color_09bb07">#09bb07</color>
     <color name="color_08b106">#08b106</color>
     <color name="color_8009bb07">#8009bb07</color>
+    <color name="color_1f000000">#1f000000</color>
 
 </resources>

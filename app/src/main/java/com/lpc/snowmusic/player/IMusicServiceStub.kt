@@ -73,9 +73,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun isPlaying(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun isPlaying(): Boolean = mService.get()?.isMusicPlaying!!
 
     override fun isPause(): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -89,9 +87,10 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getPlayingMusic(): Music {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    /**
+     * 获取正在播放的音乐
+     * */
+    override fun getPlayingMusic(): Music = mService.get()?.playingMusic!!
 
     override fun getPlayList(): MutableList<Music> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

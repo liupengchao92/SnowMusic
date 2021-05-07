@@ -54,17 +54,17 @@ class MusicPlayerService : Service() {
     }
 
     //当前播放的位置
-    var playingPos: Int = -1
+    private var playingPos: Int = -1
     //当前正在播放的音乐
     var playingMusic: Music? = null
     //当前播放队列
     private var playQueue: MutableList<Music> = mutableListOf()
     //播放历史
-    var historyPos: MutableList<Int> = mutableListOf()
+    private var historyPos: MutableList<Int> = mutableListOf()
     //是否正在播放
     var isMusicPlaying: Boolean = false
     //歌单类型ID
-    var playListId: String = Constants.PLAYLIST_QUEUE_ID
+    private var playListId: String = Constants.PLAYLIST_QUEUE_ID
     //播放器
     lateinit var mediaPlayer: MusicPlayerEngine
     //
@@ -198,20 +198,21 @@ class MusicPlayerService : Service() {
 
             LogUtils.d("playingSongInfo: ${playingMusic.toString()}")
             playingMusic?.let {
-                //
+                //判断Uri是否可用
                 if (it.uri.isNullOrEmpty() || Constants.LOCAL != it.type) {
                     if (!NetworkUtils.isConnected()) {
                         ToastUtils.showShort("网络不可用，请检查网络连接")
                     } else {
                         MusicApi.getMusicInfo(it).request(object : RequestCallBack<Music> {
                             override fun onSuccess(t: Music) {
-                                LogUtils.e("音乐URL :${t.toString()}")
-                                playingMusic = t
+                                LogUtils.e("音乐URL :${t}")
+                                it.uri = t.uri
                                 saveHistory()
                                 mediaPlayer.setDataSource(t.uri!!)
                             }
 
                             override fun onError(e: Throwable) {
+                                LogUtils.e("播放异常-------->${e.message}")
                             }
                         })
                     }

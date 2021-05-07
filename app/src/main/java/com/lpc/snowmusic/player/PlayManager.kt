@@ -67,6 +67,28 @@ object PlayManager {
     }
 
     /**
+     *获取正在播放的音乐
+     *
+     */
+    fun getPlayingMusic(): Music? {
+        try {
+            return mService?.playingMusic
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    fun isPlaying(): Boolean {
+        try {
+            return mService?.isPlaying!!
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+        return false
+    }
+
+    /**
      *播放音乐
      *
      */

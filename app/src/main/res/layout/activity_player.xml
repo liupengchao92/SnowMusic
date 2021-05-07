@@ -8,10 +8,14 @@
 
     <ImageView
             android:scaleType="centerCrop"
-            android:background="@color/color_black"
-            android:id="@+id/iv_background"
+            android:id="@+id/backgroundIv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_1f000000"/>
 
     <LinearLayout
             android:fitsSystemWindows="true"
@@ -20,7 +24,7 @@
             android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-                android:paddingLeft="0dp"
+                app:contentInsetStart="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ToolbarTheme"
@@ -31,12 +35,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                <ImageView
+                <FrameLayout
                         android:id="@+id/backIv"
-                        android:tint="@color/color_white"
-                        android:src="@drawable/ic_arrow_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="56dp"
+                        android:layout_height="match_parent">
+
+                    <ImageView
+                            android:layout_gravity="center"
+                            android:tint="@color/color_white"
+                            android:src="@drawable/ic_arrow_back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </FrameLayout>
 
                 <LinearLayout
                         android:gravity="center"
@@ -46,7 +57,7 @@
                         android:layout_height="wrap_content">
 
                     <TextView
-                            android:id="@+id/title"
+                            android:id="@+id/songNameTv"
                             android:marqueeRepeatLimit="marquee_forever"
                             android:ellipsize="marquee"
                             android:focusable="true"
@@ -58,7 +69,7 @@
 
                     <TextView
                             android:layout_marginTop="6dp"
-                            android:id="@+id/subTitle"
+                            android:id="@+id/singerName"
                             android:textColor="@color/color_white"
                             android:textSize="12sp"
                             android:text="副标题"
