@@ -10,9 +10,11 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.event.StatusChangedEvent
 import com.lpc.snowmusic.http.function.RequestCallBack
 import com.lpc.snowmusic.http.function.request
 import com.lpc.snowmusic.music.MusicApi
+import org.greenrobot.eventbus.EventBus
 import java.lang.ref.WeakReference
 
 /**
@@ -77,14 +79,23 @@ class MusicPlayerService : Service() {
     private val binder: IBinder = IMusicServiceStub(this)
 
 
-    class MusicPlayerHandler(val service: MusicPlayerService, looper: Looper) : Handler(looper) {
+    inner class MusicPlayerHandler(val service: MusicPlayerService, looper: Looper) : Handler(looper) {
         //弱引用MusicPlayerService
         val mService: WeakReference<MusicPlayerService> by lazy { WeakReference(service) }
 
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-
-
+            LogUtils.d("handleMessage :what ${msg.what}")
+            synchronized(mService) {
+                when (msg.what) {
+                    PLAYER_PREPARED -> {
+                        //准备完毕开始播放
+                        isMusicPlaying = true
+                        updateNotification(false)
+                        notifyChange(PLAY_STATE_CHANGED)
+                    }
+                }
+            }
         }
     }
 
@@ -281,12 +292,62 @@ class MusicPlayerService : Service() {
     }
 
     /**
+     * 播放或者暂停
+     *
+     * */
+    fun playPause() {
+        if (isMusicPlaying) {
+            pause()
+        } else {
+            if (mediaPlayer.isInitlized()) {
+                play()
+            } else {
+                playCurrentAndNext()
+            }
+        }
+    }
+
+    private fun play() {
+        if (mediaPlayer.isInitlized()) {
+            mediaPlayer.start()
+            isMusicPlaying = true
+            notifyChange(PLAY_STATE_CHANGED)
+            updateNotification(false)
+        } else {
+            playCurrentAndNext()
+        }
+    }
+
+    private fun pause() {
+        if (isMusicPlaying) {
+            mediaPlayer.pause()
+            isMusicPlaying = false
+            notifyChange(PLAY_STATE_CHANGED)
+            updateNotification(false)
+        }
+    }
+
+    /**
+     * 是否准备播放
+     *
+     * @return
+     */
+    fun isPrepared(): Boolean {
+        return mediaPlayer.isPrepared()
+    }
+
+    /**
      * 发送更新广播
      *
      * @param what 发送更新广播
      */
     private fun notifyChange(what: String) {
-
+        LogUtils.d("")
+        when (what) {
+            PLAY_STATE_CHANGED -> {
+                EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
+            }
+        }
     }
 
     /**

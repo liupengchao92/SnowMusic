@@ -46,7 +46,6 @@ class CoverFragment : BaseFragment() {
     override fun lazyLoad() {
         PlayManager.getPlayingMusic()?.let {
             GlideUtils.loadImageView(context, it.coverUri, iv_cover)
-            startRotateAnimation()
         }
     }
 
