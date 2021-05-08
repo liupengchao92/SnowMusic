@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.ui.discover
 
+import android.view.View
 import android.widget.SeekBar
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -7,6 +8,7 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.base.BaseMvpActivity
 import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.event.StatusChangedEvent
 import com.lpc.snowmusic.imageload.GlideUtils
 import com.lpc.snowmusic.mvp.contract.PlayContract
 import com.lpc.snowmusic.mvp.presenter.PlayPresenter
@@ -16,12 +18,15 @@ import com.lpc.snowmusic.ui.discover.fragment.CoverFragment
 import com.lpc.snowmusic.ui.discover.fragment.LyricFragment
 import com.lpc.snowmusic.utils.FormatUtil
 import kotlinx.android.synthetic.main.activity_player.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 播放详情页面
  * */
 class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter>(), PlayContract.View,
-    SeekBar.OnSeekBarChangeListener {
+    SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+
     //封面Fragment
     private var coverFragment: CoverFragment? = null
     //歌词Fragment
@@ -30,6 +35,8 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     private val playerAdapter by lazy { PlayerAdapter(this) }
 
     override fun getLayoutResId(): Int = R.layout.activity_player
+
+    override fun useEventBus(): Boolean = true
 
     override fun initToolBar() {
         //返回页面
@@ -52,11 +59,28 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
 
         //
         seekProgress.setOnSeekBarChangeListener(this)
+
+        playModeIv.setOnClickListener(this)
+        prevPlayIv.setOnClickListener(this)
+        playAndPause.setOnClickListener(this)
+        nextPlayIv.setOnClickListener(this)
+        playQueueIv.setOnClickListener(this)
+        collectIv.setOnClickListener(this)
+        downloadIv.setOnClickListener(this)
+        shareIv.setOnClickListener(this)
+        equalizerIv.setOnClickListener(this)
+        playlistAddIv.setOnClickListener(this)
+        songCommentTv.setOnClickListener(this)
     }
 
     override fun start() {
         super.start()
+        //获取正在播放的音乐
         presenter?.getPlayingMusic()
+        //当前播放状态
+        PlayManager.isPlaying().let {
+            updatePlayStatus(it)
+        }
     }
 
     override fun createPresenter(): PlayContract.Presenter = PlayPresenter()
@@ -79,7 +103,13 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     }
 
     override fun updatePlayStatus(isPlaying: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (isPlaying) {
+            playAndPause.setImageResource(R.drawable.img_player_play)
+            coverFragment?.resumeRotateAnimation()
+        } else {
+            playAndPause.setImageResource(R.drawable.img_player_pause)
+            coverFragment?.stopRotateAnimation()
+        }
     }
 
     override fun updateProgress(progress: Long, max: Long) {
@@ -103,5 +133,28 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
         seekBar?.progress?.let {
             PlayManager.seekTo(it)
         }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.prevPlayIv -> {
+                //上一首
+            }
+
+            R.id.playAndPause -> {
+                //播放或者暂停
+                PlayManager.playAndPause()
+            }
+
+            R.id.nextPlayIv -> {
+
+            }
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updatePlayStatus(event: StatusChangedEvent) {
+        updatePlayStatus(event.isPlaying)
     }
 }

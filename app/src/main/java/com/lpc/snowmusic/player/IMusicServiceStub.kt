@@ -34,7 +34,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     }
 
     override fun playPause() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.playPause()
     }
 
     override fun pause() {

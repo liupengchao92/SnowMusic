@@ -67,6 +67,18 @@ object PlayManager {
     }
 
     /**
+     *播放音乐
+     *
+     */
+    fun play(musicList: List<Music>, id: Int, pid: String) {
+        try {
+            mService?.playPlaylist(musicList, id, pid)
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
      *获取正在播放的音乐
      *
      */
@@ -101,17 +113,16 @@ object PlayManager {
     }
 
     /**
-     *播放音乐
+     *播放或者暂停
      *
      */
-    fun play(musicList: List<Music>, id: Int, pid: String) {
+    fun playAndPause() {
         try {
-            mService?.playPlaylist(musicList, id, pid)
+            mService?.playPause()
         } catch (e: RemoteException) {
             e.printStackTrace()
         }
     }
-
 
     class ServiceBinder(private val callback: ServiceConnection, private val context: Context) :
         ServiceConnection {

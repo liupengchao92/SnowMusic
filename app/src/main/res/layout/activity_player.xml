@@ -181,8 +181,9 @@
 
 
                 <ImageView
+                        android:id="@+id/playAndPause"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_play_big_white"
+                        android:src="@drawable/img_player_play"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
