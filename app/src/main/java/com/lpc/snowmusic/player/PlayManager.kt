@@ -79,6 +79,10 @@ object PlayManager {
         return null
     }
 
+    /**
+     *是否正在播放
+     *
+     */
     fun isPlaying(): Boolean {
         try {
             return mService?.isPlaying!!
@@ -86,6 +90,14 @@ object PlayManager {
             e.printStackTrace()
         }
         return false
+    }
+
+    /**
+     *修改进度
+     *
+     */
+    fun seekTo(msec: Int) {
+        mService?.seekTo(msec)
     }
 
     /**

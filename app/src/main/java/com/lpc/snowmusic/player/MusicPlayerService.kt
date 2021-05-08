@@ -69,7 +69,8 @@ class MusicPlayerService : Service() {
     lateinit var mediaPlayer: MusicPlayerEngine
     //
     lateinit var handler: MusicPlayerHandler
-
+    //进度更新
+    lateinit var progressHelper: ProgressHelper
     //屏幕锁
     var wakeLock: PowerManager.WakeLock? = null
 
@@ -139,8 +140,12 @@ class MusicPlayerService : Service() {
      *
      * */
     private fun initMediaPlayer() {
+        //播放器
         mediaPlayer = MusicPlayerEngine(this)
         mediaPlayer.setHandler(handler)
+        //更新进度
+        progressHelper = ProgressHelper(mediaPlayer)
+        progressHelper.startProgressTask()
 
     }
 
@@ -164,6 +169,12 @@ class MusicPlayerService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         LogUtils.d("onStartCommand=======>>")
         return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //停止更新进度任务
+        progressHelper.cancelProgressTask()
     }
 
 
@@ -251,7 +262,7 @@ class MusicPlayerService : Service() {
     }
 
     /**
-     * 设置柏昂
+     * 设置播放队列
      *
      * */
     private fun setPlayQueueList(musicList: List<Music>) {
@@ -259,6 +270,14 @@ class MusicPlayerService : Service() {
         historyPos.clear()
         playQueue.addAll(musicList)
         // notifyChange(PLAY_QUEUE_CHANGE)
+    }
+
+    /**
+     * 修改进度
+     *
+     * */
+    fun seekTo(msec: Int) {
+        mediaPlayer.seekTo(msec)
     }
 
     /**
@@ -286,4 +305,6 @@ class MusicPlayerService : Service() {
     private fun saveHistory() {
 
     }
+
+
 }

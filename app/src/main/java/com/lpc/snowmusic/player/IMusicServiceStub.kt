@@ -58,7 +58,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     }
 
     override fun seekTo(ms: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.seekTo(ms)
     }
 
     override fun position(): Int {

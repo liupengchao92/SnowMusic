@@ -106,7 +106,7 @@
                 android:orientation="horizontal">
 
             <TextView
-                    android:id="@+id/current"
+                    android:id="@+id/currentTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -115,7 +115,7 @@
                     android:textSize="13sp"/>
 
             <SeekBar
-                    android:id="@+id/progress"
+                    android:id="@+id/seekProgress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -132,7 +132,7 @@
                     android:thumb="@drawable/drawable_seek_thumb"/>
 
             <TextView
-                    android:id="@+id/total"
+                    android:id="@+id/totalTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"

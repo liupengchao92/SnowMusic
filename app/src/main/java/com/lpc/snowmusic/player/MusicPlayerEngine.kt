@@ -150,7 +150,7 @@ class MusicPlayerEngine(musicPlayerService: MusicPlayerService) : MediaPlayer.On
      * */
     fun getDuration(): Long {
         return if (isPrepared) {
-            currentMediaPlayer.duration as Long
+            currentMediaPlayer.duration.toLong()
         } else {
             0
         }
@@ -161,7 +161,7 @@ class MusicPlayerEngine(musicPlayerService: MusicPlayerService) : MediaPlayer.On
      * */
     fun getCurrentPosition(): Long {
         return try {
-            currentMediaPlayer.currentPosition as Long
+            currentMediaPlayer.currentPosition.toLong()
         } catch (e: IllegalStateException) {
             -1
         }
@@ -170,8 +170,8 @@ class MusicPlayerEngine(musicPlayerService: MusicPlayerService) : MediaPlayer.On
     /**
      * 设置进度
      * */
-    fun seekTo(msec: Long) {
-        currentMediaPlayer.seekTo(msec as Int)
+    fun seekTo(msec: Int) {
+        currentMediaPlayer.seekTo(msec)
     }
 
     /**
