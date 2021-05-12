@@ -44,16 +44,16 @@ class CoverFragment : BaseFragment() {
     }
 
     override fun lazyLoad() {
-        PlayManager.getPlayingMusic()?.let {
-            GlideUtils.loadImageView(context, it.coverUri, iv_cover)
-        }
+        loadCover()
     }
 
     /**
      * 加载视频封面
      * */
-    fun loadCover(coverUrl: String) {
-
+    fun loadCover() {
+        PlayManager.getPlayingMusic()?.let {
+            GlideUtils.loadImageView(context, it.coverUri, iv_cover)
+        }
     }
 
     /**
@@ -97,5 +97,4 @@ class CoverFragment : BaseFragment() {
         super.onStop()
         coverAnimator?.pause()
     }
-
 }

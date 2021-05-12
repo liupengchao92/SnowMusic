@@ -22,4 +22,10 @@
         <item>@string/artist_album</item>
         <item>@string/artist_detail</item>
     </array>
+    <!--播放模式-->
+    <array name="play_mode">
+        <item>@string/play_mode_random</item>
+        <item>@string/play_mode_repeat</item>
+        <item>@string/play_mode_loop</item>
+    </array>
 </resources>

@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.event.MetaChangedEvent
 import com.lpc.snowmusic.event.StatusChangedEvent
 import com.lpc.snowmusic.http.function.RequestCallBack
 import com.lpc.snowmusic.http.function.request
@@ -31,7 +32,7 @@ class MusicPlayerService : Service() {
         const val TAG = "MusicPlayerService"
         //下一首
         const val TRACK_WENT_TO_NEXT = 2
-        //播放完成
+        //释放屏幕锁
         const val RELEASE_WAKELOCK = 3
         //播放完成
         const val TRACK_PLAY_ENDED = 4
@@ -69,8 +70,10 @@ class MusicPlayerService : Service() {
     private var playListId: String = Constants.PLAYLIST_QUEUE_ID
     //播放器
     lateinit var mediaPlayer: MusicPlayerEngine
-    //
+    //工作Handler
     lateinit var handler: MusicPlayerHandler
+    //主线程Handler
+    private lateinit var mainHandler: Handler
     //进度更新
     lateinit var progressHelper: ProgressHelper
     //屏幕锁
@@ -92,7 +95,24 @@ class MusicPlayerService : Service() {
                         //准备完毕开始播放
                         isMusicPlaying = true
                         updateNotification(false)
-                        notifyChange(PLAY_STATE_CHANGED)
+                        notifyStateChange(PLAY_STATE_CHANGED)
+                    }
+                    TRACK_WENT_TO_NEXT -> {
+                        //Player播放完毕切换到下一首
+                        mainHandler.post { service.next(true) }
+
+                    }
+                    TRACK_PLAY_ENDED -> {
+                        //Player播放完毕且暂时没有下一首
+                        if (PlayQueueManager.getPlayModeId() == PlayQueueManager.PLAY_MODE_REPEAT) {
+                            service.seekTo(0)
+                            mainHandler.post { service.play() }
+                        } else {
+                            mainHandler.post { service.next(true) }
+                        }
+                    }
+                    else -> {
+
                     }
                 }
             }
@@ -127,9 +147,10 @@ class MusicPlayerService : Service() {
      *初始化相关配置
      * */
     private fun initConfig() {
-
         //实例化Handler
         handler = MusicPlayerHandler(this, Looper.getMainLooper())
+        //主线程Handler
+        mainHandler = Handler(Looper.getMainLooper())
     }
 
     /**
@@ -210,12 +231,12 @@ class MusicPlayerService : Service() {
             //获取将要播放的音乐
             playingMusic = playQueue[playingPos]
             //通知状态变更
-            notifyChange(META_CHANGED)
+            notifyStateChange(META_CHANGED)
             //通知栏更新
             updateNotification(true)
             //播放状态
             isMusicPlaying = false
-            notifyChange(PLAY_STATE_CHANGED)
+            notifyStateChange(PLAY_STATE_CHANGED)
             updateNotification(false)
 
             LogUtils.d("playingSongInfo: ${playingMusic.toString()}")
@@ -280,7 +301,7 @@ class MusicPlayerService : Service() {
         playQueue.clear()
         historyPos.clear()
         playQueue.addAll(musicList)
-        // notifyChange(PLAY_QUEUE_CHANGE)
+        // notifyStateChange(PLAY_QUEUE_CHANGE)
     }
 
     /**
@@ -311,7 +332,7 @@ class MusicPlayerService : Service() {
         if (mediaPlayer.isInitlized()) {
             mediaPlayer.start()
             isMusicPlaying = true
-            notifyChange(PLAY_STATE_CHANGED)
+            notifyStateChange(PLAY_STATE_CHANGED)
             updateNotification(false)
         } else {
             playCurrentAndNext()
@@ -322,9 +343,46 @@ class MusicPlayerService : Service() {
         if (isMusicPlaying) {
             mediaPlayer.pause()
             isMusicPlaying = false
-            notifyChange(PLAY_STATE_CHANGED)
+            notifyStateChange(PLAY_STATE_CHANGED)
             updateNotification(false)
         }
+    }
+
+    private fun stop(remove_status_icon: Boolean) {
+        if (mediaPlayer != null && mediaPlayer.isInitlized()) {
+            mediaPlayer.stop()
+        }
+
+        if (remove_status_icon) {
+
+        }
+
+        if (remove_status_icon) {
+            isMusicPlaying = false
+        }
+    }
+
+    fun prev() {
+        //获取上一首的位置
+        playingPos = PlayQueueManager.getPreviousPosition(playQueue.size, playingPos)
+        //停止播放
+        stop(false)
+        //播放上一首
+        playCurrentAndNext()
+        //打印位置
+        LogUtils.d("上一首的位置 ：$playingPos")
+
+    }
+
+    fun next(isAuto: Boolean) {
+        //获取下一首的位置
+        playingPos = PlayQueueManager.getNextPosition(isAuto, playQueue.size, playingPos)
+        //停止播放
+        stop(false)
+        //播放上一首
+        playCurrentAndNext()
+        //打印位置
+        LogUtils.d("下一首的位置 ：$playingPos")
     }
 
     /**
@@ -341,11 +399,17 @@ class MusicPlayerService : Service() {
      *
      * @param what 发送更新广播
      */
-    private fun notifyChange(what: String) {
+    private fun notifyStateChange(what: String) {
         LogUtils.d("")
         when (what) {
             PLAY_STATE_CHANGED -> {
+                //播放状态发生改变
                 EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
+            }
+            META_CHANGED -> {
+                //播放的资源发生改变
+                EventBus.getDefault().post(MetaChangedEvent(playingMusic!!))
+
             }
         }
     }

@@ -124,6 +124,31 @@ object PlayManager {
         }
     }
 
+    /**
+     *上一首
+     *
+     */
+    fun playPrev() {
+        try {
+            mService?.prev()
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     *下一首
+     *
+     */
+    fun playNext() {
+        try {
+            mService?.next()
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
+
     class ServiceBinder(private val callback: ServiceConnection, private val context: Context) :
         ServiceConnection {
 

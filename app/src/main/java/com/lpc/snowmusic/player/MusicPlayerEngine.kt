@@ -211,8 +211,7 @@ class MusicPlayerEngine(musicPlayerService: MusicPlayerService) : MediaPlayer.On
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
-        LogUtils.d("onCompletion:")
-
+        LogUtils.d("onCompletion:${mp == currentMediaPlayer}")
         handler?.run {
             if (mp == currentMediaPlayer) {
                 sendEmptyMessage(TRACK_WENT_TO_NEXT)

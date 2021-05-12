@@ -46,11 +46,11 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     }
 
     override fun prev() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.prev()
     }
 
     override fun next() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.next(false)
     }
 
     override fun setLoopMode(loopmode: Int) {

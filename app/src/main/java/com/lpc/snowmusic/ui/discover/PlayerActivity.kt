@@ -8,6 +8,7 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.base.BaseMvpActivity
 import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.event.MetaChangedEvent
 import com.lpc.snowmusic.event.PlayModeEvent
 import com.lpc.snowmusic.event.StatusChangedEvent
 import com.lpc.snowmusic.imageload.GlideUtils
@@ -90,9 +91,6 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     override fun createPresenter(): PlayContract.Presenter = PlayPresenter()
 
     override fun showPlayingMusic(music: Music) {
-        LogUtils.e("测试：   showPlayingMusic")
-
-        LogUtils.e("歌曲信息：$music")
         //歌曲标题
         songNameTv.text = music.title
         //歌手
@@ -145,9 +143,13 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     }
 
     override fun onClick(v: View?) {
+        //防止快速点击
+        if (UIUtils.isFastClick()) return
+        //相关点击事件
         when (v?.id) {
             R.id.prevPlayIv -> {
                 //上一首
+                PlayManager.playPrev()
             }
 
             R.id.playAndPause -> {
@@ -157,6 +159,7 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
 
             R.id.nextPlayIv -> {
                 //下一首
+                PlayManager.playNext()
             }
 
             R.id.playModeIv -> {
@@ -175,5 +178,11 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updatePalyModeEvent(event: PlayModeEvent) {
         updatePlayMode()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updatePlayingMusic(event: MetaChangedEvent) {
+        showPlayingMusic(event.music)
+        coverFragment?.loadCover()
     }
 }
