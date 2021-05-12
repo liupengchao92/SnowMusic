@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
 import com.cyl.musicapi.BaseApiImpl
+import com.tencent.mmkv.MMKV
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 import kotlin.properties.Delegates
@@ -37,13 +38,15 @@ class MusicApplication : Application() {
         BaseApiImpl.initWebView(this)
         //初始化腾讯X5内核
         initTBS()
+        //初始化MMVK
+        MMKV.initialize(context)
     }
 
 
     /**
      * 首次初始化冷启动优化
      * */
-    fun initTBS() {
+    private fun initTBS() {
         // 在调用TBS初始化、创建WebView之前进行如下配置
         val map = HashMap<String, Any>()
         map[TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER] = true

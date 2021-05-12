@@ -41,6 +41,9 @@
     <string name="unknown">未知</string>
     <string name="brief">简介:</string>
     <string name="song_list">歌单</string>
+    <string name="play_mode_random">随机播放</string>
+    <string name="play_mode_repeat">单曲播放</string>
+    <string name="play_mode_loop">顺序播放</string>
 
 
 </resources>

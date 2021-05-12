@@ -8,15 +8,18 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.base.BaseMvpActivity
 import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.event.PlayModeEvent
 import com.lpc.snowmusic.event.StatusChangedEvent
 import com.lpc.snowmusic.imageload.GlideUtils
 import com.lpc.snowmusic.mvp.contract.PlayContract
 import com.lpc.snowmusic.mvp.presenter.PlayPresenter
 import com.lpc.snowmusic.player.PlayManager
+import com.lpc.snowmusic.player.PlayQueueManager
 import com.lpc.snowmusic.ui.discover.adapter.PlayerAdapter
 import com.lpc.snowmusic.ui.discover.fragment.CoverFragment
 import com.lpc.snowmusic.ui.discover.fragment.LyricFragment
 import com.lpc.snowmusic.utils.FormatUtil
+import com.lpc.snowmusic.utils.UIUtils
 import kotlinx.android.synthetic.main.activity_player.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -80,6 +83,7 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
         //当前播放状态
         PlayManager.isPlaying().let {
             updatePlayStatus(it)
+            updatePlayMode()
         }
     }
 
@@ -110,6 +114,11 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
             playAndPause.setImageResource(R.drawable.img_player_pause)
             coverFragment?.stopRotateAnimation()
         }
+    }
+
+    override fun updatePlayMode() {
+        super.updatePlayMode()
+        UIUtils.updatePlayMode(playModeIv, false)
     }
 
     override fun updateProgress(progress: Long, max: Long) {
@@ -147,7 +156,12 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
             }
 
             R.id.nextPlayIv -> {
+                //下一首
+            }
 
+            R.id.playModeIv -> {
+                //播放模式
+                PlayQueueManager.updatePlayMode()
             }
         }
     }
@@ -156,5 +170,10 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updatePlayStatus(event: StatusChangedEvent) {
         updatePlayStatus(event.isPlaying)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun updatePalyModeEvent(event: PlayModeEvent) {
+        updatePlayMode()
     }
 }
