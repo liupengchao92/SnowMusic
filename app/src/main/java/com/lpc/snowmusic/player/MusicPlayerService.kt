@@ -405,6 +405,8 @@ class MusicPlayerService : Service() {
             PLAY_STATE_CHANGED -> {
                 //播放状态发生改变
                 EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
+                //加载歌词
+                FloatLyricViewManager.loadLyric(playingMusic)
             }
             META_CHANGED -> {
                 //播放的资源发生改变

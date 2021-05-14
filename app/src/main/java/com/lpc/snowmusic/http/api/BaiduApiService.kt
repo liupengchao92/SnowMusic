@@ -1,5 +1,10 @@
 package com.lpc.snowmusic.http.api
 
+import io.reactivex.Observable
+import okhttp3.ResponseBody
+import retrofit2.http.GET
+import retrofit2.http.Url
+
 /**
  * Author: liupengchao
  * Date: 2021/4/1
@@ -32,11 +37,18 @@ interface BaiduApiService {
 
         const val PAGESIZE = 20
 
-        fun getDownloadUrlBySongId(songId: String): String {
-            return "http://ting.baidu.com/data/music/links?songIds=$songId"
-        }
     }
 
+
+    fun getDownloadUrlBySongId(songId: String): String {
+        return "http://ting.baidu.com/data/music/links?songIds=$songId"
+    }
+
+    /**
+     * 获取歌词
+     */
+    @GET
+    fun getBaiduLyric(@Url baseUrl: String): Observable<ResponseBody>
 
 
 }

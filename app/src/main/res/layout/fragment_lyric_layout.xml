@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/color_black"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-            android:text="歌词"
-            android:textColor="@color/color_white"
-            android:textSize="28sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <com.lpc.snowmusic.widget.lrcview.LrcView
+            android:id="@+id/lrcView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:lrcAnimationDuration="1000"
+            app:lrcCurrentTextColor="@color/color_white"
+            app:lrcDividerHeight="25dp"
+            app:lrcLabel="找不到歌词(@_@)"
+            app:lrcNormalTextColor="@color/color_999999"
+            app:lrcNormalTextSize="15sp"
+            app:lrcPadding="16dp"
+            app:lrcTextGravity="center"
+            app:lrcTextSize="16sp"
+            app:lrcTimelineHeight="1px"
+            app:lrcTimeTextColor="@color/color_white"/>
 
 </LinearLayout>

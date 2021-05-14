@@ -1,9 +1,9 @@
 package com.lpc.snowmusic.music
 
-import com.blankj.utilcode.util.FileUtils
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.music.baidu.BaiduApiServiceImpl
+import com.lpc.snowmusic.utils.FileUtils
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 
@@ -35,7 +35,7 @@ object MusicApi {
 
         val cachePath = ""
         val downloadPath = ""
-        if (FileUtils.isFileExists(cachePath)) {
+        if (FileUtils.exists(cachePath)) {
             return Observable.create {
                 music.uri = cachePath
                 if (music.uri != null) {
@@ -45,7 +45,7 @@ object MusicApi {
                     it.onError(Throwable(""))
                 }
             }
-        } else if (FileUtils.isFileExists(downloadPath)) {
+        } else if (FileUtils.exists(downloadPath)) {
             return Observable.create {
                 music.uri = downloadPath
                 if (music.uri != null) {
@@ -88,4 +88,47 @@ object MusicApi {
             }
         }
     }
+
+    /**
+     * 获取歌词
+     *
+     * @param music
+     * @return
+     */
+    fun getLyricInfo(music: Music): Observable<String>? {
+        return when (music.type) {
+            Constants.BAIDU -> {
+                if (music.lyric != null) {
+                    BaiduApiServiceImpl.getBaiduLyric(music)
+                } else {
+                    BaiduApiServiceImpl.getTingSongInfo(music).flatMap { result ->
+                        music.lyric = result.lyric
+                        BaiduApiServiceImpl.getBaiduLyric(music)
+                    }
+                }
+            }
+            Constants.LOCAL -> {
+                MusicApiServiceImpl.getLocalLyricInfo(music)
+            }
+            else -> {
+                MusicApiServiceImpl.getLyricInfo(music)
+            }
+        }
+    }
+
+    /**
+     * 根据路径获取本地歌词
+     */
+    fun getLocalLyricInfo(path: String?): Observable<String> {
+        return Observable.create { emitter ->
+            try {
+                val lyric = FileUtils.readFile(path!!)
+                emitter.onNext(lyric!!)
+                emitter.onComplete()
+            } catch (e: Exception) {
+                emitter.onError(e)
+            }
+        }
+    }
+
 }

@@ -2,7 +2,6 @@ package com.lpc.snowmusic.ui.discover
 
 import android.view.View
 import android.widget.SeekBar
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment

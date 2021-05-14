@@ -4,6 +4,7 @@ import com.lpc.snowmusic.BuildConfig
 import com.lpc.snowmusic.application.MusicApplication
 import com.lpc.snowmusic.constant.HttpConstant
 import com.lpc.snowmusic.http.api.ApiService
+import com.lpc.snowmusic.http.api.BaiduApiService
 import com.lpc.snowmusic.http.api.NeteaseApiService
 import com.lpc.snowmusic.http.interceptor.HeadInterceptor
 import okhttp3.Cache
@@ -30,6 +31,12 @@ object RetrofitHelper {
     val nesteaseService: NeteaseApiService by lazy {
         getRetrofit(HttpConstant.BASE_NETEASE_URL)!!.create(
             NeteaseApiService::class.java
+        )
+    }
+
+    val baiDuService: BaiduApiService by lazy {
+        getRetrofit(HttpConstant.BASE_URL_BAIDU_MUSIC)!!.create(
+            BaiduApiService::class.java
         )
     }
 

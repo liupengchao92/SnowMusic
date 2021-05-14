@@ -8,9 +8,9 @@ package com.lpc.snowmusic.constant
  */
 object HttpConstant {
     //网易云音乐接口
-    val BASE_NETEASE_URL = "http://musiclake.leanapp.cn"
-    //基础URL
-    const val BASE_URL = ""
+    const val BASE_NETEASE_URL = "http://musiclake.leanapp.cn"
+    //百度
+    const val BASE_URL_BAIDU_MUSIC = "http://musicapi.qianqian.com/"
     //缓存文件夹名称
     const val HTTP_CACHE = "HttpCache"
     //缓存大小

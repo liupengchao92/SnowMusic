@@ -44,6 +44,7 @@
     <string name="play_mode_random">随机播放</string>
     <string name="play_mode_repeat">单曲播放</string>
     <string name="play_mode_loop">顺序播放</string>
+    <string name="lrc_label">暂无歌词</string>
 
 
 </resources>

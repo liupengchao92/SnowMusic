@@ -92,7 +92,7 @@ fun <T> Observable<T>.request(callBack: RequestCallBack<T>) {
             }
 
             override fun onError(e: Throwable) {
-               callBack.onError(e)
+                callBack.onError(e)
             }
         })
 }
