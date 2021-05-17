@@ -45,6 +45,17 @@
     <string name="play_mode_repeat">单曲播放</string>
     <string name="play_mode_loop">顺序播放</string>
     <string name="lrc_label">暂无歌词</string>
+    <string name="res_baidu">百度</string>
+    <string name="res_qq">QQ</string>
+    <string name="res_wangyi">网易云</string>
+    <string name="res_xiami">虾米</string>
+    <string name="res_local">本地</string>
+    <string name="sound_quality_standard">标准</string>
+    <string name="sound_quality_high">较高品质</string>
+    <string name="sound_quality_hq_high">HQ品质</string>
+    <string name="sound_quality_sq_high">无损品质</string>
+    <string name="sound_quality">音质</string>
+    <string name="sound_effect">音效</string>
 
 
 </resources>

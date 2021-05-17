@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:paddingRight="15dp"
+              android:background="@color/color_black"
+              android:paddingLeft="15dp"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="48dp">
+
+
+    <TextView
+            android:id="@+id/tv_quality"
+            android:layout_weight="1"
+            android:textColor="@color/color_white"
+            android:textSize="15sp"
+            android:layout_width="0dp"
+            android:text="@string/sound_quality_standard"
+            android:layout_height="wrap_content"/>
+
+    <ImageView
+            android:id="@+id/iv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_check_circle"/>
+
+</LinearLayout>

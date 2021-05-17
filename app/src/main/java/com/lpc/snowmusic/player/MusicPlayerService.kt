@@ -385,14 +385,15 @@ class MusicPlayerService : Service() {
         LogUtils.d("下一首的位置 ：$playingPos")
     }
 
+
+    fun getAudioSessionId(): Int = mediaPlayer.getAudioSessionId()
+
     /**
      * 是否准备播放
      *
      * @return
      */
-    fun isPrepared(): Boolean {
-        return mediaPlayer.isPrepared()
-    }
+    fun isPrepared(): Boolean = mediaPlayer.isPrepared()
 
     /**
      * 发送更新广播

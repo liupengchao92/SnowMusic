@@ -148,6 +148,14 @@ object PlayManager {
         }
     }
 
+    fun getAudioSessionId(): Int {
+        try {
+            mService?.AudioSessionId()
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+        return 0
+    }
 
     class ServiceBinder(private val callback: ServiceConnection, private val context: Context) :
         ServiceConnection {
