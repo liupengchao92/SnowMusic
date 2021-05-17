@@ -1,6 +1,7 @@
 package com.lpc.snowmusic.widget.window
 
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.player.PlayManager
 import razerdp.basepopup.BasePopupWindow
 
 /**
@@ -20,7 +22,7 @@ import razerdp.basepopup.BasePopupWindow
  * ClassName :MusicQualityWindow
  * Desc:音质选择弹窗
  */
-class MusicQualitySelectWindow(var context: Context, var music: Music) : BasePopupWindow(context) {
+class MusicQualitySelectWindow(context: Context, var music: Music) : BasePopupWindow(context) {
     //选择时间
     var onQualitySelectListener: ((String) -> Unit)? = null
 
@@ -30,21 +32,16 @@ class MusicQualitySelectWindow(var context: Context, var music: Music) : BasePop
 
     override fun onViewCreated(contentView: View) {
         super.onViewCreated(contentView)
+        //弹窗的位置
+        popupGravity = Gravity.BOTTOM
 
         //音质
-        val qualities = mutableListOf(QualityItem(name = "标准品质", quality = 128000))
-        music?.let {
-            if (it.high) {
-                qualities.add(QualityItem(name = "较高品质", quality = 192000))
-            }
-            if (it.hq) {
-                qualities.add(QualityItem(name = "HQ品质", quality = 320000))
-            }
-            if (it.sq) {
-                qualities.add(QualityItem(name = "无损品质", quality = 999000))
-            }
-        }
-
+        val qualities = mutableListOf(
+            QualityItem(name = "标准品质", quality = 128000),
+            QualityItem(name = "较高品质", quality = 192000),
+            QualityItem(name = "HQ品质", quality = 320000),
+            QualityItem(name = "无损品质", quality = 999000)
+        )
         //音质列表
         contentView.findViewById<RecyclerView>(R.id.recyclerView).run {
             layoutManager = LinearLayoutManager(context)
@@ -71,6 +68,8 @@ class MusicQualitySelectWindow(var context: Context, var music: Music) : BasePop
                 music.quality = item.quality
                 notifyDataSetChanged()
                 onQualitySelectListener?.invoke(item.name)
+                PlayManager.play(PlayManager.position())
+                dismiss()
             }
         }
     }

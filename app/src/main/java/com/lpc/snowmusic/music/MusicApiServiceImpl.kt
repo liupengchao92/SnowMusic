@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.music
 
-import com.blankj.utilcode.util.LogUtils
 import com.cyl.musicapi.BaseApiImpl
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
@@ -22,7 +21,6 @@ object MusicApiServiceImpl {
      *
      */
     fun getMusicUrl(vendor: String, mid: String, br: Int = 128000): Observable<String> {
-        LogUtils.d("getMusicUrl $vendor $mid $br")
         return Observable.create { result ->
             BaseApiImpl.getSongUrl(vendor, mid, br, {
                 if (it.status) {

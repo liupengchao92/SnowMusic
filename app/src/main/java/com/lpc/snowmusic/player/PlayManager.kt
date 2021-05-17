@@ -67,12 +67,24 @@ object PlayManager {
     }
 
     /**
-     *播放音乐
+     *播放列表音乐
      *
      */
     fun play(musicList: List<Music>, id: Int, pid: String) {
         try {
             mService?.playPlaylist(musicList, id, pid)
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     *播放音乐
+     *
+     */
+    fun play(position: Int) {
+        try {
+            mService?.play(position)
         } catch (e: RemoteException) {
             e.printStackTrace()
         }
@@ -102,6 +114,19 @@ object PlayManager {
             e.printStackTrace()
         }
         return false
+    }
+
+    /**
+     *播放的位置
+     *
+     */
+    fun position(): Int {
+        try {
+            return mService?.position() as Int
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+        return 0
     }
 
     /**

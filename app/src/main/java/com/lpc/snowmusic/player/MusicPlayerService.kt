@@ -57,7 +57,7 @@ class MusicPlayerService : Service() {
     }
 
     //当前播放的位置
-    private var playingPos: Int = -1
+    var playingPos: Int = -1
     //当前正在播放的音乐
     var playingMusic: Music? = null
     //当前播放队列
@@ -290,6 +290,22 @@ class MusicPlayerService : Service() {
             playListId = pid
         }
         playingPos = position
+        playCurrentAndNext()
+    }
+
+    /**
+     *根据位置播放音乐
+     * @param position        歌曲位置id
+     */
+    fun play(position: Int) {
+        //获取播放的位置
+        playingPos = if (position > playQueue.size || position < 0) {
+            PlayQueueManager.getNextPosition(true, playQueue.size, playingPos)
+        } else {
+            position
+        }
+        if (playingPos < 0) return
+        //播放音乐
         playCurrentAndNext()
     }
 

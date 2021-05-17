@@ -30,7 +30,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     }
 
     override fun play(id: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.play(id)
     }
 
     override fun playPause() {
@@ -61,9 +61,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
         mService.get()?.seekTo(ms)
     }
 
-    override fun position(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun position(): Int = mService.get()?.playingPos as Int
 
     override fun getDuration(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
