@@ -1,9 +1,12 @@
 package com.lpc.snowmusic.widget.window
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,6 +18,7 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.player.PlayManager
 import razerdp.basepopup.BasePopupWindow
+
 
 /**
  * Author: liupengchao
@@ -74,6 +78,17 @@ class MusicQualitySelectWindow(context: Context, var music: Music) : BasePopupWi
         }
     }
 
+    override fun onCreateShowAnimator(): Animator =
+        ObjectAnimator.ofFloat<View>(displayAnimateView, View.TRANSLATION_Y, height.toFloat(), 0f).apply {
+            duration = 300
+            interpolator = LinearInterpolator()
+        }
+
+    override fun onCreateDismissAnimator(): Animator =
+        ObjectAnimator.ofFloat<View>(displayAnimateView, View.TRANSLATION_Y, 0f, height.toFloat()).apply {
+            duration = 300
+            interpolator = LinearInterpolator()
+        }
 }
 
 data class QualityItem(val name: String, val quality: Int)
