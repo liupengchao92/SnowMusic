@@ -20,6 +20,7 @@ import com.lpc.snowmusic.ui.discover.fragment.CoverFragment
 import com.lpc.snowmusic.ui.discover.fragment.LyricFragment
 import com.lpc.snowmusic.utils.FormatUtil
 import com.lpc.snowmusic.utils.UIUtils
+import com.lpc.snowmusic.widget.window.PlayQueueWindow
 import kotlinx.android.synthetic.main.activity_player.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -164,6 +165,10 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
             R.id.playModeIv -> {
                 //播放模式
                 PlayQueueManager.updatePlayMode()
+            }
+            //播放队列
+            R.id.playQueueIv -> {
+                PlayQueueWindow(this)?.showPopupWindow()
             }
         }
     }

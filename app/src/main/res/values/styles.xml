@@ -1,4 +1,13 @@
 <resources>
+    <!--夜间模式的基本属性-->
+    <attr name="windowBackground" format="reference" />
+    <attr name="accentColor" format="reference" />
+    <attr name="cardColor" format="reference" />
+    <attr name="iconColor" format="reference" />
+    <attr name="progressBackgroundColor" format="reference" />
+    <attr name="progressDrawable" format="reference" />
+    <attr name="progressDrawableWithBackground" format="reference" />
+    <attr name="textColorPrimary" format="reference" />
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -42,6 +51,13 @@
         <attr name="item_icon_color" format="reference|color"/>
     </declare-styleable>
 
+    <!--最大高度的View-->
+    <declare-styleable name="MaxHeightView">
+        <attr name="mhv_HeightRatio" format="reference|float" />
+        <attr name="mhv_HeightDimen" format="reference|dimension" />
+    </declare-styleable>
+
+
     <!--我音歌单-->
     <style name="RadioButtonSongListStyle">
         <item name="android:textSize">15sp</item>
@@ -82,5 +98,6 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/common_white_text</item>
     </style>
+
 
 </resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp"
+              android:gravity="center_vertical"
+              android:layout_width="match_parent"
+              android:layout_height="40dp">
+
+
+    <ImageView
+            android:id="@+id/playingIv"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:src="@drawable/ic_playing_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/songNameTv"
+                android:textColor="@color/common_black_text"
+                android:textSize="15sp"
+                tools:text="歌曲名称"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:id="@+id/line"
+                android:background="@color/color_999999"
+                android:layout_margin="4dp"
+                android:layout_width="5dp"
+                android:layout_height="1px"/>
+
+        <TextView
+                android:id="@+id/singerTv"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp"
+                tools:text="歌手"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <ImageView
+            android:id="@+id/removeSongIv"
+            android:src="@drawable/ic_remove_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

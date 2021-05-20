@@ -104,6 +104,20 @@ object PlayManager {
     }
 
     /**
+     *获取歌曲列表
+     *
+     */
+    fun getPlayList(): MutableList<Music> {
+
+        try {
+            return mService?.playList!!
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+        return mutableListOf()
+    }
+
+    /**
      *是否正在播放
      *
      */

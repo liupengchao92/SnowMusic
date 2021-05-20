@@ -56,6 +56,8 @@
     <string name="sound_quality_sq_high">无损品质</string>
     <string name="sound_quality">音质</string>
     <string name="sound_effect">音效</string>
+    <string name="current_playing">当前播放</string>
+
 
 
 </resources>

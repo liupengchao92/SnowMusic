@@ -61,7 +61,7 @@ class MusicPlayerService : Service() {
     //当前正在播放的音乐
     var playingMusic: Music? = null
     //当前播放队列
-    private var playQueue: MutableList<Music> = mutableListOf()
+    var playQueue: MutableList<Music> = mutableListOf()
     //播放历史
     private var historyPos: MutableList<Int> = mutableListOf()
     //是否正在播放
