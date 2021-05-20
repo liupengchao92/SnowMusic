@@ -50,9 +50,14 @@ class MusicPlayerService : Service() {
         const val VOLUME_FADE_UP = 14
 
 
-        //状态改变(歌曲替换)
+        //播放歌曲发生改变
         const val META_CHANGED = "com.lpc.snowmusic.meta_changed"
+        //播放状态发生改变
         const val PLAY_STATE_CHANGED = "com.lpc.snowmusic.play_state_change"
+        ////清空播放队列
+        const val PLAY_QUEUE_CLEAR = "com.lpc.snowmusic.play_queue_clear"
+        //播放队列改变
+        const val PLAY_QUEUE_CHANGE = "com.lpc.snowmusic.play_queue_change"
 
     }
 
@@ -404,12 +409,40 @@ class MusicPlayerService : Service() {
 
     fun getAudioSessionId(): Int = mediaPlayer.getAudioSessionId()
 
-    /**
-     * 是否准备播放
-     *
-     * @return
-     */
+
     fun isPrepared(): Boolean = mediaPlayer.isPrepared()
+
+
+    /**
+     *移除指定的歌曲
+     *
+     */
+    fun removeFromQueue(position: Int) {
+        if (position == playingPos) {
+            playQueue.removeAt(position)
+            if (playQueue.size == 0) {
+                clearQueue()
+            } else {
+                play(position)
+            }
+        } else if (position > playingPos) {
+            playQueue.removeAt(position)
+        } else if (position < playingPos) {
+            playQueue.removeAt(position)
+            playingPos -= 1
+        }
+        notifyStateChange(PLAY_QUEUE_CHANGE)
+    }
+
+    /**
+     * 清空播放队列
+     *
+     */
+    fun clearQueue() {
+
+
+    }
+
 
     /**
      * 发送更新广播

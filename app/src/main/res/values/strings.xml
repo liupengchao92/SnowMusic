@@ -57,7 +57,11 @@
     <string name="sound_quality">音质</string>
     <string name="sound_effect">音效</string>
     <string name="current_playing">当前播放</string>
-
+    <string name="playlist_queue_clear">清空播放队列?</string>
+    <string name="sure">确定</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="cancel">取消</string>
 
 
 </resources>

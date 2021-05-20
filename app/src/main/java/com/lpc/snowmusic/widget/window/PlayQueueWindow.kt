@@ -5,18 +5,20 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.Gravity
 import android.view.View
-import android.view.animation.LinearInterpolator
+import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.ToastUtils
+import com.afollestad.materialdialogs.MaterialDialog
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.player.PlayManager
+import com.lpc.snowmusic.player.PlayQueueManager
 import com.lpc.snowmusic.utils.UIUtils
 import razerdp.basepopup.BasePopupWindow
 
@@ -45,16 +47,39 @@ class PlayQueueWindow(context: Context) : BasePopupWindow(context) {
         //歌曲数量
         contentView.findViewById<TextView>(R.id.countTv).text = "(${musicList?.size})"
         //播放模式
-        UIUtils.updatePlayMode(contentView.findViewById(R.id.playModeIv), false)
+        UIUtils.updatePlayMode(
+            contentView.findViewById<ImageView>(R.id.playModeIv),
+            contentView.findViewById<TextView>(R.id.playModeDescTv)
+        )
+        //切换播放模式
+        contentView.findViewById<ImageView>(R.id.playModeIv).setOnClickListener {
+            //切换播放模式
+            PlayQueueManager.updatePlayMode()
+            //更新模式
+            UIUtils.updatePlayMode(
+                contentView.findViewById<ImageView>(R.id.playModeIv),
+                contentView.findViewById<TextView>(R.id.playModeDescTv)
+            )
+        }
         //清空播放队列
         contentView.findViewById<ImageView>(R.id.clearAllIv).setOnClickListener {
-            ToastUtils.showShort("清空播放队列")
+            MaterialDialog(context!!).show {
+                title(R.string.playlist_queue_clear)
+                positiveButton(R.string.sure) {
+                    PlayManager.clearPlayQueue()
+                    dismiss()
+                }
+                negativeButton(R.string.cancel)
+            }
         }
         //初始化列表
         contentView.findViewById<RecyclerView>(R.id.recyclerView).run {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
             adapter = songAdapter
+
+            //滚到正在播放的位置
+            scrollToPosition(PlayManager.position())
         }
     }
 
@@ -88,11 +113,16 @@ class PlayQueueWindow(context: Context) : BasePopupWindow(context) {
             }
             //移除歌曲
             holder.getView<ImageView>(R.id.removeSongIv).setOnClickListener {
-                ToastUtils.showShort("移除position: ${holder.adapterPosition}")
+                //移除歌曲
+                PlayManager.removeFromQueue(holder.adapterPosition)
+                //刷新列表
+                notifyDataSetChanged()
             }
-            //点击事件
-            holder.itemView.setOnClickListener {
-                ToastUtils.showShort("点击的position: ${holder.adapterPosition}")
+            holder.getView<LinearLayout>(R.id.clickView).setOnClickListener {
+                //播放点击的歌曲
+                PlayManager.play(holder.adapterPosition)
+                //刷新列表
+                notifyDataSetChanged()
             }
         }
     }
@@ -101,12 +131,12 @@ class PlayQueueWindow(context: Context) : BasePopupWindow(context) {
     override fun onCreateShowAnimator(): Animator =
         ObjectAnimator.ofFloat<View>(displayAnimateView, View.TRANSLATION_Y, height.toFloat(), 0f).apply {
             duration = 300
-            interpolator = LinearInterpolator()
+            interpolator = AccelerateInterpolator()
         }
 
     override fun onCreateDismissAnimator(): Animator =
         ObjectAnimator.ofFloat<View>(displayAnimateView, View.TRANSLATION_Y, 0f, height.toFloat()).apply {
             duration = 300
-            interpolator = LinearInterpolator()
+            interpolator = AccelerateInterpolator()
         }
 }

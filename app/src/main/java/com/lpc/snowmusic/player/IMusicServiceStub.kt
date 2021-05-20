@@ -93,11 +93,11 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     override fun getPlayList(): MutableList<Music> = mService.get()?.playQueue!!
 
     override fun removeFromQueue(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.removeFromQueue(position)
     }
 
     override fun clearQueue() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.clearQueue()
     }
 
     override fun showDesktopLyric(show: Boolean) {

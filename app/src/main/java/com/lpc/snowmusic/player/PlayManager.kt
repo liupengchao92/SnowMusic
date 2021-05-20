@@ -196,6 +196,23 @@ object PlayManager {
         return 0
     }
 
+
+    fun removeFromQueue(position: Int) {
+        try {
+            mService?.removeFromQueue(position)
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun clearPlayQueue() {
+        try {
+            mService?.clearQueue()
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
     class ServiceBinder(private val callback: ServiceConnection, private val context: Context) :
         ServiceConnection {
 

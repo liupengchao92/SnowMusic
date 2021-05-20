@@ -3,13 +3,14 @@
                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                    xmlns:tools="http://schemas.android.com/tools"
                                    app:cardBackgroundColor="@color/color_white"
+                                   android:layout_margin="20dp"
                                    app:cardCornerRadius="8dp"
                                    android:layout_width="match_parent"
                                    android:layout_height="wrap_content">
 
 
     <com.lpc.snowmusic.widget.MaxHeightView
-            app:mhv_HeightRatio="0.7"
+            app:mhv_HeightRatio="0.6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -20,9 +21,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:paddingRight="15dp"
-                    android:background="@color/color_f2f2f2"
+                    android:background="@color/Grey50"
                     android:paddingBottom="10dp"
-                    android:paddingTop="20dp"
+                    android:paddingTop="10dp"
                     android:paddingLeft="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -30,7 +31,7 @@
                 <TextView
                         android:id="@+id/tv_current"
                         android:text="@string/current_playing"
-                        android:textSize="17dp"
+                        android:textSize="16dp"
                         android:textColor="@color/color_black"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -55,11 +56,12 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_current"
                         android:src="@drawable/ic_repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"/>
 
                 <TextView
-                        android:textSize="12dp"
+                        android:id="@+id/playModeDescTv"
+                        android:textSize="14dp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/color_999999"
                         app:layout_constraintLeft_toRightOf="@id/playModeIv"
@@ -74,7 +76,7 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="@id/playModeIv"
                         app:layout_constraintTop_toTopOf="@+id/playModeIv"
-                        android:src="@drawable/ic_delete"
+                        android:src="@drawable/ic_clear_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
