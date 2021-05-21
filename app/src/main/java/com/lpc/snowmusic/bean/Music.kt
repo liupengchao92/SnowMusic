@@ -2,18 +2,22 @@ package com.lpc.snowmusic.bean
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Author: liupengchao
  * Date: 2020/6/1
  * ClassName :Music
- * Desc:
+ * Desc:音乐信息实体
  */
+@Entity
 class Music() : Parcelable {
+    //数据库存储id
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
     // 歌曲类型 本地/网络
     var type: String? = null
-    //数据库存储id
-    var id: Long = 0
     // 歌曲id
     var mid: String? = null
     // 音乐标题

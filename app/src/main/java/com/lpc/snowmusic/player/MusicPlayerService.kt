@@ -10,11 +10,13 @@ import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.constant.SPkeyConstant
 import com.lpc.snowmusic.event.MetaChangedEvent
 import com.lpc.snowmusic.event.StatusChangedEvent
 import com.lpc.snowmusic.http.function.RequestCallBack
 import com.lpc.snowmusic.http.function.request
 import com.lpc.snowmusic.music.MusicApi
+import com.lpc.snowmusic.utils.MMKVUtils
 import org.greenrobot.eventbus.EventBus
 import java.lang.ref.WeakReference
 
@@ -183,7 +185,25 @@ class MusicPlayerService : Service() {
         //更新进度
         progressHelper = ProgressHelper(mediaPlayer)
         progressHelper.startProgressTask()
+        //重新加载播放队列
+        reloadPlayQueue()
+    }
 
+    /**
+     * 重新加载播放队列
+     * */
+    private fun reloadPlayQueue() {
+        playQueue.clear()
+        historyPos.clear()
+        playQueue = PlayQueueLoader.getPlayQueue()
+        playingPos = MMKVUtils.getInt(SPkeyConstant.PLAY_POSITION) as Int
+        if (playingPos >= 0 && playingPos < playQueue.size) {
+            playingMusic = playQueue[playingPos]
+            updateNotification(true)
+            seekTo(MMKVUtils.getInt(SPkeyConstant.POSITION) as Int)
+            notifyStateChange(META_CHANGED)
+        }
+        notifyStateChange(PLAY_QUEUE_CHANGE)
     }
 
     override fun onBind(intent: Intent?): IBinder {
@@ -322,7 +342,8 @@ class MusicPlayerService : Service() {
         playQueue.clear()
         historyPos.clear()
         playQueue.addAll(musicList)
-        // notifyStateChange(PLAY_QUEUE_CHANGE)
+        notifyStateChange(PLAY_QUEUE_CHANGE)
+        savePlayQueue(true)
     }
 
     /**
@@ -412,6 +433,26 @@ class MusicPlayerService : Service() {
 
     fun isPrepared(): Boolean = mediaPlayer.isPrepared()
 
+    /**
+     * 获取正在播放进度
+     */
+    fun getCurrentPosition(): Long {
+        return if (mediaPlayer != null && mediaPlayer.isInitlized()) {
+            mediaPlayer.getCurrentPosition()
+        } else {
+            0
+        }
+    }
+
+    /**
+     * 获取总时长
+     */
+    fun getDuration(): Long {
+        return if (mediaPlayer != null && mediaPlayer.isInitlized() && mediaPlayer.isPrepared()) {
+            mediaPlayer.getDuration()
+        } else 0
+    }
+
 
     /**
      *移除指定的歌曲
@@ -461,7 +502,14 @@ class MusicPlayerService : Service() {
             META_CHANGED -> {
                 //播放的资源发生改变
                 EventBus.getDefault().post(MetaChangedEvent(playingMusic!!))
+            }
 
+            PLAY_QUEUE_CHANGE -> {
+                //播放队列发生变化
+            }
+
+            PLAY_QUEUE_CLEAR -> {
+                //播放队列清空
             }
         }
     }
@@ -481,6 +529,25 @@ class MusicPlayerService : Service() {
      */
     private fun saveHistory() {
 
+    }
+
+    /**
+     * 存储播放队列
+     *
+     */
+    private fun savePlayQueue(full: Boolean) {
+        if (full) {
+            //保存播放队列
+            PlayQueueLoader.saveQueue(playQueue)
+        }
+        //保存正在播放的歌曲
+        playingMusic?.let {
+            MMKVUtils.putValue(SPkeyConstant.MUSIC_MID, it.mid!!)
+        }
+        //保存歌曲的位置
+        MMKVUtils.putValue(SPkeyConstant.PLAY_POSITION, playingPos)
+        //保存歌曲的进度
+        MMKVUtils.putValue(SPkeyConstant.POSITION, getCurrentPosition())
     }
 
 

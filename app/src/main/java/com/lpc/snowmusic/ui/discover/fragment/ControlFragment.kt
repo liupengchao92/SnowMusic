@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.ui.discover.fragment
 
+import android.content.Context
 import android.view.View
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
@@ -9,6 +10,7 @@ import com.lpc.snowmusic.mvp.contract.PlayContract
 import com.lpc.snowmusic.mvp.presenter.PlayPresenter
 import com.lpc.snowmusic.player.PlayManager
 import com.lpc.snowmusic.utils.NavigationHelper
+import com.lpc.snowmusic.widget.window.PlayQueueWindow
 import kotlinx.android.synthetic.main.fragment_control_layout.*
 
 /**
@@ -24,6 +26,8 @@ class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presente
     override fun getLayoutResId(): Int = R.layout.fragment_control_layout
 
     override fun initView(view: View) {
+        //播放队列弹窗
+        playQueueIv.setOnClickListener { PlayQueueWindow(activity as Context)?.showPopupWindow() }
         //页面跳转
         bottom_control.setOnClickListener {
             NavigationHelper.navigateToPlaying(activity!!)

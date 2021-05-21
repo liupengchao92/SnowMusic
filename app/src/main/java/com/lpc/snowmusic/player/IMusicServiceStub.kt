@@ -63,13 +63,9 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
 
     override fun position(): Int = mService.get()?.playingPos as Int
 
-    override fun getDuration(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getDuration(): Int = mService.get()?.getDuration()!!.toInt()
 
-    override fun getCurrentPosition(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getCurrentPosition(): Int = mService.get()?.getCurrentPosition()!!.toInt()
 
     override fun isPlaying(): Boolean = mService.get()?.isMusicPlaying!!
 

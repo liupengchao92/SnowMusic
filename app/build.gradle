@@ -96,6 +96,10 @@ dependencies {
     implementation 'io.github.razerdp:BasePopup:2.3.0'
     //Material Dialog
     implementation 'com.afollestad.material-dialogs:lifecycle:3.3.0'
-
-
+    //数据库 Room
+    def room_version = "2.3.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    //
+    def anko_version = "0.10.8"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
 }

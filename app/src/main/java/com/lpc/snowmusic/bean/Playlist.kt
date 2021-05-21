@@ -92,12 +92,3 @@ class Playlist() : Parcelable {
 
 
 }
-
-class MusicToPlaylist {
-    var id: Long = 0
-    var pid: String? = null
-    var mid: String? = null
-    var total: Long = 0
-    var updateDate: Long = 0
-    var createDate: Long = 0
-}

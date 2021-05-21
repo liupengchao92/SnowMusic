@@ -44,6 +44,7 @@
                 android:src="@drawable/ic_play_big"/>
 
         <ImageView
+                android:id="@+id/playQueueIv"
                 android:padding="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
