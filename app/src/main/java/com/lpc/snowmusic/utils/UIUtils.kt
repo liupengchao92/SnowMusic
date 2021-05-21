@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.utils
 
-import android.graphics.Color
 import android.widget.ImageView
 import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
@@ -53,8 +52,6 @@ object UIUtils {
                     if (isChange) ToastUtils.showShort(MusicApplication.context.resources.getString(R.string.play_mode_random))
                 }
             }
-
-            imageView.drawable.setTint(Color.WHITE)
         } catch (e: Throwable) {
 
         }
@@ -68,20 +65,18 @@ object UIUtils {
             var playMode = PlayQueueManager.getPlayModeId()
             when (playMode) {
                 PlayQueueManager.PLAY_MODE_LOOP -> {
-                    imageView.setImageResource(R.drawable.ic_repeat)
+                    imageView.setImageResource(R.drawable.ic_repeat_black)
                     textView.text = MusicApplication.context.resources.getString(R.string.play_mode_loop)
                 }
                 PlayQueueManager.PLAY_MODE_REPEAT -> {
-                    imageView.setImageResource(R.drawable.ic_repeat_one)
+                    imageView.setImageResource(R.drawable.ic_repeat_one_black)
                     textView.text = MusicApplication.context.resources.getString(R.string.play_mode_repeat)
                 }
                 PlayQueueManager.PLAY_MODE_RANDOM -> {
-                    imageView.setImageResource(R.drawable.ic_shuffle)
+                    imageView.setImageResource(R.drawable.ic_shuffle_black)
                     textView.text = MusicApplication.context.resources.getString(R.string.play_mode_random)
                 }
             }
-            //修改图标颜色
-            imageView.drawable.setTint(Color.BLACK)
         } catch (e: Throwable) {
 
         }
