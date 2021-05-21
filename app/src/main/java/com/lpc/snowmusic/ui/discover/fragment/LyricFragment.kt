@@ -51,6 +51,8 @@ class LyricFragment : BaseFragment(), PlayProgressListener {
     override fun lazyLoad() {
         if (!TextUtils.isEmpty(FloatLyricViewManager.lyricInfo)) {
             showLyric(FloatLyricViewManager.lyricInfo)
+        } else {
+            FloatLyricViewManager.loadLyric(PlayManager.getPlayingMusic())
         }
     }
 

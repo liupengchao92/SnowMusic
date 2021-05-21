@@ -18,7 +18,10 @@ object DatabaseManager {
 
     //创建数据库实例
     private val database by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-        Room.databaseBuilder(MusicApplication.context, MusicDatabase::class.java, "snow_music.db").build()
+        Room.databaseBuilder(MusicApplication.context, MusicDatabase::class.java, "snow_music.db")
+            .allowMainThreadQueries()
+            .build()
+
     }
 
     /**
