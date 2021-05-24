@@ -1,7 +1,9 @@
 package com.lpc.snowmusic.ui.discover.fragment
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.View
+import android.view.animation.LinearInterpolator
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.Music
@@ -25,6 +27,8 @@ import org.greenrobot.eventbus.ThreadMode
  * Desc:
  */
 class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presenter>(), PlayContract.View {
+    //动画实例
+    private var coverAnimator: ObjectAnimator? = null
 
     override fun createPresenter(): PlayContract.Presenter = PlayPresenter()
 
@@ -34,6 +38,18 @@ class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presente
 
     override fun initView(view: View) {
         super.initView(view)
+        //初始化动画
+        coverAnimator = ObjectAnimator.ofFloat(iv_cover, "rotation", 0f, 360f).apply {
+            duration = 18000
+            //线性转动
+            interpolator = LinearInterpolator()
+            //重复次数
+            repeatCount = -1
+            //重复模式
+            repeatMode = ObjectAnimator.RESTART
+        }
+        //播放 暂停
+        playPauseView.setOnClickListener { PlayManager.playAndPause() }
         //播放队列弹窗
         playQueueIv.setOnClickListener { PlayQueueWindow(activity as Context)?.showPopupWindow() }
         //页面跳转
@@ -51,6 +67,8 @@ class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presente
         GlideUtils.loadImageView(context, music.coverUri, iv_cover)
         //正在播放的歌曲名称
         songNameTv.text = music.title
+        //更新播放状态
+        updatePlayStatus(PlayManager.isPlaying())
     }
 
     override fun showLyric(lyric: String?, init: Boolean) {
@@ -58,14 +76,33 @@ class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presente
     }
 
     override fun updatePlayStatus(isPlaying: Boolean) {
-        if (PlayManager.isPlaying()) {
-
+        if (isPlaying) {
+            playPauseView.updatePlayState(true)
+            resumeRotateAnimation()
+        } else {
+            playPauseView.updatePlayState(false)
+            stopRotateAnimation()
         }
     }
 
     override fun updateProgress(progress: Long, max: Long) {
+        playPauseView.updateProgress(progress.toInt(), max.toInt())
+    }
 
+    /**
+     * 停止旋转
+     */
+    private fun stopRotateAnimation() {
+        coverAnimator?.pause()
+    }
 
+    /**
+     * 继续旋转
+     */
+    private fun resumeRotateAnimation() {
+        coverAnimator?.isStarted?.let {
+            if (it) coverAnimator?.resume() else coverAnimator?.start()
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
