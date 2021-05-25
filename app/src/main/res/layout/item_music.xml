@@ -24,6 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     <com.makeramen.roundedimageview.RoundedImageView
+            android:src="@drawable/default_cover"
             app:riv_corner_radius="4dp"
             android:id="@+id/iv_cover"
             android:layout_width="45dp"

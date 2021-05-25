@@ -51,7 +51,7 @@ object DatabaseManager {
      * 获取播放队列
      *
      * */
-    fun getPlayList(pid: String): MutableList<Music> {
+    fun getPlayList(pid: String, order: Boolean = false): MutableList<Music> {
         val musicLists = mutableListOf<Music>()
         when (pid) {
             Constants.PLAYLIST_LOVE_ID -> {
@@ -62,7 +62,10 @@ object DatabaseManager {
             }
             else -> {
                 //获取歌单
-                val musicToPlayList = database.musicDao().queryPlayList(pid)
+                val musicToPlayList =
+                    if (order) database.musicDao().queryPlayListOrder(pid)
+                    else
+                        database.musicDao().queryPlayList(pid)
                 musicToPlayList.forEach {
                     val music: Music = database.musicDao().queryMusic(it.mid!!)
                     musicLists.add(music)

@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.ui.main.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.lpc.snowmusic.R
@@ -7,9 +8,12 @@ import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.mvp.contract.MyMusicContract
 import com.lpc.snowmusic.mvp.presenter.MyMusicPresenter
+import com.lpc.snowmusic.ui.my.activity.PlayHistoryActivity
 import kotlinx.android.synthetic.main.fragment_my_music.*
+import java.io.Serializable
 
 /**
  * Author: liupengchao
@@ -19,6 +23,9 @@ import kotlinx.android.synthetic.main.fragment_my_music.*
  */
 class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Presenter>(), MyMusicContract.View,
     View.OnClickListener {
+    //历史列表
+    private var historyList = mutableListOf<Music>()
+
     override fun createPresenter(): MyMusicContract.Presenter = MyMusicPresenter()
 
     companion object {
@@ -54,6 +61,9 @@ class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Pr
             }
             R.id.historyItem -> {
                 //播放历史
+                val intent = Intent(activity, PlayHistoryActivity::class.java)
+                intent.putExtra(Extras.PLAY_LIST, historyList as Serializable)
+                startActivity(intent)
             }
             R.id.favoriteItem -> {
                 //我的收藏
@@ -86,6 +96,7 @@ class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Pr
     }
 
     override fun showHistory(musicList: MutableList<Music>) {
+        historyList = musicList
         historyItem.setItemDesc(String.format(getString(R.string.song_num), musicList.size))
     }
 

@@ -13,5 +13,7 @@ object Extras {
    const val ARTIST = "artist"
     //歌单
    const val SONG_LIST = "song_list"
+    //播放列表
+    const val PLAY_LIST = "play_list"
 
 }

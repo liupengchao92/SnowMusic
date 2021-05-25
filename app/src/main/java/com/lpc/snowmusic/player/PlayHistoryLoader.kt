@@ -36,7 +36,7 @@ object PlayHistoryLoader {
            getHistoryList().wait()
         }*/
 
-        return DatabaseManager.getPlayList(Constants.PLAYLIST_HISTORY_ID)
+        return DatabaseManager.getPlayList(Constants.PLAYLIST_HISTORY_ID,true)
     }
 
     /**

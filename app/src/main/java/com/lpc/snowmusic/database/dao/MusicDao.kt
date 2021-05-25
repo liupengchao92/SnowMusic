@@ -29,6 +29,10 @@ interface MusicDao {
     @Query("SELECT * FROM MusicToPlayList WHERE pid =:pid")
     fun queryPlayList(pid: String): List<MusicToPlayList>
 
+    //获取对应歌单
+    @Query("SELECT * FROM MusicToPlayList WHERE pid =:pid ORDER BY updateDate DESC")
+    fun queryPlayListOrder(pid: String): List<MusicToPlayList>
+
     //查询歌曲是否存在歌单中
     @Query("SELECT * FROM MusicToPlayList WHERE pid =:pid  AND mid=:mid")
     fun queryPlayListMusic(pid: String, mid: String?): MusicToPlayList?
