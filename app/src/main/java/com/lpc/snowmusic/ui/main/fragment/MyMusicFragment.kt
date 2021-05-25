@@ -3,8 +3,13 @@ package com.lpc.snowmusic.ui.main.fragment
 import android.os.Bundle
 import android.view.View
 import com.lpc.snowmusic.R
-import com.lpc.snowmusic.base.BaseFragment
+import com.lpc.snowmusic.base.BaseMvpFragment
+import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.constant.Constants
+import com.lpc.snowmusic.mvp.contract.MyMusicContract
+import com.lpc.snowmusic.mvp.presenter.MyMusicPresenter
+import kotlinx.android.synthetic.main.fragment_my_music.*
 
 /**
  * Author: liupengchao
@@ -12,7 +17,9 @@ import com.lpc.snowmusic.constant.Constants
  * ClassName :MineFragment
  * Desc:我的
  */
-class MyMusicFragment : BaseFragment() {
+class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Presenter>(), MyMusicContract.View,
+    View.OnClickListener {
+    override fun createPresenter(): MyMusicContract.Presenter = MyMusicPresenter()
 
     companion object {
         fun getInstance(title: String): MyMusicFragment {
@@ -26,14 +33,68 @@ class MyMusicFragment : BaseFragment() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_my_music
 
-
     override fun initView(view: View) {
-        val title: String = arguments?.getString(Constants.FRAGMENT_KEY) as String
-
+        super.initView(view)
+        localItem.setOnClickListener(this)
+        historyItem.setOnClickListener(this)
+        favoriteItem.setOnClickListener(this)
+        localMvItem.setOnClickListener(this)
+        downloadItem.setOnClickListener(this)
     }
 
     override fun lazyLoad() {
+        presenter?.loadSongs()
+    }
 
+    override fun onClick(view: View?) {
+
+        when (view?.id) {
+            R.id.localItem -> {
+                //本地歌曲
+            }
+            R.id.historyItem -> {
+                //播放历史
+            }
+            R.id.favoriteItem -> {
+                //我的收藏
+            }
+            R.id.localMvItem -> {
+                //本视频
+            }
+            R.id.downloadItem -> {
+                //下载
+            }
+        }
+
+    }
+
+
+    override fun showSongs(songList: MutableList<Music>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showLocalPlaylist(playlists: MutableList<Playlist>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showPlaylist(playlists: MutableList<Playlist>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showWyPlaylist(playlists: MutableList<Playlist>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showHistory(musicList: MutableList<Music>) {
+        historyItem.setItemDesc(String.format(getString(R.string.song_num), musicList.size))
+    }
+
+    override fun showLoveList(musicList: MutableList<Music>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showDownloadList(musicList: MutableList<Music>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 

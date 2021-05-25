@@ -17,7 +17,7 @@
             app:cpvProgressColor="@color/Grey600"
             app:cpvNormalColor="@color/Grey300"
             app:cpvCirclePadding="0dp"
-            app:cpvStrokeWidth="2dp"
+            app:cpvStrokeWidth="1.5dp"
             app:cpvShowLabel="false"
             app:cpvShowTick="false"
             android:layout_gravity="center"

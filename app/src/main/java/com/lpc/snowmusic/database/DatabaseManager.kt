@@ -30,14 +30,21 @@ object DatabaseManager {
     fun addToPlaylist(music: Music, pid: String) {
         //插入歌曲表
         database.musicDao().insertMusic(music)
-        //插入歌单表
-        val mtp = MusicToPlayList()
-        mtp.mid = music.mid
-        mtp.pid = pid
-        mtp.total += 1
-        mtp.createDate = System.currentTimeMillis()
-        mtp.updateDate = System.currentTimeMillis()
-        database.musicDao().insetMusicToPlayList(mtp)
+        //获取歌单中的歌曲
+        var mtp = database.musicDao().queryPlayListMusic(pid, music.mid)
+        if (mtp == null) {
+            //插入歌单表
+            mtp = MusicToPlayList()
+            mtp.mid = music.mid
+            mtp.pid = pid
+            mtp.total += 1
+            mtp.createDate = System.currentTimeMillis()
+            mtp.updateDate = System.currentTimeMillis()
+            database.musicDao().insetMusicToPlayList(mtp)
+        } else {
+            mtp.updateDate = System.currentTimeMillis()
+            database.musicDao().updatePlayList(mtp)
+        }
     }
 
     /**

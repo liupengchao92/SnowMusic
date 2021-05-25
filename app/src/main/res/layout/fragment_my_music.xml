@@ -25,6 +25,8 @@
                     android:layout_height="wrap_content">
 
                 <com.lpc.snowmusic.widget.MyMusicItemView
+                        android:background="@drawable/selector_item_click_background"
+                        android:id="@+id/localItem"
                         app:item_desc="@string/default_num"
                         android:gravity="center_vertical"
                         app:item_icon="@drawable/item_music"
@@ -34,6 +36,8 @@
                         android:layout_height="48dp"/>
 
                 <com.lpc.snowmusic.widget.MyMusicItemView
+                        android:background="@drawable/selector_item_click_background"
+                        android:id="@+id/historyItem"
                         app:item_desc="@string/default_num"
                         android:gravity="center_vertical"
                         app:item_icon="@drawable/ic_history_black"
@@ -43,6 +47,8 @@
                         android:layout_height="48dp"/>
 
                 <com.lpc.snowmusic.widget.MyMusicItemView
+                        android:background="@drawable/selector_item_click_background"
+                        android:id="@+id/favoriteItem"
                         app:item_desc="@string/default_num"
                         android:gravity="center_vertical"
                         app:item_icon="@drawable/item_favorite"
@@ -52,6 +58,8 @@
                         android:layout_height="48dp"/>
 
                 <com.lpc.snowmusic.widget.MyMusicItemView
+                        android:background="@drawable/selector_item_click_background"
+                        android:id="@+id/localMvItem"
                         app:item_desc="@string/default_num"
                         android:gravity="center_vertical"
                         app:item_icon="@drawable/ic_video_library"
@@ -61,6 +69,8 @@
                         android:layout_height="48dp"/>
 
                 <com.lpc.snowmusic.widget.MyMusicItemView
+                        android:background="@drawable/selector_item_click_background"
+                        android:id="@+id/downloadItem"
                         app:item_desc="@string/default_num"
                         android:gravity="center_vertical"
                         app:item_icon="@drawable/item_download"

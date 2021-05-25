@@ -76,6 +76,8 @@
         <activity android:name=".ui.discover.activity.SongListSquareActivity"/>
         <!-- 音乐播放页面 -->
         <activity android:name=".ui.discover.PlayerActivity"/>
+        <!-- 播放历史 -->
+        <activity android:name=".ui.my.activity.PlayHistoryActivity"/>
     </application>
 
 </manifest>

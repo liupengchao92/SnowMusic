@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.lpc.snowmusic.R
+import kotlinx.android.synthetic.main.local_item_view_layout.view.*
 
 /**
  * Author: liupengchao
@@ -37,6 +38,10 @@ class MyMusicItemView(context: Context, attributeSet: AttributeSet? = null) :
         iv_icon.setImageDrawable(drawable)
         iv_icon.imageTintList = colorTintList
         iv_icon.imageTintMode = PorterDuff.Mode.SRC_ATOP
+    }
+
+    fun setItemDesc(desc: String) {
+        tv_desc.text = desc
     }
 
 }

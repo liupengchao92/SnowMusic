@@ -291,6 +291,8 @@ class MusicPlayerService : Service() {
                     } else {
                         //设置播放地址
                         mediaPlayer.setDataSource(it.uri!!)
+                        //保存播放历史
+                        saveHistory()
                     }
                 }
             }
@@ -528,7 +530,12 @@ class MusicPlayerService : Service() {
      *
      */
     private fun saveHistory() {
-
+        //保存播放历史
+        playingMusic?.let {
+            PlayHistoryLoader.addHistoryList(it)
+        }
+        //保存播放队列
+        savePlayQueue(false)
     }
 
     /**

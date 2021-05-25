@@ -1,9 +1,6 @@
 package com.lpc.snowmusic.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.bean.MusicToPlayList
 
@@ -31,6 +28,14 @@ interface MusicDao {
     //获取对应歌单
     @Query("SELECT * FROM MusicToPlayList WHERE pid =:pid")
     fun queryPlayList(pid: String): List<MusicToPlayList>
+
+    //查询歌曲是否存在歌单中
+    @Query("SELECT * FROM MusicToPlayList WHERE pid =:pid  AND mid=:mid")
+    fun queryPlayListMusic(pid: String, mid: String?): MusicToPlayList?
+
+    //查询歌曲是否存在歌单中
+    @Update
+    fun updatePlayList(musicToPlayList: MusicToPlayList)
 
     //获取对应歌单
     @Query("DELETE FROM MusicToPlayList WHERE pid =:pid ")

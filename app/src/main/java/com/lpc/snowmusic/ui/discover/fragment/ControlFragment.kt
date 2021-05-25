@@ -68,7 +68,7 @@ class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presente
         //正在播放的歌曲名称
         songNameTv.text = music.title
         //更新播放状态
-        updatePlayStatus(PlayManager.isPlaying())
+        //updatePlayStatus(PlayManager.isPlaying())
     }
 
     override fun showLyric(lyric: String?, init: Boolean) {
