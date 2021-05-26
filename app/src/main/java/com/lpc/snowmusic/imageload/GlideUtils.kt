@@ -55,11 +55,12 @@ object GlideUtils {
         vendor: String?,
         imageView: ImageView?,
         isTransform: Boolean = false,
-        sampling: Int = 3
+        sampling: Int = 3,
+        size: Int = MusicUtils.PIC_SIZE_BIG
 
     ) {
         if (imageView == null) return
-        val newUrl = MusicUtils.getAlbumPic(url, vendor, MusicUtils.PIC_SIZE_BIG)
+        val newUrl = MusicUtils.getAlbumPic(url, vendor, size)
         if (isTransform) {
             Glide.with(mContext)
                 .asBitmap()

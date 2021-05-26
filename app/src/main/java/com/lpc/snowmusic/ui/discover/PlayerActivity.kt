@@ -19,6 +19,7 @@ import com.lpc.snowmusic.ui.discover.adapter.PlayerAdapter
 import com.lpc.snowmusic.ui.discover.fragment.CoverFragment
 import com.lpc.snowmusic.ui.discover.fragment.LyricFragment
 import com.lpc.snowmusic.utils.FormatUtil
+import com.lpc.snowmusic.utils.MusicUtils
 import com.lpc.snowmusic.utils.UIUtils
 import com.lpc.snowmusic.widget.window.PlayQueueWindow
 import kotlinx.android.synthetic.main.activity_player.*
@@ -28,13 +29,16 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * 播放详情页面
  * */
-class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter>(), PlayContract.View,
+class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter>(),
+    PlayContract.View,
     SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 
     //封面Fragment
     private var coverFragment: CoverFragment? = null
+
     //歌词Fragment
     private var lyricFragment: LyricFragment? = null
+
     //适配器
     private val playerAdapter by lazy { PlayerAdapter(this) }
 
@@ -77,8 +81,9 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
         songCommentTv.setOnClickListener(this)
     }
 
-    override fun start() {
-        super.start()
+
+    override fun onServiceConnect() {
+        super.onServiceConnect()
         //获取正在播放的音乐
         presenter?.getPlayingMusic()
         //当前播放状态
@@ -96,7 +101,15 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
         //歌手
         singerName.text = music.artist
         //背景
-        GlideUtils.loadBigImageView(this, music.coverUri, music.type, backgroundIv, true, 30)
+        GlideUtils.loadBigImageView(
+            this,
+            music.coverUri,
+            music.type,
+            backgroundIv,
+            true,
+            30,
+            MusicUtils.PIC_SIZE_SMALL
+        )
 
     }
 

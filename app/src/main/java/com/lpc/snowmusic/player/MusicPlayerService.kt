@@ -32,32 +32,44 @@ class MusicPlayerService : Service() {
 
     companion object {
         const val TAG = "MusicPlayerService"
+
         //下一首
         const val TRACK_WENT_TO_NEXT = 2
+
         //释放屏幕锁
         const val RELEASE_WAKELOCK = 3
+
         //播放完成
         const val TRACK_PLAY_ENDED = 4
+
         //播放出错
         const val TRACK_PLAY_ERROR = 5
+
         //PrepareAsync装载进程
         const val PREPARE_ASYNC_UPDATE = 7
+
         //MediaPlayer准备完成
         const val PLAYER_PREPARED = 8
+
         //音频焦点改变
         const val AUDIO_FOCUS_CHANGE = 12
+
         //音量改变减少
         const val VOLUME_FADE_DOWN = 13
+
         //音量改变增加
         const val VOLUME_FADE_UP = 14
 
 
         //播放歌曲发生改变
         const val META_CHANGED = "com.lpc.snowmusic.meta_changed"
+
         //播放状态发生改变
         const val PLAY_STATE_CHANGED = "com.lpc.snowmusic.play_state_change"
-        ////清空播放队列
+
+        //清空播放队列
         const val PLAY_QUEUE_CLEAR = "com.lpc.snowmusic.play_queue_clear"
+
         //播放队列改变
         const val PLAY_QUEUE_CHANGE = "com.lpc.snowmusic.play_queue_change"
 
@@ -65,31 +77,42 @@ class MusicPlayerService : Service() {
 
     //当前播放的位置
     var playingPos: Int = -1
+
     //当前正在播放的音乐
     var playingMusic: Music? = null
+
     //当前播放队列
     var playQueue: MutableList<Music> = mutableListOf()
+
     //播放历史
     private var historyPos: MutableList<Int> = mutableListOf()
+
     //是否正在播放
     var isMusicPlaying: Boolean = false
+
     //歌单类型ID
     private var playListId: String = Constants.PLAYLIST_QUEUE_ID
+
     //播放器
     lateinit var mediaPlayer: MusicPlayerEngine
+
     //工作Handler
     lateinit var handler: MusicPlayerHandler
+
     //主线程Handler
     private lateinit var mainHandler: Handler
+
     //进度更新
     lateinit var progressHelper: ProgressHelper
+
     //屏幕锁
     var wakeLock: PowerManager.WakeLock? = null
 
     private val binder: IBinder = IMusicServiceStub(this)
 
 
-    inner class MusicPlayerHandler(val service: MusicPlayerService, looper: Looper) : Handler(looper) {
+    inner class MusicPlayerHandler(val service: MusicPlayerService, looper: Looper) :
+        Handler(looper) {
         //弱引用MusicPlayerService
         val mService: WeakReference<MusicPlayerService> by lazy { WeakReference(service) }
 
@@ -211,10 +234,9 @@ class MusicPlayerService : Service() {
         return binder
     }
 
-    override fun unbindService(conn: ServiceConnection?) {
+    override fun unbindService(conn: ServiceConnection) {
         super.unbindService(conn)
         LogUtils.d("unbindService=======>>")
-
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
@@ -498,12 +520,12 @@ class MusicPlayerService : Service() {
             PLAY_STATE_CHANGED -> {
                 //播放状态发生改变
                 EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
-                //加载歌词
-                FloatLyricViewManager.loadLyric(playingMusic)
             }
             META_CHANGED -> {
                 //播放的资源发生改变
                 EventBus.getDefault().post(MetaChangedEvent(playingMusic!!))
+                //加载歌词
+                FloatLyricViewManager.loadLyric(playingMusic)
             }
 
             PLAY_QUEUE_CHANGE -> {

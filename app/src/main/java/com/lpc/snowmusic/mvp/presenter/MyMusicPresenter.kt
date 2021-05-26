@@ -4,6 +4,8 @@ import com.lpc.snowmusic.base.BasePresenter
 import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.mvp.contract.MyMusicContract
 import com.lpc.snowmusic.player.PlayHistoryLoader
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 /**
  * Author: liupengchao
@@ -11,7 +13,8 @@ import com.lpc.snowmusic.player.PlayHistoryLoader
  * ClassName :MyMusicPresenter
  * Desc:
  */
-class MyMusicPresenter : BasePresenter<MyMusicContract.View, MyMusicContract.Model>(), MyMusicContract.Presenter {
+class MyMusicPresenter : BasePresenter<MyMusicContract.View, MyMusicContract.Model>(),
+    MyMusicContract.Presenter {
 
 
     override fun loadSongs() {
@@ -22,28 +25,33 @@ class MyMusicPresenter : BasePresenter<MyMusicContract.View, MyMusicContract.Mod
 
     }
 
-    private fun loadLocalList() {
+    fun loadLocalList() {
 
     }
 
-    private fun loadHistoryList() {
+    fun loadHistoryList() {
         //获取播放历史
-        PlayHistoryLoader.getHistoryList().let {
-            if (!it.isEmpty()) {
-                view?.showHistory(it)
+        doAsync {
+            PlayHistoryLoader.getHistoryList().let {
+                if (it.isNotEmpty()) {
+                    var history = it
+                    uiThread {
+                        view?.showHistory(history)
+                    }
+                }
             }
         }
     }
 
-    private fun loadFavoriteList() {
+    fun loadFavoriteList() {
 
     }
 
-    private fun loadLocalMvList() {
+    fun loadLocalMvList() {
 
     }
 
-    private fun loadDownloadList() {
+    fun loadDownloadList() {
 
     }
 

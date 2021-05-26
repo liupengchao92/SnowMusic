@@ -9,10 +9,13 @@ import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.constant.Extras
+import com.lpc.snowmusic.event.PlayListEvent
 import com.lpc.snowmusic.mvp.contract.MyMusicContract
 import com.lpc.snowmusic.mvp.presenter.MyMusicPresenter
 import com.lpc.snowmusic.ui.my.activity.PlayHistoryActivity
 import kotlinx.android.synthetic.main.fragment_my_music.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.Serializable
 
 /**
@@ -21,10 +24,13 @@ import java.io.Serializable
  * ClassName :MineFragment
  * Desc:我的
  */
-class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Presenter>(), MyMusicContract.View,
+class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Presenter>(),
+    MyMusicContract.View,
     View.OnClickListener {
     //历史列表
     private var historyList = mutableListOf<Music>()
+
+    override fun useEventBus(): Boolean = true
 
     override fun createPresenter(): MyMusicContract.Presenter = MyMusicPresenter()
 
@@ -108,5 +114,17 @@ class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Pr
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-
+    /**
+     * 歌单发生变化
+     * */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPlayListChange(event: PlayListEvent) {
+        (presenter as MyMusicPresenter)?.let {
+            when (event.type) {
+                Constants.PLAYLIST_HISTORY_ID -> {
+                    it.loadHistoryList()
+                }
+            }
+        }
+    }
 }

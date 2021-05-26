@@ -33,6 +33,8 @@ object Constants {
     const val PLAYLIST_QUEUE_ID = "queue"
     const val PLAYLIST_DOWNLOAD_ID = "download"
 
+    //在线歌单
+    const val PLAYLIST_CUSTOM_ID = "custom_online"
 
     const val HTTP = "http"
 

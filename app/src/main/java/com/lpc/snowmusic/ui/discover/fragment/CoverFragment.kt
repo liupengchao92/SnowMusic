@@ -35,18 +35,6 @@ class CoverFragment : BaseFragment() {
     override fun getLayoutResId(): Int = R.layout.fragment_player_cover
 
     override fun initView(view: View) {
-        //初始化动画
-        coverAnimator = ObjectAnimator.ofFloat(iv_cover, "rotation", 0f, 360f).apply {
-            duration = 18000
-            //线性转动
-            interpolator = LinearInterpolator()
-            //重复次数
-            repeatCount = -1
-            //重复模式
-            repeatMode = ObjectAnimator.RESTART
-        }
-
-
         //音质
         qualityTv.setOnClickListener {
             PlayManager.getPlayingMusic()?.let {
@@ -86,9 +74,19 @@ class CoverFragment : BaseFragment() {
     /**
      * 切换歌曲，开始旋转动画
      */
-    fun startRotateAnimation() {
-        coverAnimator?.cancel()
-        coverAnimator?.start()
+    fun initAnimation() {
+        if (coverAnimator == null) {
+            //初始化动画
+            coverAnimator = ObjectAnimator.ofFloat(iv_cover, "rotation", 0f, 360f).apply {
+                duration = 18000
+                //线性转动
+                interpolator = LinearInterpolator()
+                //重复次数
+                repeatCount = -1
+                //重复模式
+                repeatMode = ObjectAnimator.RESTART
+            }
+        }
     }
 
     /**
@@ -102,6 +100,7 @@ class CoverFragment : BaseFragment() {
      * 继续旋转
      */
     fun resumeRotateAnimation() {
+        initAnimation()
         coverAnimator?.isStarted?.let {
             if (it) coverAnimator?.resume() else coverAnimator?.start()
         }

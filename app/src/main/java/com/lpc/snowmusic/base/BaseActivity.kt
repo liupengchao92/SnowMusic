@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.EventBus
 abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
     //多种状态的 View 的切换
     protected var multipleStatusView: MultipleStatusView? = null
+
     //
     protected val toolBar by lazy {
         findViewById<Toolbar>(R.id.toolbar)
@@ -96,6 +97,11 @@ abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
      */
     protected open fun start() {}
 
+    /**
+     * 服务已经连接
+     */
+    protected open fun onServiceConnect() {}
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -125,7 +131,7 @@ abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
 
     override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
         PlayManager.mService = IMusicService.Stub.asInterface(service)
-
+        onServiceConnect()
         LogUtils.d("onServiceConnected====>>$name")
     }
 }

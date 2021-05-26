@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--通用字体大小-->
-    <dimen name="common_text_size">16dp</dimen>
+    <dimen name="common_text_size">16sp</dimen>
+
+    <dimen name="common_text_size_15sp">15sp</dimen>
 
     <!--歌词-->
     <integer name="lrc_animation_duration">1000</integer>

@@ -3,8 +3,11 @@ package com.lpc.snowmusic.player
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.database.DatabaseManager
-import kotlinx.coroutines.*
-import okhttp3.internal.wait
+import com.lpc.snowmusic.event.PlayListEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.doAsync
 
 /**
@@ -22,6 +25,7 @@ object PlayHistoryLoader {
     fun addHistoryList(music: Music) {
         doAsync {
             DatabaseManager.addToPlaylist(music, Constants.PLAYLIST_HISTORY_ID)
+            EventBus.getDefault().post(PlayListEvent(Constants.PLAYLIST_HISTORY_ID))
         }
     }
 
@@ -31,22 +35,15 @@ object PlayHistoryLoader {
      * */
     fun getHistoryList(): MutableList<Music> {
 
-       /* var historyList = mutableListOf<Music>()
-        GlobalScope.launch {
-           getHistoryList().wait()
-        }*/
-
-        return DatabaseManager.getPlayList(Constants.PLAYLIST_HISTORY_ID,true)
+        return DatabaseManager.getPlayList(Constants.PLAYLIST_HISTORY_ID, true)
     }
 
     /**
      * 清空历史
      * */
     fun clearHistory() {
-        CoroutineScope(Dispatchers.IO).launch {
-            async {
-                DatabaseManager.clearPlaylist(Constants.PLAYLIST_HISTORY_ID)
-            }
+        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
+            DatabaseManager.clearPlaylist(Constants.PLAYLIST_HISTORY_ID)
         }
     }
 }
