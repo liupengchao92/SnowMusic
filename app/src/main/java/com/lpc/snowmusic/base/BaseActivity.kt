@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
     protected var multipleStatusView: MultipleStatusView? = null
 
     //
-    protected val toolBar by lazy {
+    protected val toolBar: Toolbar by lazy {
         findViewById<Toolbar>(R.id.toolbar)
     }
 

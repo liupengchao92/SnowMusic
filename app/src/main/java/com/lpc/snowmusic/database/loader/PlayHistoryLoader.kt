@@ -1,4 +1,4 @@
-package com.lpc.snowmusic.player
+package com.lpc.snowmusic.database.loader
 
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants

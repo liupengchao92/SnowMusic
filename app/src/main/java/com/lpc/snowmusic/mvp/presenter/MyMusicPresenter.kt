@@ -3,7 +3,7 @@ package com.lpc.snowmusic.mvp.presenter
 import com.lpc.snowmusic.base.BasePresenter
 import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.mvp.contract.MyMusicContract
-import com.lpc.snowmusic.player.PlayHistoryLoader
+import com.lpc.snowmusic.database.loader.PlayHistoryLoader
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 

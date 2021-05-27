@@ -18,8 +18,8 @@ class PlayHistoryActivity : BaseActivity() {
     }
 
     override fun initToolBar() {
-        super.initToolBar()
         toolBar.title = getString(R.string.item_history)
+        super.initToolBar()
     }
 
     override fun initView() {

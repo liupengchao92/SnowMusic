@@ -13,6 +13,7 @@ import com.lpc.snowmusic.event.PlayListEvent
 import com.lpc.snowmusic.mvp.contract.MyMusicContract
 import com.lpc.snowmusic.mvp.presenter.MyMusicPresenter
 import com.lpc.snowmusic.ui.my.activity.PlayHistoryActivity
+import com.lpc.snowmusic.ui.my.activity.PlayLocalActivity
 import kotlinx.android.synthetic.main.fragment_my_music.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -64,6 +65,8 @@ class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Pr
         when (view?.id) {
             R.id.localItem -> {
                 //本地歌曲
+                val intent = Intent(activity, PlayLocalActivity::class.java)
+                startActivity(intent)
             }
             R.id.historyItem -> {
                 //播放历史

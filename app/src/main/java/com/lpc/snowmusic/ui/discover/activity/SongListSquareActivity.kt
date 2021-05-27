@@ -16,8 +16,8 @@ class SongListSquareActivity : BaseActivity() {
     }
 
     override fun initToolBar() {
-        super.initToolBar()
         toolBar.title = resources.getString(R.string.song_list_square)
+        super.initToolBar()
     }
 
     override fun initView() {

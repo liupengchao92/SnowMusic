@@ -78,6 +78,8 @@
         <activity android:name=".ui.discover.PlayerActivity"/>
         <!-- 播放历史 -->
         <activity android:name=".ui.my.activity.PlayHistoryActivity"/>
+        <!-- 本地音乐 -->
+        <activity android:name=".ui.my.activity.PlayLocalActivity"/>
     </application>
 
 </manifest>

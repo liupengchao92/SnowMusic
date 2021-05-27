@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.ui.discover.activity
 
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.gyf.immersionbar.ImmersionBar
@@ -24,18 +23,23 @@ import kotlinx.android.synthetic.main.activity_artist_detail.*
 /**
  * 歌手详情
  * */
-class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDetailContract.Presenter>(),
+class ArtistDetailActivity :
+    BaseMvpActivity<ArtistDetailContract.View, ArtistDetailContract.Presenter>(),
     ArtistDetailContract.View {
     //歌手信息实体
     private lateinit var artist: Artist
+
     //Tab标题
-    private val titles: Array<String>  by lazy {
+    private val titles: Array<String> by lazy {
         resources.getStringArray(R.array.artist_tab_title)
     }
+
     //歌曲列表
     private val songFragment: ArtistSongFragment = ArtistSongFragment()
+
     //专辑
     private val albumFragment: ArtistAlbumFragment = ArtistAlbumFragment()
+
     //歌手详情
     private val detailFragment: ArtistDetailFragment = ArtistDetailFragment()
 
@@ -67,7 +71,7 @@ class ArtistDetailActivity : BaseMvpActivity<ArtistDetailContract.View, ArtistDe
     override fun initToolBar() {
         super.initToolBar()
         //获取传递的参数
-        artist = intent.extras.getParcelable(Extras.ARTIST)
+        artist = intent.getParcelableExtra(Extras.ARTIST)
         toolbar.run {
             artist?.let {
                 title = it.name
