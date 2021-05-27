@@ -3,8 +3,10 @@ package com.lpc.snowmusic.ui.my.activity
 import com.blankj.utilcode.util.LogUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpActivity
+import com.lpc.snowmusic.database.loader.PlayLocalLoader
 import com.lpc.snowmusic.mvp.contract.PlayLocalContract
 import com.lpc.snowmusic.mvp.presenter.PlayLocalPresenter
+import org.jetbrains.anko.doAsync
 
 class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContract.Presenter>() {
 
@@ -24,6 +26,9 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
     override fun initView() {
         super.initView()
         LogUtils.d("标题：${toolBar.title}")
+        doAsync {
+            PlayLocalLoader.getLocalMusic(this@PlayLocalActivity)
+        }
     }
 
 }

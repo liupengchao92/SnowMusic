@@ -1,9 +1,17 @@
 package com.lpc.snowmusic.mvp.presenter
 
+import android.Manifest
+import android.content.Context
+import androidx.fragment.app.FragmentActivity
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.base.BasePresenter
 import com.lpc.snowmusic.bean.Playlist
-import com.lpc.snowmusic.mvp.contract.MyMusicContract
 import com.lpc.snowmusic.database.loader.PlayHistoryLoader
+import com.lpc.snowmusic.database.loader.PlayLocalLoader
+import com.lpc.snowmusic.mvp.contract.MyMusicContract
+import com.permissionx.guolindev.PermissionX
+import com.permissionx.guolindev.callback.RequestCallback
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -26,7 +34,14 @@ class MyMusicPresenter : BasePresenter<MyMusicContract.View, MyMusicContract.Mod
     }
 
     fun loadLocalList() {
-
+        doAsync {
+            PlayLocalLoader.getLocalMusic(view?.getViewContext() as Context).let {
+                var local = it
+                uiThread {
+                    view?.showLocal(local)
+                }
+            }
+        }
     }
 
     fun loadHistoryList() {

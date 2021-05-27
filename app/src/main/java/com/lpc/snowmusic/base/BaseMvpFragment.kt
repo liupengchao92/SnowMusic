@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.base
 
+import android.content.Context
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 
@@ -12,6 +13,7 @@ import com.blankj.utilcode.util.ToastUtils
 abstract class BaseMvpFragment<V : IView, P : IPresenter<V>> : BaseFragment(), IView {
 
     protected var presenter: P? = null
+
     /**
      * 创建Presenter实例
      */
@@ -46,5 +48,8 @@ abstract class BaseMvpFragment<V : IView, P : IPresenter<V>> : BaseFragment(), I
     override fun showEmptyView() {
         multipleStatusView?.showEmpty()
     }
+
+    override fun getViewContext(): Context = context!!
+
 }
 

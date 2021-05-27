@@ -92,8 +92,8 @@ class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Pr
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showLocalPlaylist(playlists: MutableList<Playlist>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showLocal(musicList: MutableList<Music>) {
+        localItem.setItemDesc(String.format(getString(R.string.song_num), musicList.size))
     }
 
     override fun showPlaylist(playlists: MutableList<Playlist>) {

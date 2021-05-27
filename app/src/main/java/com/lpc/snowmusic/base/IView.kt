@@ -1,5 +1,7 @@
 package com.lpc.snowmusic.base
 
+import android.content.Context
+
 /**
  * Author: liupengchao
  * Date: 2020/5/12
@@ -7,6 +9,9 @@ package com.lpc.snowmusic.base
  * Desc:
  */
 interface IView {
+
+    fun getViewContext(): Context
+
     /**
      * 显示加载
      */

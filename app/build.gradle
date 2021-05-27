@@ -107,5 +107,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     //圆形进度条
     implementation 'com.king.view:circleprogressview:1.1.2'
+    //权限检测工具
+    implementation 'com.permissionx.guolindev:permissionx:1.2.2'
 
 }

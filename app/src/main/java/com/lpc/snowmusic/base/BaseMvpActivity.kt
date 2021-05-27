@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.base
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,10 +37,13 @@ abstract class BaseMvpActivity<in V : IView, P : IPresenter<V>> : BaseActivity()
 
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         presenter?.detachView()
     }
+
+    override fun getViewContext(): Context = this
 
     override fun showLoading() {
         loadView.let {
