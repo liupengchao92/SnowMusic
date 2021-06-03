@@ -109,5 +109,8 @@ dependencies {
     implementation 'com.king.view:circleprogressview:1.1.2'
     //权限检测工具
     implementation 'com.permissionx.guolindev:permissionx:1.2.2'
+    //TabLayout
+    implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
+
 
 }
