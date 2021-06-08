@@ -39,7 +39,12 @@ object PlayManager {
             //ServiceBinder
             val serviceBinder = ServiceBinder(callback, context)
             //绑定服务
-            if (bindService(Intent(this, MusicPlayerService::class.java), serviceBinder, BIND_AUTO_CREATE)) {
+            if (bindService(
+                    Intent(this, MusicPlayerService::class.java),
+                    serviceBinder,
+                    BIND_AUTO_CREATE
+                )
+            ) {
                 //存储（Context,ServiceConnection）
                 connectionMap[this] = serviceBinder
                 return ServiceToken(this)
@@ -58,7 +63,7 @@ object PlayManager {
             //获取ServiceBinder
             val serviceBinder = connectionMap[token.wrapperContext]
             //解除绑定
-            token.wrapperContext.unbindService(serviceBinder)
+            token.wrapperContext.unbindService(serviceBinder as ServiceConnection)
             //是否全部解除绑定
             if (connectionMap.isNullOrEmpty()) {
                 mService = null

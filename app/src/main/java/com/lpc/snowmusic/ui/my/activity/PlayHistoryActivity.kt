@@ -24,9 +24,13 @@ class PlayHistoryActivity : BaseActivity() {
 
     override fun initView() {
         var playList = intent.getSerializableExtra(Extras.PLAY_LIST) as MutableList<Music>
-        recyclerView.run {
-            layoutManager = LinearLayoutManager(context)
-            adapter = SongAdapter(playList)
+        if (playList.isEmpty()) {
+            multiple_StatusView.showEmpty()
+        } else {
+            recyclerView.run {
+                layoutManager = LinearLayoutManager(context)
+                adapter = SongAdapter(playList)
+            }
         }
     }
 }

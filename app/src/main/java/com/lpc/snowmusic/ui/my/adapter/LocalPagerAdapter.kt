@@ -5,6 +5,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment
+import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment.Companion.ALBUM
+import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment.Companion.ARTIST
+import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment.Companion.FOLDER
+import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment.Companion.SINGLE_SONG
 
 /**
  * Author: liupengchao
@@ -19,9 +23,10 @@ class LocalPagerAdapter(fragmentActivity: FragmentActivity, val titles: Array<St
     private val fragments = mutableListOf<BaseFragment>()
 
     init {
-        for (index in titles.indices) {
-            fragments.add(LocalDetailFragment.getInstance(index))
-        }
+        fragments.add(LocalDetailFragment.getInstance(SINGLE_SONG))
+        fragments.add(LocalDetailFragment.getInstance(ARTIST))
+        fragments.add(LocalDetailFragment.getInstance(ALBUM))
+        fragments.add(LocalDetailFragment.getInstance(FOLDER))
     }
 
     override fun getItemCount(): Int = titles.size

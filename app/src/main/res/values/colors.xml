@@ -10,6 +10,7 @@
     <color name="common_white_background">#ffffff</color>
     <color name="common_black_text">#191919</color>
     <color name="common_white_text">#ffffff</color>
+    <color name="common_grey_text">#9e9e9e</color>
     <color name="backgroundColor">#E8E8E0</color>
 
     <!--material design 基础色-->

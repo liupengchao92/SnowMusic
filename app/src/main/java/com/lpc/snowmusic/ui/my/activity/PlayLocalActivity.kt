@@ -65,6 +65,7 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
                 indicator.lineHeight = lineHeight
                 indicator.roundRadius = (lineHeight / 2).toFloat()
                 indicator.yOffset = (navigatorHeight - lineHeight) / 2
+                indicator.xOffset = UIUtil.dip2px(context, 10.0).toFloat()
                 indicator.setColors(ContextCompat.getColor(context!!, R.color.color_1ad81b60))
                 indicator.mode = MODE_MATCH_EDGE
                 return indicator

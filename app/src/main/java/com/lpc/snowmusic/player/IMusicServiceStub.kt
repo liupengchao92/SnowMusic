@@ -84,7 +84,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     /**
      * 获取正在播放的音乐
      * */
-    override fun getPlayingMusic(): Music = mService.get()?.playingMusic!!
+    override fun getPlayingMusic(): Music? = mService.get()?.playingMusic
 
     override fun getPlayList(): MutableList<Music> = mService.get()?.playQueue!!
 
