@@ -9,11 +9,17 @@ package com.lpc.snowmusic.constant
 object Extras {
     //连接地址
     const val URL = "URL"
+
     //艺术家
-   const val ARTIST = "artist"
+    const val ARTIST = "artist"
+
     //歌单
-   const val SONG_LIST = "song_list"
+    const val SONG_LIST = "song_list"
+
     //播放列表
     const val PLAY_LIST = "play_list"
+
+    //类型
+    const val TYPE = "type"
 
 }

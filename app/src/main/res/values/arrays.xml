@@ -28,4 +28,12 @@
         <item>@string/play_mode_repeat</item>
         <item>@string/play_mode_loop</item>
     </array>
+
+    <!--本地切页Tab-->
+    <array name="local_tab_title">
+        <item>@string/single_song</item>
+        <item>@string/artist</item>
+        <item>@string/album</item>
+        <item>@string/folder</item>
+    </array>
 </resources>

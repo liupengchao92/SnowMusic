@@ -71,5 +71,7 @@
     <color name="lrc_timeline_text_color">#ffffff</color>
     <color name="lrc_timeline_color">#809E9E9E</color>
     <color name="lrc_time_text_color">#809E9E9E</color>
+    <color name="color_1ad81b60">#1AD81B60</color>
+
 
 </resources>
