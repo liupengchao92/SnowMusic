@@ -1,8 +1,12 @@
 package com.lpc.snowmusic.database
 
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.blankj.utilcode.util.LogUtils
 import com.lpc.snowmusic.application.MusicApplication
+import com.lpc.snowmusic.bean.LocalAlbum
+import com.lpc.snowmusic.bean.LocalArtist
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.bean.MusicToPlayList
 import com.lpc.snowmusic.constant.Constants
@@ -19,9 +23,16 @@ object DatabaseManager {
     //创建数据库实例
     private val database by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
         Room.databaseBuilder(MusicApplication.context, MusicDatabase::class.java, "snow_music.db")
+            .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
 
+    }
+
+    private val MIGRATION_1_2 = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            LogUtils.d("数据库结构没有变化")
+        }
     }
 
     /**
@@ -83,5 +94,38 @@ object DatabaseManager {
         //清空数据
         val count = database.musicDao().deleteAll(pid)
         LogUtils.d("clearPlaylist pid:$pid   count:$count")
+    }
+
+
+    fun insertAlbum(album: LocalAlbum) {
+        database.localDao().insertAlbum(album)
+    }
+
+    fun insertArtist(artist: LocalArtist) {
+        database.localDao().insertArtist(artist)
+    }
+
+    /**
+     * 获取本地所有专辑
+     * */
+    fun getLocalAlbum(): MutableList<LocalAlbum> {
+        val localAlbums = mutableListOf<LocalAlbum>()
+        val datas = database.localDao().queryAlbum()
+        datas.forEach {
+            localAlbums.add(it)
+        }
+        return localAlbums
+    }
+
+    /**
+     * 获取本地所有歌手
+     * */
+    fun getLocalArtist(): MutableList<LocalArtist> {
+        val artist = mutableListOf<LocalArtist>()
+        val datas = database.localDao().queryArtist()
+        datas.forEach {
+            artist.add(it)
+        }
+        return artist
     }
 }

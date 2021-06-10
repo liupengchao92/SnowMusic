@@ -2,8 +2,8 @@ package com.lpc.snowmusic.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.lpc.snowmusic.bean.Music
-import com.lpc.snowmusic.bean.MusicToPlayList
+import com.lpc.snowmusic.bean.*
+import com.lpc.snowmusic.database.dao.LocalDao
 import com.lpc.snowmusic.database.dao.MusicDao
 
 /**
@@ -12,9 +12,14 @@ import com.lpc.snowmusic.database.dao.MusicDao
  * ClassName :MusicDataBase
  * Desc:数据库Database
  */
-@Database(entities = [Music::class, MusicToPlayList::class], version = 1)
+@Database(
+    entities = [Music::class, MusicToPlayList::class,
+        LocalAlbum::class, LocalArtist::class], version = 2
+)
 abstract class MusicDatabase : RoomDatabase() {
 
     abstract fun musicDao(): MusicDao
+
+    abstract fun localDao(): LocalDao
 
 }

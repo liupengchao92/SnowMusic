@@ -6,6 +6,8 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.text.TextUtils
 import com.blankj.utilcode.util.LogUtils
+import com.lpc.snowmusic.bean.LocalAlbum
+import com.lpc.snowmusic.bean.LocalArtist
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.database.DatabaseManager
@@ -26,12 +28,18 @@ object PlayLocalLoader {
         var localList = getLocalFromDb()
         if (localList.isEmpty() || isReload) {
             var musicList = getAllLocalSongs(context)
-            if (isReload) {
-
-            }
             localList.addAll(musicList)
         }
         return localList
+    }
+
+    fun getLocalAlbum(context: Context): MutableList<LocalAlbum> {
+        return DatabaseManager.getLocalAlbum()
+    }
+
+
+    fun getLocalArtist(context: Context): MutableList<LocalArtist> {
+        return DatabaseManager.getLocalArtist()
     }
 
     /**
@@ -140,9 +148,9 @@ object PlayLocalLoader {
                         music.date = System.currentTimeMillis()
                         //
                         result.add(music)
-                        //存入数据库
+                        //存入歌单数据库
                         DatabaseManager.addToPlaylist(music, Constants.PLAYLIST_LOCAL_ID)
-                        //
+
                     } while (moveToNext())
 
                     //关闭游标
