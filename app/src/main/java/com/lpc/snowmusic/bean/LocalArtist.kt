@@ -12,7 +12,7 @@ import com.lpc.snowmusic.constant.Constants
  */
 @Entity
 class LocalArtist() {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Long = 0
     var name: String? = null
     var artistId: String? = null
@@ -24,10 +24,9 @@ class LocalArtist() {
     var score: Int = 0
     var albumSize: Int = 0
 
-    constructor(id: Long, name: String, count: Int) : this() {
+    constructor(artistId: String?, name: String?) : this() {
         this.name = name
-        this.artistId = id.toString()
-        this.musicSize = count
+        this.artistId = artistId
     }
 
 }

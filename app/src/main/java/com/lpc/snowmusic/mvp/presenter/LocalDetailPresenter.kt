@@ -18,10 +18,32 @@ class LocalDetailPresenter : BasePresenter<LocalDetailContract.View, LocalDetail
 
     override fun getLocalSongs(context: Context) {
         doAsync {
-            val songList = PlayLocalLoader.getAllLocalSongs(context)
+            val songList = PlayLocalLoader.getLocalMusic(context)
             if (songList.isNotEmpty()) {
                 uiThread {
                     view?.showSongList(songList)
+                }
+            }
+        }
+    }
+
+    override fun getLocalArtist(context: Context) {
+        doAsync {
+            var artistList = PlayLocalLoader.getLocalArtist(context)
+            if (artistList.isNotEmpty()) {
+                uiThread {
+                    view?.showArtist(artistList)
+                }
+            }
+        }
+    }
+
+    override fun getLocalAlbum(context: Context) {
+        doAsync {
+            var albumList = PlayLocalLoader.getLocalAlbum(context)
+            if (albumList.isNotEmpty()) {
+                uiThread {
+                    view?.showAlbum(albumList)
                 }
             }
         }

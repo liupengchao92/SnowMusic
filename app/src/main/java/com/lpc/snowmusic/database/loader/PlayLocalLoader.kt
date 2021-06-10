@@ -28,6 +28,18 @@ object PlayLocalLoader {
         var localList = getLocalFromDb()
         if (localList.isEmpty() || isReload) {
             var musicList = getAllLocalSongs(context)
+            localList.clear()
+            localList.forEach {
+                try {
+                    //插入专辑
+                    DatabaseManager.insertAlbum(LocalAlbum(it.albumId, it.album, it.artist, it.artistId))
+                    //插入歌手
+                    DatabaseManager.insertArtist(LocalArtist(it.artistId, it.artist))
+                }catch (e :java.lang.Exception){
+                    LogUtils.d("插入失败： ${e.message}")
+                    e.printStackTrace()
+                }
+            }
             localList.addAll(musicList)
         }
         return localList

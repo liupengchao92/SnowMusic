@@ -9,7 +9,6 @@ import com.lpc.snowmusic.bean.LocalAlbum
 import com.lpc.snowmusic.bean.LocalArtist
 import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.bean.MusicToPlayList
-import com.lpc.snowmusic.constant.Constants
 
 /**
  * Author: liupengchao
@@ -36,15 +35,29 @@ object DatabaseManager {
     }
 
     /**
+     * 添加到歌曲
+     * */
+    fun insertMusicDB(music: Music) {
+        music.mid?.let {
+            //查询是否存在
+            val result: Music = database.musicDao().queryMusic(it)
+            //不存在插入
+            if (result == null) {
+                database.musicDao().insertMusic(music)
+            }
+        }
+    }
+
+    /**
      * 添加到歌单
      * */
     fun addToPlaylist(music: Music, pid: String) {
         //插入歌曲表
-        database.musicDao().insertMusic(music)
+        insertMusicDB(music)
         //获取歌单中的歌曲
         var mtp = database.musicDao().queryPlayListMusic(pid, music.mid)
+        //不存在插入歌单表
         if (mtp == null) {
-            //插入歌单表
             mtp = MusicToPlayList()
             mtp.mid = music.mid
             mtp.pid = pid
@@ -53,6 +66,7 @@ object DatabaseManager {
             mtp.updateDate = System.currentTimeMillis()
             database.musicDao().insetMusicToPlayList(mtp)
         } else {
+            //存着更新时间
             mtp.updateDate = System.currentTimeMillis()
             database.musicDao().updatePlayList(mtp)
         }
@@ -64,24 +78,13 @@ object DatabaseManager {
      * */
     fun getPlayList(pid: String, order: Boolean = false): MutableList<Music> {
         val musicLists = mutableListOf<Music>()
-        when (pid) {
-            Constants.PLAYLIST_LOVE_ID -> {
-
-            }
-            Constants.PLAYLIST_LOCAL_ID -> {
-
-            }
-            else -> {
-                //获取歌单
-                val musicToPlayList =
-                    if (order) database.musicDao().queryPlayListOrder(pid)
-                    else
-                        database.musicDao().queryPlayList(pid)
-                musicToPlayList.forEach {
-                    val music: Music = database.musicDao().queryMusic(it.mid!!)
-                    musicLists.add(music)
-                }
-            }
+        val musicToPlayList =
+            if (order) database.musicDao().queryPlayListOrder(pid)
+            else
+                database.musicDao().queryPlayList(pid)
+        musicToPlayList.forEach {
+            val music: Music = database.musicDao().queryMusic(it.mid!!)
+            musicLists.add(music)
         }
         return musicLists
     }

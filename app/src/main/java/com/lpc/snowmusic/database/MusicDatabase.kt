@@ -14,7 +14,7 @@ import com.lpc.snowmusic.database.dao.MusicDao
  */
 @Database(
     entities = [Music::class, MusicToPlayList::class,
-        LocalAlbum::class, LocalArtist::class], version = 2
+        LocalAlbum::class, LocalArtist::class], version = 1
 )
 abstract class MusicDatabase : RoomDatabase() {
 

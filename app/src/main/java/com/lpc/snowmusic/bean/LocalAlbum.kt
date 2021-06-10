@@ -13,7 +13,7 @@ import com.lpc.snowmusic.constant.Constants
  */
 @Entity
 class LocalAlbum() {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var albumId: String? = null
     var name: String? = null
@@ -24,11 +24,11 @@ class LocalAlbum() {
     var info: String? = null
     var count: Int = 0
 
-    constructor(id: String, name: String, artistName: String, artistId: Long, count: Int):this() {
+    constructor(albumId: String?, name: String?, artistName: String?, artistId: String?):this() {
         this.name = name
-        this.albumId = id
+        this.albumId = albumId
         this.artistName = artistName
-        this.artistId = artistId.toString()
+        this.artistId = artistId
         this.count = count
     }
 }

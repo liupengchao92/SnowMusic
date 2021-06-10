@@ -13,7 +13,7 @@ import com.lpc.snowmusic.bean.LocalArtist
  */
 class MusicCursorWrapper(cursor: Cursor) : CursorWrapper(cursor) {
 
-    val album: LocalAlbum
+    /*val album: LocalAlbum
         get() {
             val id = getString(getColumnIndex("albumid"))
             val name = getString(getColumnIndex("album"))
@@ -30,5 +30,5 @@ class MusicCursorWrapper(cursor: Cursor) : CursorWrapper(cursor) {
             val name = getString(getColumnIndex("artist"))
             val num = getInt(getColumnIndex("num"))
             return LocalArtist(id, name, num)
-        }
+        }*/
 }
