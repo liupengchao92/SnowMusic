@@ -5,6 +5,7 @@ import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
@@ -89,13 +90,17 @@ class LocalDetailFragment :
         recyclerView.run {
             layoutManager =
                 if (type == ALBUM) GridLayoutManager(context, 3) else LinearLayoutManager(context)
-            addItemDecoration(SpacesItemDecoration(SizeUtils.dp2px(10f)))
             overScrollMode = OVER_SCROLL_NEVER
             adapter = when (type) {
                 SINGLE_SONG -> songAdapter
                 ARTIST -> artistAdapter
                 ALBUM -> albumAdapter
                 else -> null
+            }
+            if (type == ALBUM) {
+                val space = SizeUtils.dp2px(10f)
+                recyclerView.addItemDecoration(SpacesItemDecoration(space))
+                recyclerView.setPadding(space, 0, 0, 0)
             }
         }
     }
