@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.activity_song_list_detail.*
 /**
  * 歌单详情
  * */
-class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, SongListDetailContract.Presenter>(),
+class SongListDetailActivity :
+    BaseMvpActivity<SongListDetailContract.View, SongListDetailContract.Presenter>(),
     SongListDetailContract.View {
 
     private var playList: Playlist? = null
@@ -36,6 +37,8 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
     override fun getLayoutResId(): Int = R.layout.activity_song_list_detail
 
     override fun createPresenter(): SongListDetailContract.Presenter = SongListDetailPresenter()
+
+    override fun isShowMediaControl(): Boolean = true
 
 
     override fun initView() {
@@ -60,7 +63,11 @@ class SongListDetailActivity : BaseMvpActivity<SongListDetailContract.View, Song
         //AppBarLayout的监听
         appBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
 
-            override fun onStateChanged(appBarLayout: AppBarLayout, state: State, verticalOffset: Int) {
+            override fun onStateChanged(
+                appBarLayout: AppBarLayout,
+                state: State,
+                verticalOffset: Int
+            ) {
                 when (state) {
                     State.COLLAPSED -> {
                         toolBar.title = playList?.name

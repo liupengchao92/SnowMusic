@@ -15,6 +15,7 @@ import com.lpc.snowmusic.IMusicService
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.player.PlayManager
 import com.lpc.snowmusic.player.ServiceToken
+import com.lpc.snowmusic.ui.discover.fragment.ControlFragment
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -25,13 +26,16 @@ import org.greenrobot.eventbus.EventBus
  */
 @SuppressWarnings("unchecked")
 abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
-    //多种状态的 View 的切换
-    protected var multipleStatusView: MultipleStatusView? = null
-
-    //
+    //ToolBar
     protected val toolBar: Toolbar by lazy {
         findViewById<Toolbar>(R.id.toolbar)
     }
+
+    //多种状态的 View 的切换
+    protected var multipleStatusView: MultipleStatusView? = null
+
+    //播放控制Fragment
+    private var controlFragment: ControlFragment? = null
 
     //ServiceToken
     private var token: ServiceToken? = null
@@ -98,9 +102,29 @@ abstract class BaseActivity : AppCompatActivity(), ServiceConnection {
     protected open fun start() {}
 
     /**
+     * 是否展示底部控制欄
+     */
+    protected open fun isShowMediaControl(): Boolean = false
+
+    /**
      * 服务已经连接
      */
-    protected open fun onServiceConnect() {}
+    protected open fun onServiceConnect() {
+        if (isShowMediaControl() && PlayManager.getPlayingMusic() != null) {
+            //动态添加Fragment
+            supportFragmentManager.beginTransaction().run {
+                if (controlFragment == null) {
+                    controlFragment = ControlFragment()
+                }
+                //
+                controlFragment?.let {
+                    replace(R.id.control_layout, it)
+                }
+                //提交事务
+                commit()
+            }
+        }
+    }
 
 
     override fun onDestroy() {

@@ -115,18 +115,30 @@ class LocalDetailFragment :
 
 
     override fun showSongList(songList: MutableList<Music>) {
-        songAdapter.setNewInstance(songList)
-        songAdapter.notifyDataSetChanged()
+        if (songList.isEmpty()){
+            multiple_StatusView.showEmpty()
+        }else{
+            songAdapter.setNewInstance(songList)
+            songAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun showArtist(artist: MutableList<LocalArtist>) {
-        artistAdapter.setNewInstance(artist)
-        artistAdapter.notifyDataSetChanged()
+        if (artist.isEmpty()){
+            multiple_StatusView.showEmpty()
+        }else{
+            artistAdapter.setNewInstance(artist)
+            artistAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun showAlbum(albums: MutableList<LocalAlbum>) {
-        albumAdapter.setNewInstance(albums)
-        albumAdapter.notifyDataSetChanged()
+        if (albums.isEmpty()){
+            multiple_StatusView.showEmpty()
+        }else{
+            albumAdapter.setNewInstance(albums)
+            albumAdapter.notifyDataSetChanged()
+        }
     }
 }
 

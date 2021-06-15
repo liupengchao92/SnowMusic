@@ -20,6 +20,8 @@ class SongListSquareActivity : BaseActivity() {
         super.initToolBar()
     }
 
+    override fun isShowMediaControl(): Boolean = true
+
     override fun initView() {
 
     }

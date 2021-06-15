@@ -48,6 +48,8 @@ class ArtistDetailActivity :
 
     override fun getLayoutResId(): Int = R.layout.activity_artist_detail
 
+    override fun isShowMediaControl(): Boolean = true
+
     override fun initView() {
         super.initView()
         //初始化ViewPager

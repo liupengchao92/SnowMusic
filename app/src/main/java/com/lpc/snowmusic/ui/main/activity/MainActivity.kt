@@ -21,6 +21,8 @@ class MainActivity : BaseActivity() {
         toolBar.title = getString(R.string.snow_music)
     }
 
+    override fun isShowMediaControl(): Boolean = true
+
     override fun initView() {
 
         viewpager.run {

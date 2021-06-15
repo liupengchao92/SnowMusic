@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent" android:layout_height="56dp"
-              android:background="@color/color_white"
-              android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:orientation="vertical">
 
-    <View style="@style/CommonLineStyle"/>
+    <View style="@style/CommonLineStyle" />
 
     <LinearLayout
             android:id="@+id/bottom_control"
@@ -15,13 +16,14 @@
             android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginRight="10dp"
                 app:civ_border_width="1dp"
                 app:civ_border_color="@color/Grey400"
                 android:id="@+id/iv_cover"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="15dp"
-                android:src="@drawable/default_cover"/>
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/default_cover" />
 
         <LinearLayout
                 android:layout_width="0dp"
@@ -35,20 +37,20 @@
                     android:layout_height="wrap_content"
                     android:text="歌名"
                     android:textColor="@color/common_black_text"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
         </LinearLayout>
 
         <com.lpc.snowmusic.widget.PlayPauseView
                 android:id="@+id/playPauseView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         <ImageView
                 android:id="@+id/playQueueIv"
                 android:padding="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_queue_music"/>
+                android:src="@drawable/ic_queue_music" />
     </LinearLayout>
 
 
