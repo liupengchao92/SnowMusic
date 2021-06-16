@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.utils.MDUtil.getStringArray
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpActivity
@@ -17,6 +18,7 @@ import com.lpc.snowmusic.ui.my.adapter.LocalPagerAdapter
 import com.lpc.snowmusic.utils.ViewPager2Helper
 import com.permissionx.guolindev.PermissionX
 import kotlinx.android.synthetic.main.activity_play_local.*
+import kotlinx.coroutines.*
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -33,6 +35,9 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
 
     //是否获取了权限
     private var allGranted: Boolean = false
+
+    //ViewPager适配器
+    private val pagerAdapter by lazy { LocalPagerAdapter(this@PlayLocalActivity, titles) }
 
     override fun getLayoutResId(): Int = R.layout.activity_play_local
 
@@ -95,7 +100,7 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
         magicIndicator.navigator = navigator
 
         viewPager2.run {
-            adapter = LocalPagerAdapter(this@PlayLocalActivity, titles)
+            adapter = pagerAdapter
         }
         //magicIndicator与viewPager2 绑定
         ViewPager2Helper.bind(magicIndicator, viewPager2)
@@ -106,7 +111,18 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
             R.id.scan_music -> {
                 ToastUtils.showShort("扫描本地音乐")
                 if (this.allGranted) {
-                    PlayLocalLoader.getLocalMusic(this, true)
+                    GlobalScope.launch {
+
+                        val result = GlobalScope.async {
+                            PlayLocalLoader.getLocalMusic(this@PlayLocalActivity, true)
+                        }
+                        result.await()
+                        withContext(Dispatchers.Main) {
+                            //重新加载数据
+                            pagerAdapter.reloadLocal(viewPager2.currentItem)
+                        }
+                    }
+
                 } else {
                     requestPermission()
                 }

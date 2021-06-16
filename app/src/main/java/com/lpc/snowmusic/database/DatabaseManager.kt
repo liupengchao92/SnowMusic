@@ -96,16 +96,21 @@ object DatabaseManager {
     fun clearPlaylist(pid: String) {
         //清空数据
         val count = database.musicDao().deleteAll(pid)
-        LogUtils.d("clearPlaylist pid:$pid   count:$count")
     }
 
 
     fun insertAlbum(album: LocalAlbum) {
-        database.localDao().insertAlbum(album)
+        val cursor = database.localDao().queryAlbum(album.albumId)
+        if (cursor.count == 0) {
+            database.localDao().insertAlbum(album)
+        }
     }
 
     fun insertArtist(artist: LocalArtist) {
-        database.localDao().insertArtist(artist)
+        val cursor = database.localDao().queryArtist(artist.artistId)
+        if (cursor.count == 0) {
+            database.localDao().insertArtist(artist)
+        }
     }
 
     /**
@@ -113,7 +118,7 @@ object DatabaseManager {
      * */
     fun getLocalAlbum(): MutableList<LocalAlbum> {
         val localAlbums = mutableListOf<LocalAlbum>()
-        val datas = database.localDao().queryAlbum()
+        val datas = database.localDao().queryAllAlbum()
         datas.forEach {
             localAlbums.add(it)
         }
@@ -125,7 +130,7 @@ object DatabaseManager {
      * */
     fun getLocalArtist(): MutableList<LocalArtist> {
         val artist = mutableListOf<LocalArtist>()
-        val datas = database.localDao().queryArtist()
+        val datas = database.localDao().queryAllArtist()
         datas.forEach {
             artist.add(it)
         }

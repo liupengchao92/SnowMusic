@@ -5,7 +5,6 @@ import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
@@ -73,7 +72,7 @@ class LocalDetailFragment :
         //文件夹
         const val FOLDER = 3
 
-        fun getInstance(type: Int): BaseFragment {
+        fun getInstance(type: Int): LocalDetailFragment {
             val bundle = Bundle();
             bundle.putInt(Extras.TYPE, type)
             val fragment = LocalDetailFragment()
@@ -142,38 +141,6 @@ class LocalDetailFragment :
             albumAdapter.setNewInstance(albums)
             albumAdapter.notifyDataSetChanged()
         }
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-
-        LogUtils.d("类型=====>>$type")
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        LogUtils.d("类型=====>>$type")
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        LogUtils.d("类型=====>>$type")
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        LogUtils.d("类型=====>>$type")
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        LogUtils.d("类型=====>>$type")
-
     }
 }
 

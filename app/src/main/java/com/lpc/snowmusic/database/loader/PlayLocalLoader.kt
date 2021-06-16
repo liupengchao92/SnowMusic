@@ -49,6 +49,7 @@ object PlayLocalLoader {
                 }
             }
         }
+        LogUtils.d("本地音乐数量：${localList.size}")
         return localList
     }
 

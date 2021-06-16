@@ -3,7 +3,6 @@ package com.lpc.snowmusic.ui.my.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment
 import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment.Companion.ALBUM
 import com.lpc.snowmusic.ui.my.fragment.LocalDetailFragment.Companion.ARTIST
@@ -20,7 +19,12 @@ class LocalPagerAdapter(fragmentActivity: FragmentActivity, val titles: Array<St
     FragmentStateAdapter(fragmentActivity) {
 
     //Fragment
-    private val fragments = mutableListOf<BaseFragment>()
+    private val fragments = mutableListOf<LocalDetailFragment>()
+
+    //重新加载数据
+    public fun reloadLocal(position: Int) {
+        fragments[position].lazyLoad()
+    }
 
     init {
         fragments.add(LocalDetailFragment.getInstance(SINGLE_SONG))

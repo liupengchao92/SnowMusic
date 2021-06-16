@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.bean
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.lpc.snowmusic.constant.Constants
@@ -24,7 +23,7 @@ class LocalAlbum() {
     var info: String? = null
     var count: Int = 0
 
-    constructor(albumId: String?, name: String?, artistName: String?, artistId: String?):this() {
+    constructor(albumId: String?, name: String?, artistName: String?, artistId: String?) : this() {
         this.name = name
         this.albumId = albumId
         this.artistName = artistName
