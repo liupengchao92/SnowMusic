@@ -1,6 +1,5 @@
 package com.lpc.snowmusic.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +19,18 @@ import org.greenrobot.eventbus.EventBus
 abstract class BaseFragment : Fragment() {
     //视图是否加载完毕
     var isViewPrepare = false
+
     //是否加载过数据
     var isHasLoad = false
+
     //多种状态的 View 的切换
     protected var multipleStatusView: MultipleStatusView? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(getLayoutResId(), container, false)
     }
 
@@ -75,6 +80,12 @@ abstract class BaseFragment : Fragment() {
             lazyLoad()
             isHasLoad = true
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isViewPrepare = false
+        isHasLoad = false
     }
 
     override fun onDestroy() {

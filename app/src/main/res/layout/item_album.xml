@@ -16,15 +16,18 @@
             android:layout_height="0dp" />
 
     <TextView
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:gravity="center"
             android:id="@+id/tv_album_name"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             tools:text="专辑名称"
             android:textColor="@color/common_black_text"
             android:textSize="@dimen/common_text_size_15sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_cover"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

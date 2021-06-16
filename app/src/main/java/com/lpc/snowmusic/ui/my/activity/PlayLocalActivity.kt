@@ -1,14 +1,21 @@
 package com.lpc.snowmusic.ui.my.activity
 
+import android.Manifest
 import android.content.Context
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.afollestad.materialdialogs.utils.MDUtil.getStringArray
+import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseMvpActivity
+import com.lpc.snowmusic.database.loader.PlayLocalLoader
 import com.lpc.snowmusic.mvp.contract.PlayLocalContract
 import com.lpc.snowmusic.mvp.presenter.PlayLocalPresenter
 import com.lpc.snowmusic.ui.my.adapter.LocalPagerAdapter
 import com.lpc.snowmusic.utils.ViewPager2Helper
+import com.permissionx.guolindev.PermissionX
 import kotlinx.android.synthetic.main.activity_play_local.*
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -24,6 +31,9 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
     //标题
     private val titles: Array<String> by lazy { getStringArray(R.array.local_tab_title) }
 
+    //是否获取了权限
+    private var allGranted: Boolean = false
+
     override fun getLayoutResId(): Int = R.layout.activity_play_local
 
     override fun createPresenter(): PlayLocalContract.Presenter = PlayLocalPresenter()
@@ -37,8 +47,16 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
         super.initToolBar()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_local_music, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun initView() {
         super.initView()
+        //请求权限
+        requestPermission()
+        //初始化指示器
         val navigator: CommonNavigator = CommonNavigator(this)
         navigator.adapter = object : CommonNavigatorAdapter() {
 
@@ -81,6 +99,40 @@ class PlayLocalActivity : BaseMvpActivity<PlayLocalContract.View, PlayLocalContr
         }
         //magicIndicator与viewPager2 绑定
         ViewPager2Helper.bind(magicIndicator, viewPager2)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.scan_music -> {
+                ToastUtils.showShort("扫描本地音乐")
+                if (this.allGranted) {
+                    PlayLocalLoader.getLocalMusic(this, true)
+                } else {
+                    requestPermission()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    /**
+     * 请求权限
+     *
+     * */
+    private fun requestPermission() {
+        //权限检测
+        PermissionX.init(this as FragmentActivity)
+            .permissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
+                    this.allGranted = allGranted
+                } else {
+                    ToastUtils.showShort("您拒绝了如下权限：$deniedList")
+                }
+            }
     }
 
 }
