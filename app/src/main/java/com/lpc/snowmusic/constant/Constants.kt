@@ -38,4 +38,7 @@ object Constants {
 
     const val HTTP = "http"
 
+    const val DEFAULT_NOTIFICATION = "notification"
+
+
 }

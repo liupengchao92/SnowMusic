@@ -1,10 +1,12 @@
 package com.lpc.snowmusic.imageload
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.utils.MusicUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
@@ -47,6 +49,15 @@ object GlideUtils {
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
+    }
+
+    /**
+     * 加载获取Bitmap
+     *
+     * */
+    fun loadImageBitmap(mContext: Context?, url: String?, target: CustomTarget<Bitmap>) {
+        if (mContext == null) return
+        Glide.with(mContext).asBitmap().load(url).into(target)
     }
 
     fun loadBigImageView(

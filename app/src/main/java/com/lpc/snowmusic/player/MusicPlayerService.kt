@@ -1,6 +1,6 @@
 package com.lpc.snowmusic.player
 
-import android.app.Service
+import android.app.*
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.*
@@ -110,13 +110,16 @@ class MusicPlayerService : Service() {
     //屏幕锁
     var wakeLock: PowerManager.WakeLock? = null
 
+    //通知栏管理类
+    private var notifyManager: NotifyManager? = null
+
     private val binder: IBinder = IMusicServiceStub(this)
 
 
     inner class MusicPlayerHandler(val service: MusicPlayerService, looper: Looper) :
         Handler(looper) {
         //弱引用MusicPlayerService
-        val mService: WeakReference<MusicPlayerService> by lazy { WeakReference(service) }
+        private val mService: WeakReference<MusicPlayerService> by lazy { WeakReference(service) }
 
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -196,8 +199,12 @@ class MusicPlayerService : Service() {
      * 初始化通知栏
      * */
     private fun initNotification() {
-
+        notifyManager = NotifyManager(this, this).apply {
+            //初始化通知栏
+            initNotification()
+        }
     }
+
 
     /**
      * 初始化播放器
@@ -256,6 +263,8 @@ class MusicPlayerService : Service() {
         super.onDestroy()
         //停止更新进度任务
         progressHelper.cancelProgressTask()
+        //取消通知栏
+        notifyManager?.cancelNotification()
     }
 
 
@@ -546,8 +555,9 @@ class MusicPlayerService : Service() {
      * @param isChange 是否改变歌曲信息
      */
     private fun updateNotification(isChange: Boolean) {
-
+        notifyManager?.updateNotification(playingMusic, isChange)
     }
+
 
     /**
      * 保存播放历史

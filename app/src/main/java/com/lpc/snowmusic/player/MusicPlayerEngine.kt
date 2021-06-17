@@ -1,5 +1,6 @@
 package com.lpc.snowmusic.player
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Handler
@@ -69,7 +70,7 @@ class MusicPlayerEngine(musicPlayerService: MusicPlayerService) : MediaPlayer.On
 
                 //本地歌曲不需要缓存
                 if (path.startsWith("content://") || path.startsWith("/storage")) {
-                    setDataSource(mService.get(), Uri.parse(path))
+                    setDataSource(mService.get() as Context, Uri.parse(path))
                 } else if (cacheSetting) {
                     //TODO 做缓存
 
