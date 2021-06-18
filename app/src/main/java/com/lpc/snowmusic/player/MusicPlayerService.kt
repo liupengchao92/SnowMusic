@@ -555,7 +555,7 @@ class MusicPlayerService : Service() {
      * @param isChange 是否改变歌曲信息
      */
     private fun updateNotification(isChange: Boolean) {
-        notifyManager?.updateNotification(playingMusic, isChange)
+        notifyManager?.updateNotification(isChange)
     }
 
 

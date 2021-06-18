@@ -3,14 +3,17 @@ package com.lpc.snowmusic.player
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.lpc.snowmusic.BuildConfig
 import com.lpc.snowmusic.R
-import com.lpc.snowmusic.bean.Music
 import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.imageload.GlideUtils
 import com.lpc.snowmusic.ui.discover.PlayerActivity
@@ -20,7 +23,7 @@ import java.lang.ref.WeakReference
  * Author: liupengchao
  * Date: 2021/6/17
  * ClassName :NotifyManager
- * Desc:
+ * Desc:通知栏管理类
  */
 class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService) {
 
@@ -46,6 +49,18 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
     private val notificationManager by lazy { context.getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager }
     private var notificationBuilder: NotificationCompat.Builder? = null
     private var notification: Notification? = null
+    private val contentViews by lazy {
+        RemoteViews(
+            BuildConfig.APPLICATION_ID,
+            R.layout.layout_player_notification
+        )
+    }
+    private val customBigContentView by lazy {
+        RemoteViews(
+            BuildConfig.APPLICATION_ID,
+            R.layout.layout_player_notification_expanded
+        )
+    }
 
     /**
      * 初始化通知栏
@@ -61,12 +76,6 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
             PendingIntent.getActivity(context, 0, playingIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         //NotificationCompat类来处理新旧系统中的兼容方案：
         notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID).apply {
-            service.get()?.playingMusic?.run {
-                //设置标题
-                setContentTitle(title)
-                //设置内容
-                setContentText(if (artist.isNullOrEmpty()) album else artist)
-            }
             //设置SmallIcon
             setSmallIcon(R.drawable.ic_music)
             //设置通知时间
@@ -75,6 +84,11 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
             setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             //设置点击意图
             setContentIntent(pendingIntent)
+            //自定义通知栏
+            setRemoteViews(contentViews)
+            setRemoteViews(customBigContentView)
+            setCustomContentView(contentViews)
+            setCustomBigContentView(customBigContentView)
         }
     }
 
@@ -98,36 +112,43 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
         }
     }
 
+    private fun setRemoteViews(remoteViews: RemoteViews) {
+        service.get()?.playingMusic?.let {
+            //歌曲名称
+            remoteViews.setTextViewText(R.id.notificationSongName, it.title)
+            //歌手
+            remoteViews.setTextViewText(R.id.notificationArtist, it.artist)
+            //封面
+            GlideUtils.loadImageBitmap(context, it.coverUri, object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(bitmap: Bitmap, p1: Transition<in Bitmap>?) {
+                    remoteViews.setImageViewBitmap(R.id.notificationCover, bitmap)
+                    notification = notificationBuilder?.build()
+                    notificationManager.notify(NOTIFICATION_ID, notification)
+                }
+
+                override fun onLoadCleared(p0: Drawable?) {
+
+                }
+            })
+        }
+
+    }
+
     /**
      * 更新状态栏通知
      *
      * @param isChange 是否改变歌曲信息
      */
-    fun updateNotification(playingMusic: Music?, isChange: Boolean = false) {
+    fun updateNotification(isChange: Boolean = false) {
         if (isChange) {
-            playingMusic?.let {
-                GlideUtils.loadImageBitmap(context, it.coverUri, object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(bitmap: Bitmap, p1: Transition<in Bitmap>?) {
-                        notificationBuilder?.setLargeIcon(bitmap)
-                        notification = notificationBuilder?.build()
-                        notificationManager.notify(NOTIFICATION_ID, notification)
-                    }
-
-                    override fun onLoadCleared(p0: Drawable?) {
-
-                    }
-                })
-
-                notificationBuilder?.run {
-                    //设置标题
-                    setContentTitle(it.title)
-                    //设置内容
-                    setContentText(it?.run { if (artist.isNullOrEmpty()) album else artist })
-                }
+            notificationBuilder?.apply {
+                //自定义通知栏
+                setRemoteViews(contentViews)
+                setRemoteViews(customBigContentView)
+                setCustomContentView(contentViews)
+                setCustomBigContentView(customBigContentView)
             }
         }
-
-
         notification = notificationBuilder?.build()
         notificationManager.notify(NOTIFICATION_ID, notification)
         //设置前台服务
