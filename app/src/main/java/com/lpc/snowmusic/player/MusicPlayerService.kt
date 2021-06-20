@@ -1,8 +1,7 @@
 package com.lpc.snowmusic.player
 
 import android.app.*
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.os.*
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
@@ -21,6 +20,7 @@ import com.lpc.snowmusic.music.MusicApi
 import com.lpc.snowmusic.utils.MMKVUtils
 import org.greenrobot.eventbus.EventBus
 import java.lang.ref.WeakReference
+import kotlin.system.exitProcess
 
 /**
  * Author: liupengchao
@@ -62,6 +62,23 @@ class MusicPlayerService : Service() {
         //音量改变增加
         const val VOLUME_FADE_UP = 14
 
+        //广播标志
+        const val ACTION_SERVICE = "com.lpc.snowmusic.service"
+
+        //下一首广播
+        const val ACTION_NEXT = "com.lpc.snowmusic.notify.next"
+
+        //上一首广播
+        const val ACTION_PREV = "com.lpc.snowmusic.notify.prev"
+
+        //播放暂停广播
+        const val ACTION_PLAY_PAUSE = "com.lpc.snowmusic.notify.play_state"
+
+        //通知栏歌词
+        const val ACTION_LYRIC = "com.lpc.snowmusic.notify.lyric"
+
+        //关闭通知栏
+        const val ACTION_CLOSE_NOTIFY = "com.lpc.snowmusic.notify.close"
 
         //播放歌曲发生改变
         const val META_CHANGED = "com.lpc.snowmusic.meta_changed"
@@ -112,6 +129,12 @@ class MusicPlayerService : Service() {
 
     //通知栏管理类
     private var notifyManager: NotifyManager? = null
+
+    //
+    private val intentFilter = IntentFilter(ACTION_SERVICE)
+
+    //自定义广播
+    private var serviceBroadcast: ServiceBroadcast? = null
 
     private val binder: IBinder = IMusicServiceStub(this)
 
@@ -175,6 +198,29 @@ class MusicPlayerService : Service() {
      *初始化广播
      * */
     private fun initReceiver() {
+        //实例化广播
+        serviceBroadcast = ServiceBroadcast()
+
+        //添加Action
+        intentFilter.addAction(ACTION_PREV)
+        intentFilter.addAction(ACTION_NEXT)
+        intentFilter.addAction(ACTION_PLAY_PAUSE)
+        intentFilter.addAction(ACTION_CLOSE_NOTIFY)
+        intentFilter.addAction(ACTION_LYRIC)
+
+        //注册广播
+        registerReceiver(serviceBroadcast, intentFilter)
+    }
+
+    /**
+     * 取消广播注册
+     *
+     * */
+    private fun unregisterReceiver() {
+        //自定义广播
+        serviceBroadcast?.let {
+            unregisterReceiver(it)
+        }
 
     }
 
@@ -265,6 +311,8 @@ class MusicPlayerService : Service() {
         progressHelper.cancelProgressTask()
         //取消通知栏
         notifyManager?.cancelNotification()
+        //
+
     }
 
 
@@ -531,6 +579,8 @@ class MusicPlayerService : Service() {
             PLAY_STATE_CHANGED -> {
                 //播放状态发生改变
                 EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
+                //通知栏更新
+                updateNotification(true)
             }
             META_CHANGED -> {
                 //播放的资源发生改变
@@ -591,5 +641,69 @@ class MusicPlayerService : Service() {
         MMKVUtils.putValue(SPkeyConstant.POSITION, getCurrentPosition())
     }
 
+    /**
+     * 自定义相关Action 相关
+     *
+     * */
+    inner class ServiceBroadcast : BroadcastReceiver() {
+
+        override fun onReceive(context: Context?, intent: Intent?) {
+            LogUtils.d("意图 ：$intent?.action")
+            intent?.let {
+                handleIntent(it)
+            }
+        }
+    }
+
+    /**
+     * 处理意图
+     *
+     * */
+    private fun handleIntent(intent: Intent) {
+
+        when (intent.action) {
+
+            ACTION_PREV -> {
+                //上一首
+                prev()
+            }
+            ACTION_NEXT -> {
+                //下一首
+                next(false)
+            }
+
+            ACTION_PLAY_PAUSE -> {
+                //播放与暂停
+                playPause()
+
+            }
+
+            ACTION_LYRIC -> {
+                //显示歌词
+                startFloatLyric()
+            }
+
+            ACTION_CLOSE_NOTIFY -> {
+                //关闭通知栏
+                stop(true)
+                stopSelf()
+                releaseServiceUiAndStop()
+                exitProcess(0)
+            }
+
+        }
+
+    }
+
+    private fun releaseServiceUiAndStop() {
+
+
+    }
+
+    //开启歌词悬浮窗
+    private fun startFloatLyric() {
+
+
+    }
 
 }

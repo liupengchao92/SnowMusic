@@ -3,8 +3,6 @@ package com.lpc.snowmusic.player
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -16,6 +14,11 @@ import com.lpc.snowmusic.BuildConfig
 import com.lpc.snowmusic.R
 import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.imageload.GlideUtils
+import com.lpc.snowmusic.player.MusicPlayerService.Companion.ACTION_CLOSE_NOTIFY
+import com.lpc.snowmusic.player.MusicPlayerService.Companion.ACTION_LYRIC
+import com.lpc.snowmusic.player.MusicPlayerService.Companion.ACTION_NEXT
+import com.lpc.snowmusic.player.MusicPlayerService.Companion.ACTION_PLAY_PAUSE
+import com.lpc.snowmusic.player.MusicPlayerService.Companion.ACTION_PREV
 import com.lpc.snowmusic.ui.discover.PlayerActivity
 import java.lang.ref.WeakReference
 
@@ -61,6 +64,9 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
             R.layout.layout_player_notification_expanded
         )
     }
+
+    //是否已经
+    private var isInit: Boolean = false
 
     /**
      * 初始化通知栏
@@ -113,6 +119,41 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
     }
 
     private fun setRemoteViews(remoteViews: RemoteViews) {
+
+        //上一首
+        remoteViews.setOnClickPendingIntent(
+            R.id.notificationFRewind,
+            getClickPendingIntent(ACTION_PREV)
+        )
+        //下一首
+        remoteViews.setOnClickPendingIntent(
+            R.id.notificationFForward,
+            getClickPendingIntent(ACTION_NEXT)
+        )
+        //播放与暂停
+        remoteViews.setOnClickPendingIntent(
+            R.id.notificationPlayPause,
+            getClickPendingIntent(ACTION_PLAY_PAUSE)
+        )
+        //歌词
+        remoteViews.setOnClickPendingIntent(
+            R.id.notificationLyric,
+            getClickPendingIntent(ACTION_LYRIC)
+        )
+        //关闭通知栏
+        remoteViews.setOnClickPendingIntent(
+            R.id.notificationStop,
+            getClickPendingIntent(ACTION_CLOSE_NOTIFY)
+        )
+
+        //是否正在播放
+        service.get()?.isMusicPlaying?.let {
+            remoteViews.setImageViewResource(
+                R.id.notificationPlayPause,
+                if (it) R.drawable.ic_pause else R.drawable.ic_play
+            )
+        }
+        //设置 歌曲信息
         service.get()?.playingMusic?.let {
             //歌曲名称
             remoteViews.setTextViewText(R.id.notificationSongName, it.title)
@@ -131,8 +172,17 @@ class NotifyManager(var context: Context, musicPlayerService: MusicPlayerService
                 }
             })
         }
-
     }
+
+    /**
+     * 获取PendingIntent
+     * */
+    private fun getClickPendingIntent(action: String) = PendingIntent.getBroadcast(
+        service.get(),
+        NOTIFICATION_ID,
+        Intent(action),
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
 
     /**
      * 更新状态栏通知

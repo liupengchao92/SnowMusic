@@ -69,10 +69,10 @@
             tools:ignore="RtlHardcoded">
 
         <ImageButton
-                android:id="@+id/notificationRepeat"
+                android:id="@+id/notificationLyric"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="15dp"
                 android:background="@color/color_black"
                 android:clickable="true"
                 android:focusable="true"
@@ -101,7 +101,7 @@
 
         <ImageButton
                 android:id="@+id/notificationPlayPause"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/notificationFForward"
@@ -110,14 +110,14 @@
                 android:focusable="true"
                 android:padding="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_pause"
+                android:src="@drawable/ic_play"
                 tools:ignore="ContentDescription" />
 
         <ImageButton
                 android:id="@+id/notificationFForward"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/color_black"
                 android:clickable="true"
                 android:focusable="true"

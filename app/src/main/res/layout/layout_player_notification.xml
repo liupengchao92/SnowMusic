@@ -52,7 +52,7 @@
             android:background="@color/color_black"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_pause"
+            android:src="@drawable/ic_play"
             tools:ignore="ContentDescription" />
 
     <ImageButton
