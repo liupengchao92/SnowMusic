@@ -40,5 +40,11 @@ object Constants {
 
     const val DEFAULT_NOTIFICATION = "notification"
 
+    /**
+     * 悬浮窗权限requestCode
+     */
+    const val REQUEST_CODE_FLOAT_WINDOW = 0x123
+    const val REQUEST_CODE_LOGIN = 10001
+
 
 }

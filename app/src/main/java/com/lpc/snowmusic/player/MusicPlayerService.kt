@@ -18,8 +18,10 @@ import com.lpc.snowmusic.http.function.RequestCallBack
 import com.lpc.snowmusic.http.function.request
 import com.lpc.snowmusic.music.MusicApi
 import com.lpc.snowmusic.utils.MMKVUtils
+import com.lpc.snowmusic.utils.SystemUtils
 import org.greenrobot.eventbus.EventBus
 import java.lang.ref.WeakReference
+import java.util.*
 import kotlin.system.exitProcess
 
 /**
@@ -135,6 +137,13 @@ class MusicPlayerService : Service() {
 
     //自定义广播
     private var serviceBroadcast: ServiceBroadcast? = null
+
+    //显示桌面歌词
+    private var isShowDesktopLyric = false
+
+    //桌面歌词计时
+    private var lyricTimer: Timer? = null
+
 
     private val binder: IBinder = IMusicServiceStub(this)
 
@@ -702,8 +711,36 @@ class MusicPlayerService : Service() {
 
     //开启歌词悬浮窗
     private fun startFloatLyric() {
+        //是否获取悬浮窗权限
+        if (SystemUtils.isOpenFloatWindow()) {
+            isShowDesktopLyric = !isShowDesktopLyric
+            showDesktopLyric(isShowDesktopLyric)
+        } else {
+            //申请权限
+            SystemUtils.applySystemWindow()
+        }
+    }
 
-
+    fun showDesktopLyric(show: Boolean) {
+        if (show) {
+            lyricTimer = Timer()
+            lyricTimer?.schedule(object : TimerTask() {
+                override fun run() {
+                    FloatLyricViewManager.updateFloatLyric(
+                        this@MusicPlayerService,
+                        getCurrentPosition(),
+                        getDuration()
+                    )
+                }
+            }, 0, 500)
+        } else {
+            if (lyricTimer != null) {
+                lyricTimer?.cancel()
+                lyricTimer = null
+            }
+            //移除悬浮窗
+            FloatLyricViewManager.removeFloatLyricView()
+        }
     }
 
 }

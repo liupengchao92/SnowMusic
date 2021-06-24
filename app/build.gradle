@@ -111,6 +111,7 @@ dependencies {
     implementation 'com.permissionx.guolindev:permissionx:1.2.2'
     //TabLayout
     implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
-
+    //进度条
+    implementation 'com.github.rtugeek:ColorSeekBar:1.6.2'
 
 }

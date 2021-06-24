@@ -149,6 +149,19 @@ object PlayManager {
     }
 
     /**
+     *获取总时长
+     *
+     */
+    fun getDuration(): Int {
+        try {
+            return mService?.duration as Int
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+        return 0
+    }
+
+    /**
      *修改进度
      *
      */
