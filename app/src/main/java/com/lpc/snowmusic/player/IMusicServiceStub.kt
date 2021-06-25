@@ -97,7 +97,7 @@ class IMusicServiceStub(musicPlayerService: MusicPlayerService) : IMusicService.
     }
 
     override fun showDesktopLyric(show: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mService.get()?.showDesktopLyric(show)
     }
 
     override fun AudioSessionId(): Int = mService.get()?.getAudioSessionId()!!

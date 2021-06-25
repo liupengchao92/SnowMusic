@@ -8,7 +8,7 @@
         android:orientation="vertical">
 
     <FrameLayout
-            android:background="@color/color_black"
+            android:background="@drawable/shape_lyric_window_background"
             android:id="@+id/small_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -73,7 +73,7 @@
                     android:orientation="horizontal">
 
                 <ImageView
-                        android:src="@drawable/ic_lock"
+                        android:src="@drawable/ic_unlock"
                         android:id="@+id/btn_lock"
                         android:layout_width="24dp"
                         android:layout_height="24dp"

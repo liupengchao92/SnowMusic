@@ -590,6 +590,8 @@ class MusicPlayerService : Service() {
                 EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
                 //通知栏更新
                 updateNotification(true)
+                //更新悬浮窗歌词状态
+                FloatLyricViewManager.updatePlayStatus(isMusicPlaying)
             }
             META_CHANGED -> {
                 //播放的资源发生改变
@@ -732,7 +734,7 @@ class MusicPlayerService : Service() {
                         getDuration()
                     )
                 }
-            }, 0, 500)
+            }, 0, 100)
         } else {
             if (lyricTimer != null) {
                 lyricTimer?.cancel()

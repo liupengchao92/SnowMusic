@@ -25,5 +25,9 @@ object SPkeyConstant {
     //桌面歌词字体颜色
     const val DESKTOP_LYRIC_COLOR = "DESKTOP_LYRIC_COLOR"
 
+    //桌面歌词是否锁定
+    const val DESKTOP_LYRIC_LOCK = "DESKTOP_LYRIC_LOCK"
+
+
 
 }

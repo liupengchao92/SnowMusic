@@ -12,6 +12,7 @@ import com.lpc.snowmusic.player.PlayManager
 import com.lpc.snowmusic.ui.discover.PlayerActivity
 import com.lpc.snowmusic.ui.discover.activity.ArtistDetailActivity
 import com.lpc.snowmusic.ui.discover.activity.SongListDetailActivity
+import com.lpc.snowmusic.ui.main.activity.MainActivity
 
 /**
  * Author: liupengchao
@@ -20,6 +21,12 @@ import com.lpc.snowmusic.ui.discover.activity.SongListDetailActivity
  * Desc:
  */
 object NavigationHelper {
+
+    fun navigateToMain(context: Context) {
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(intent)
+    }
 
     /**
      *跳转歌手详情

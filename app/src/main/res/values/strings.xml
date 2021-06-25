@@ -66,6 +66,7 @@
     <string name="artist">歌手</string>
     <string name="album">专辑</string>
     <string name="folder">文件夹</string>
-
+    <string name="float_lock">桌面歌词已锁定</string>
+    <string name="float_unlock">桌面歌词已解除锁定</string>
 
 </resources>

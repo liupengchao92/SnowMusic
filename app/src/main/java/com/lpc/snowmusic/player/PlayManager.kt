@@ -231,6 +231,14 @@ object PlayManager {
         }
     }
 
+    fun showDesktopLyric(show: Boolean) {
+        try {
+            mService?.showDesktopLyric(show)
+        } catch (e: RemoteException) {
+            e.printStackTrace()
+        }
+    }
+
     class ServiceBinder(private val callback: ServiceConnection, private val context: Context) :
         ServiceConnection {
 

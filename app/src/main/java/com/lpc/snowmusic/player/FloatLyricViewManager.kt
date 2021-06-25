@@ -126,7 +126,9 @@ object FloatLyricViewManager {
                     }
                     //
                     windowManagerParams?.let {
+                        // floatLyricView?.windowManagerParams = it
                         windowManager.addView(floatLyricView, it)
+                        floatLyricView?.setDefaultValue()
                     }
                     //将视图添加到Window
                     LogUtils.d("创建悬浮歌词 创建完成")
@@ -143,6 +145,7 @@ object FloatLyricViewManager {
         try {
             if (floatLyricView != null) {
                 windowManager.removeView(floatLyricView)
+                isFirstSettingLyric = true
                 floatLyricView = null
                 windowManagerParams = null
                 LogUtils.d("歌词悬浮窗 移除成功")
@@ -189,7 +192,17 @@ object FloatLyricViewManager {
         })
     }
 
-    //悬浮窗是否显示
+    /**
+     * 悬浮窗是否显示
+     * */
     private fun isWindowShowing(): Boolean = floatLyricView != null
+
+
+    /**
+     * 更新播放状态
+     * */
+    fun updatePlayStatus(isPlaying: Boolean) {
+        floatLyricView?.updatePlayStatus(isPlaying)
+    }
 
 }
