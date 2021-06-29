@@ -88,6 +88,9 @@ class MusicPlayerService : Service() {
         //播放状态发生改变
         const val PLAY_STATE_CHANGED = "com.lpc.snowmusic.play_state_change"
 
+        //加载中
+        const val PLAY_STATE_LOADING_CHANGED = "com.lpc.snowmusic.play_state_loading"
+
         //清空播放队列
         const val PLAY_QUEUE_CLEAR = "com.lpc.snowmusic.play_queue_clear"
 
@@ -110,6 +113,9 @@ class MusicPlayerService : Service() {
 
     //是否正在播放
     var isMusicPlaying: Boolean = false
+
+    //播放缓存进度
+    var percent = 0
 
     //歌单类型ID
     private var playListId: String = Constants.PLAYLIST_QUEUE_ID
@@ -164,6 +170,13 @@ class MusicPlayerService : Service() {
                         updateNotification(false)
                         notifyStateChange(PLAY_STATE_CHANGED)
                     }
+
+                    PREPARE_ASYNC_UPDATE -> {
+                        percent = msg.obj as Int
+                        //缓冲加载
+                        notifyStateChange(PLAY_STATE_LOADING_CHANGED)
+                    }
+
                     TRACK_WENT_TO_NEXT -> {
                         //Player播放完毕切换到下一首
                         mainHandler.post { service.next(true) }
@@ -177,6 +190,11 @@ class MusicPlayerService : Service() {
                         } else {
                             mainHandler.post { service.next(true) }
                         }
+                    }
+
+                    TRACK_PLAY_ERROR -> {
+                        //播放出错
+
                     }
                     else -> {
 
@@ -583,11 +601,11 @@ class MusicPlayerService : Service() {
      * @param what 发送更新广播
      */
     private fun notifyStateChange(what: String) {
-        LogUtils.d("")
+        LogUtils.d("notifyState============>>$what")
         when (what) {
             PLAY_STATE_CHANGED -> {
                 //播放状态发生改变
-                EventBus.getDefault().post(StatusChangedEvent(isMusicPlaying, isMusicPlaying, 0))
+                EventBus.getDefault().post(StatusChangedEvent(isPrepared(), isMusicPlaying, percent * getDuration()))
                 //通知栏更新
                 updateNotification(true)
                 //更新悬浮窗歌词状态
@@ -598,6 +616,11 @@ class MusicPlayerService : Service() {
                 EventBus.getDefault().post(MetaChangedEvent(playingMusic!!))
                 //加载歌词
                 FloatLyricViewManager.loadLyric(playingMusic)
+            }
+
+            PLAY_STATE_LOADING_CHANGED -> {
+                //播放loading
+                EventBus.getDefault().post(StatusChangedEvent(isPrepared(), isMusicPlaying, percent * getDuration()))
             }
 
             PLAY_QUEUE_CHANGE -> {

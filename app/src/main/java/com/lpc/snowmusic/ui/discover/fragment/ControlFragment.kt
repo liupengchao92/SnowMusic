@@ -54,7 +54,7 @@ class ControlFragment : BaseMvpFragment<PlayContract.View, PlayContract.Presente
         playQueueIv.setOnClickListener { PlayQueueWindow(activity as Context)?.showPopupWindow() }
         //页面跳转
         bottom_control.setOnClickListener {
-            NavigationHelper.navigateToPlaying(activity!!)
+            NavigationHelper.navigateToPlaying(activity!!,bottom_control)
         }
     }
 

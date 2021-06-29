@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.media.audiofx.AudioEffect
+import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import com.blankj.utilcode.util.ToastUtils
 import com.lpc.snowmusic.bean.Artist
 import com.lpc.snowmusic.bean.Playlist
@@ -49,9 +52,17 @@ object NavigationHelper {
     /**
      *跳转播放详情页面
      * */
-    fun navigateToPlaying(context: Context) {
+    fun navigateToPlaying(context: Context, transitionView: View? = null) {
         val intent = Intent(context, PlayerActivity::class.java)
-        context.startActivity(intent)
+        if (transitionView != null) {
+            val compat = ActivityOptionsCompat.makeScaleUpAnimation(
+                transitionView,
+                transitionView.width / 2, transitionView.height / 2, 0, 0
+            )
+            ActivityCompat.startActivity(context, intent, compat.toBundle())
+        } else {
+            context.startActivity(intent)
+        }
     }
 
     /**

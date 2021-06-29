@@ -189,17 +189,27 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updatePlayStatus(event: StatusChangedEvent) {
+        updateLoading(!event.isPrepared)
         updatePlayStatus(event.isPlaying)
+        seekProgress.secondaryProgress = event.percent.toInt()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun updatePalyModeEvent(event: PlayModeEvent) {
+    fun updatePlayModeEvent(event: PlayModeEvent) {
         updatePlayMode()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updatePlayingMusic(event: MetaChangedEvent) {
+        updateProgress(0, 0)
         showPlayingMusic(event.music)
         coverFragment?.loadCover()
+    }
+
+    /**
+     *
+     * 是否正在加载*/
+    private fun updateLoading(loading: Boolean) {
+        loadingAv.visibility = if (loading) View.VISIBLE else View.GONE
     }
 }
