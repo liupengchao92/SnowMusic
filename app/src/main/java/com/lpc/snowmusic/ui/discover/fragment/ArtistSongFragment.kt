@@ -39,6 +39,7 @@ class ArtistSongFragment : BaseFragment() {
         songAdapter.setOnItemClickListener { adapter, view, position ->
             PlayManager.play(adapter.data as List<Music>, position, artistID.toString())
             NavigationHelper.navigateToPlaying(activity as Context)
+            songAdapter.notifyDataSetChanged()
         }
     }
 

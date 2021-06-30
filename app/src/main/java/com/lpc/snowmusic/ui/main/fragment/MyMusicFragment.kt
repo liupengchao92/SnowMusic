@@ -110,7 +110,7 @@ class MyMusicFragment : BaseMvpFragment<MyMusicContract.View, MyMusicContract.Pr
     }
 
     override fun showLoveList(musicList: MutableList<Music>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        favoriteItem.setItemDesc(String.format(getString(R.string.song_num), musicList.size))
     }
 
     override fun showDownloadList(musicList: MutableList<Music>) {

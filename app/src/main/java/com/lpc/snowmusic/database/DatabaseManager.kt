@@ -55,7 +55,7 @@ object DatabaseManager {
         //插入歌曲表
         insertMusicDB(music)
         //获取歌单中的歌曲
-        var mtp = database.musicDao().queryPlayListMusic(pid, music.mid)
+        var mtp = getMusicFromPlayList(pid, music.mid!!)
         //不存在插入歌单表
         if (mtp == null) {
             mtp = MusicToPlayList()
@@ -87,6 +87,22 @@ object DatabaseManager {
             musicLists.add(music)
         }
         return musicLists
+    }
+
+    /**
+     * 获取
+     * */
+    fun getMusicFromPlayList(mid: String, pid: String): MusicToPlayList? {
+        return database.musicDao().queryPlayListMusic(pid, mid)
+    }
+
+    /**
+     * 删除歌单的歌曲
+     * */
+    fun deletePlayList(music: Music, pid: String) {
+        if (getMusicFromPlayList(music.mid.toString(), pid) != null) {
+            database.musicDao().delete(music.mid,pid)
+        }
     }
 
     /**

@@ -41,7 +41,13 @@ interface MusicDao {
     @Update
     fun updatePlayList(musicToPlayList: MusicToPlayList)
 
-    //获取对应歌单
+    //删除首歌曲
+    @Query("DELETE FROM MusicToPlayList WHERE pid =:pid AND mid=:mid")
+    fun delete(pid: String?, mid: String?): Int
+
+    //清空歌单
     @Query("DELETE FROM MusicToPlayList WHERE pid =:pid ")
     fun deleteAll(pid: String): Int
+
+
 }

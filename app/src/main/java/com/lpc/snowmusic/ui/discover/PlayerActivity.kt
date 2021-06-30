@@ -1,5 +1,7 @@
 package com.lpc.snowmusic.ui.discover
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.view.View
 import android.widget.SeekBar
 import com.blankj.utilcode.util.ToastUtils
@@ -7,6 +9,7 @@ import com.lpc.snowmusic.R
 import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.base.BaseMvpActivity
 import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.database.loader.PlayLoveLoader
 import com.lpc.snowmusic.event.MetaChangedEvent
 import com.lpc.snowmusic.event.PlayModeEvent
 import com.lpc.snowmusic.event.StatusChangedEvent
@@ -25,6 +28,7 @@ import com.lpc.snowmusic.widget.window.PlayQueueWindow
 import kotlinx.android.synthetic.main.activity_player.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jetbrains.anko.doAsync
 
 /**
  * 播放详情页面
@@ -32,6 +36,8 @@ import org.greenrobot.eventbus.ThreadMode
 class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter>(),
     PlayContract.View,
     SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+
+    private var music: Music? = null
 
     //封面Fragment
     private var coverFragment: CoverFragment? = null
@@ -96,6 +102,7 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
     override fun createPresenter(): PlayContract.Presenter = PlayPresenter()
 
     override fun showPlayingMusic(music: Music) {
+        this.music = music
         //歌曲标题
         songNameTv.text = music.title
         //歌手
@@ -110,7 +117,11 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
             30,
             MusicUtils.PIC_SIZE_SMALL
         )
-
+        //是否收藏
+        PlayLoveLoader.isLoveMusic(music)?.let {
+            this.music?.isLove = it
+            collectIv.setImageResource(if (it) R.drawable.item_favorite_love else R.drawable.item_favorite)
+        }
     }
 
     override fun showLyric(lyric: String?, init: Boolean) {
@@ -183,6 +194,11 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
             R.id.playQueueIv -> {
                 PlayQueueWindow(this)?.showPopupWindow()
             }
+
+            //收藏喜欢
+            R.id.collectIv ->{
+                onClickCollect()
+            }
         }
     }
 
@@ -211,5 +227,48 @@ class PlayerActivity : BaseMvpActivity<PlayContract.View, PlayContract.Presenter
      * 是否正在加载*/
     private fun updateLoading(loading: Boolean) {
         loadingAv.visibility = if (loading) View.VISIBLE else View.GONE
+    }
+
+    /**
+     * 收藏
+     * */
+    fun onClickCollect() {
+
+        music?.let {
+            collectIv.setImageResource(if (!it.isLove) R.drawable.item_favorite_love else R.drawable.item_favorite)
+        }
+        //动画
+        ValueAnimator.ofFloat(1f, 1.3f, 0.8f, 1f).apply {
+            duration = 600
+
+            addUpdateListener {
+                collectIv.scaleX = it.animatedValue as Float
+                collectIv.scaleY = it.animatedValue as Float
+            }
+
+            addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator?) {
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    music?.let {
+                        doAsync {
+                            if (it.isLove) {
+                                PlayLoveLoader.removeLove(music!!)
+                            } else {
+                                PlayLoveLoader.addLoveList(music!!)
+                            }
+                            it.isLove = !it.isLove
+                        }
+                    }
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                }
+
+                override fun onAnimationRepeat(animation: Animator?) {
+                }
+            })
+        }.start()
     }
 }

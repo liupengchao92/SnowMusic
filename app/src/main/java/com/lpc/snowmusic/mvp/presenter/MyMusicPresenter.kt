@@ -5,6 +5,7 @@ import com.lpc.snowmusic.base.BasePresenter
 import com.lpc.snowmusic.bean.Playlist
 import com.lpc.snowmusic.database.loader.PlayHistoryLoader
 import com.lpc.snowmusic.database.loader.PlayLocalLoader
+import com.lpc.snowmusic.database.loader.PlayLoveLoader
 import com.lpc.snowmusic.mvp.contract.MyMusicContract
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -24,7 +25,8 @@ class MyMusicPresenter : BasePresenter<MyMusicContract.View, MyMusicContract.Mod
         loadLocalList()
         //加载历史
         loadHistoryList()
-
+        //收藏
+        loadFavoriteList()
     }
 
     fun loadLocalList() {
@@ -42,18 +44,23 @@ class MyMusicPresenter : BasePresenter<MyMusicContract.View, MyMusicContract.Mod
         //获取播放历史
         doAsync {
             PlayHistoryLoader.getHistoryList().let {
-                if (it.isNotEmpty()) {
-                    var history = it
-                    uiThread {
-                        view?.showHistory(history)
-                    }
+                var history = it
+                uiThread {
+                    view?.showHistory(history)
                 }
             }
         }
     }
 
     fun loadFavoriteList() {
-
+        doAsync {
+            PlayLoveLoader.getLoveList().let {
+                var loveList = it
+                uiThread {
+                    view?.showLoveList(loveList)
+                }
+            }
+        }
     }
 
     fun loadLocalMvList() {
