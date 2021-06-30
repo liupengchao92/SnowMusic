@@ -3,22 +3,25 @@ package com.lpc.snowmusic.ui.my.fragment
 import android.os.Bundle
 import android.view.View
 import android.view.View.OVER_SCROLL_NEVER
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.SizeUtils
 import com.lpc.snowmusic.R
-import com.lpc.snowmusic.base.BaseFragment
 import com.lpc.snowmusic.base.BaseMvpFragment
 import com.lpc.snowmusic.bean.LocalAlbum
 import com.lpc.snowmusic.bean.LocalArtist
 import com.lpc.snowmusic.bean.Music
+import com.lpc.snowmusic.constant.Constants
 import com.lpc.snowmusic.constant.Extras
 import com.lpc.snowmusic.mvp.contract.LocalDetailContract
 import com.lpc.snowmusic.mvp.presenter.LocalDetailPresenter
+import com.lpc.snowmusic.player.PlayManager
 import com.lpc.snowmusic.ui.discover.adapter.SongAdapter
 import com.lpc.snowmusic.ui.my.adapter.AlbumAdapter
 import com.lpc.snowmusic.ui.my.adapter.ArtistAdapter
 import com.lpc.snowmusic.ui.my.adapter.SpacesItemDecoration
+import com.lpc.snowmusic.utils.NavigationHelper
 import kotlinx.android.synthetic.main.fragment_local_detail.*
 
 /**
@@ -102,6 +105,12 @@ class LocalDetailFragment :
                 recyclerView.setPadding(space, 0, 0, 0)
             }
         }
+
+        songAdapter?.setOnItemClickListener { baseQuickAdapter, view, i ->
+            PlayManager.play(songList, i, Constants.PLAYLIST_LOCAL_ID)
+            songAdapter?.notifyDataSetChanged()
+            NavigationHelper.navigateToPlaying(activity as FragmentActivity);
+        }
     }
 
     override fun lazyLoad() {
@@ -117,6 +126,7 @@ class LocalDetailFragment :
         if (songList.isEmpty()) {
             empty_layout.visibility = View.VISIBLE
         } else {
+            this.songList.addAll(songList)
             empty_layout.visibility = View.GONE
             songAdapter.setNewInstance(songList)
             songAdapter.notifyDataSetChanged()

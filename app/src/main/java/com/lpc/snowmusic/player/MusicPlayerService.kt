@@ -37,6 +37,9 @@ class MusicPlayerService : Service() {
     companion object {
         const val TAG = "MusicPlayerService"
 
+        //错误次数
+        const val MAX_ERROR_TIMES = 3
+
         //下一首
         const val TRACK_WENT_TO_NEXT = 2
 
@@ -116,6 +119,9 @@ class MusicPlayerService : Service() {
 
     //播放缓存进度
     var percent = 0
+
+    //播放出错次数
+    private var playErrorTimes = 0
 
     //歌单类型ID
     private var playListId: String = Constants.PLAYLIST_QUEUE_ID
@@ -388,14 +394,15 @@ class MusicPlayerService : Service() {
                             }
 
                             override fun onError(e: Throwable) {
+                                checkPlayErrorTimes()
                                 LogUtils.e("播放异常-------->${e.message}")
                             }
                         })
                     }
                 } else {
 
-                    if (!it.uri?.startsWith(Constants.HTTP)!! && !FileUtils.isFileExists(it.uri)) {
-
+                    if (!(it.uri?.startsWith(Constants.HTTP)!!) && !FileUtils.isFileExists(it.uri)) {
+                        checkPlayErrorTimes()
                     } else {
                         //设置播放地址
                         mediaPlayer.setDataSource(it.uri!!)
@@ -605,7 +612,8 @@ class MusicPlayerService : Service() {
         when (what) {
             PLAY_STATE_CHANGED -> {
                 //播放状态发生改变
-                EventBus.getDefault().post(StatusChangedEvent(isPrepared(), isMusicPlaying, percent * getDuration()))
+                EventBus.getDefault()
+                    .post(StatusChangedEvent(isPrepared(), isMusicPlaying, percent * getDuration()))
                 //通知栏更新
                 updateNotification(true)
                 //更新悬浮窗歌词状态
@@ -620,7 +628,8 @@ class MusicPlayerService : Service() {
 
             PLAY_STATE_LOADING_CHANGED -> {
                 //播放loading
-                EventBus.getDefault().post(StatusChangedEvent(isPrepared(), isMusicPlaying, percent * getDuration()))
+                EventBus.getDefault()
+                    .post(StatusChangedEvent(isPrepared(), isMusicPlaying, percent * getDuration()))
             }
 
             PLAY_QUEUE_CHANGE -> {
@@ -765,6 +774,19 @@ class MusicPlayerService : Service() {
             }
             //移除悬浮窗
             FloatLyricViewManager.removeFloatLyricView()
+        }
+    }
+
+    /**
+     * 异常播放，自动切换下一首
+     */
+    private fun checkPlayErrorTimes() {
+        if (playErrorTimes > MAX_ERROR_TIMES) {
+            pause()
+        } else {
+            playErrorTimes++
+            ToastUtils.showShort("播放地址异常，自动切换下一首")
+            next(false)
         }
     }
 

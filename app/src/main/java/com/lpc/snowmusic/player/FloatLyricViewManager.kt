@@ -39,7 +39,7 @@ object FloatLyricViewManager {
     private var floatLyricView: FloatLyricView? = null
 
     //歌词内容
-    var lyricContent: String = ""
+    var lyricContent: String = "暂无歌词"
 
     //歌词
     private var lyricInfo: LyricInfo? = null
@@ -56,6 +56,7 @@ object FloatLyricViewManager {
      *
      * */
     fun loadLyric(playingMusic: Music?) {
+        lyricContent = "暂无歌词"
         playingMusic?.let {
             songName = it.title ?: ""
             MusicApi.getLyricInfo(it)?.request(object : RequestCallBack<String> {
