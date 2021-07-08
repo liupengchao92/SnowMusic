@@ -85,6 +85,8 @@
         <activity android:name=".ui.my.activity.PlayHistoryActivity"/>
         <!-- 本地音乐 -->
         <activity android:name=".ui.my.activity.PlayLocalActivity"/>
+        <!-- MV详情页 -->
+        <activity android:name=".ui.mv.activity.MvDetailActivity"/>
     </application>
 
 </manifest>

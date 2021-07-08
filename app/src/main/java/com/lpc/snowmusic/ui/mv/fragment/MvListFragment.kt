@@ -2,6 +2,7 @@ package com.lpc.snowmusic.ui.mv.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lpc.snowmusic.R
@@ -10,6 +11,7 @@ import com.lpc.snowmusic.bean.MvInfoDetail
 import com.lpc.snowmusic.mvp.contract.MvListContract
 import com.lpc.snowmusic.mvp.presenter.MvListPresenter
 import com.lpc.snowmusic.ui.mv.adapter.MvListAdapter
+import com.lpc.snowmusic.utils.NavigationHelper
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import kotlinx.android.synthetic.main.fragment_mv_recommend.*
@@ -20,17 +22,22 @@ import kotlinx.android.synthetic.main.fragment_mv_recommend.*
  * ClassName :MvRecommendFragment
  * Desc:MV Fragment
  */
-class MvListFragment : BaseMvpFragment<MvListContract.View, MvListContract.Presenter>(), MvListContract.View {
+class MvListFragment : BaseMvpFragment<MvListContract.View, MvListContract.Presenter>(),
+    MvListContract.View {
     //
     private var position = 0
+
     //是否刷新
     private var isRefresh: Boolean = false
+
     //Mv数据
     private var mvListData = mutableListOf<MvInfoDetail>()
+
     //适配器
     private val mvListAdapter: MvListAdapter by lazy {
         MvListAdapter(mvListData)
     }
+
     //
     private val linearLayoutManager: LinearLayoutManager by lazy {
         LinearLayoutManager(activity)
@@ -79,6 +86,11 @@ class MvListFragment : BaseMvpFragment<MvListContract.View, MvListContract.Prese
             } else {
                 layoutManager = gridLayoutManager
             }
+        }
+
+        mvListAdapter.setOnItemClickListener { baseQuickAdapter, view, i ->
+            val mvInfo :MvInfoDetail= baseQuickAdapter.data[i] as MvInfoDetail
+            NavigationHelper.navigateToMvDetail(activity as FragmentActivity,mvInfo.id.toString())
         }
     }
 

@@ -16,6 +16,7 @@ import com.lpc.snowmusic.ui.discover.PlayerActivity
 import com.lpc.snowmusic.ui.discover.activity.ArtistDetailActivity
 import com.lpc.snowmusic.ui.discover.activity.SongListDetailActivity
 import com.lpc.snowmusic.ui.main.activity.MainActivity
+import com.lpc.snowmusic.ui.mv.activity.MvDetailActivity
 
 /**
  * Author: liupengchao
@@ -76,5 +77,15 @@ object NavigationHelper {
         } catch (e: Exception) {
             ToastUtils.showShort("设备不支持均衡！")
         }
+    }
+
+    /**
+     * 跳转Mv详情页
+     *
+     * */
+    fun navigateToMvDetail(context: Activity, mvId:String) {
+        val intent = Intent(context, MvDetailActivity::class.java)
+        intent.putExtra(Extras.MV_ID,mvId)
+        context.startActivity(intent)
     }
 }

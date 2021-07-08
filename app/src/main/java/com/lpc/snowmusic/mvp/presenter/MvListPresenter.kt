@@ -19,9 +19,9 @@ class MvListPresenter : BasePresenter<MvListContract.View, MvListContract.Model>
 
 
     override fun loadPersonalizedMv() {
-        model?.loadPersonalizedMv()?.request(model, view as IView) {
+        model?.loadPersonalizedMv()?.request(model, view as IView) { personalizedInfo ->
             val list = mutableListOf<MvInfoDetail>()
-            it.result?.forEach {
+            personalizedInfo.result?.forEach {
                 val data = MvInfoDetail(
                     artistId = it.artistId,
                     id = it.id.toInt(),

@@ -12,7 +12,7 @@ import com.lpc.snowmusic.utils.FormatUtil
  * Author: liupengchao
  * Date: 2021/4/8
  * ClassName :MvListAdapter
- * Desc:
+ * Desc:Mv列表
  */
 class MvListAdapter(datas: MutableList<MvInfoDetail>) :
 

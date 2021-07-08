@@ -28,6 +28,24 @@ object GlideUtils {
      * @param url
      * @param imageView
      */
+    fun loadImageView(url: String?, imageView: ImageView?) {
+        if (imageView == null) return
+        Glide.with(imageView.context)
+            .load(url)
+            .error(R.drawable.holder_with_bg)
+            .placeholder(R.drawable.default_cover)
+            .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imageView)
+    }
+
+    /**
+     * 显示图片
+     *
+     * @param mContext
+     * @param url
+     * @param imageView
+     */
     fun loadImageView(mContext: Context?, url: String?, imageView: ImageView?) {
         if (mContext == null) return
         if (imageView == null) return

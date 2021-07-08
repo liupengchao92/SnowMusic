@@ -60,4 +60,14 @@ interface NeteaseApiService {
      */
     @GET("/playlist/detail")
     fun getPlaylistDetail(@Query("id") id: String): Observable<PlaylistDetail>
+
+
+    @GET("/mv/detail")
+    fun getMvDetailInfo(@Query("mvid") var1: String?): Observable<MvInfoDetailInfo>
+
+    @GET("simi/mv")
+    fun getSimilarMv(@Query("mvid") var1: String?): Observable<*>
+
+    @GET("comment/mv")
+    fun getMvComment(@Query("id") var1: String?): Observable<*>
 }

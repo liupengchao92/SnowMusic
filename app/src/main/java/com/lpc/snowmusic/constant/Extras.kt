@@ -22,4 +22,11 @@ object Extras {
     //类型
     const val TYPE = "type"
 
+    //MV ID
+    const val MV_ID = "mv_id"
+
+    //MV 信息
+    const val MV_INFO = "mv_INFO"
+
+
 }
