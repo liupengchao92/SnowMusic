@@ -1,7 +1,7 @@
-package com.example.lpc.videoplayer.video.base
+package com.example.lpc.videoplayer.video.player.base
 
 import android.media.TimedText
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_IDLE
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_IDLE
 
 /**
  * Author: liupengchao

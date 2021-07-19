@@ -1,6 +1,5 @@
-package com.example.lpc.videoplayer.video.base
+package com.example.lpc.videoplayer.video.player.base
 
-import android.media.MediaPlayer
 import android.media.TimedText
 import android.view.Surface
 import android.view.SurfaceHolder

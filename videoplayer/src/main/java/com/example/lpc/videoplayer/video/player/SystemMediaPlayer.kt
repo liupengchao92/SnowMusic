@@ -8,16 +8,16 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Surface
 import android.view.SurfaceHolder
-import com.example.lpc.videoplayer.video.base.AbstractMediaPlayer
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_END
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_ERROR
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_IDLE
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_INITIALIZED
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_PAUSED
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_PLAYBACK_COMPLETE
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_PREPARED
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_STARTED
-import com.example.lpc.videoplayer.video.base.IMediaPlayer.Companion.STATE_STOPPED
+import com.example.lpc.videoplayer.video.player.base.AbstractMediaPlayer
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_END
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_ERROR
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_IDLE
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_INITIALIZED
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PAUSED
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PLAYBACK_COMPLETE
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PREPARED
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_STARTED
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_STOPPED
 import com.example.lpc.videoplayer.video.utils.LogUtils
 
 /**
@@ -27,6 +27,7 @@ import com.example.lpc.videoplayer.video.utils.LogUtils
  * Desc:系统播放器
  */
 class SystemMediaPlayer : AbstractMediaPlayer() {
+
     companion object {
 
         const val TAG: String = "SystemMediaPlayer"

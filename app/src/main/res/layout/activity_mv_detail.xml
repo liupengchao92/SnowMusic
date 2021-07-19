@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.mv.activity.MvDetailActivity">
 
-    <ImageView
+    <com.example.lpc.videoplayer.video.video.BaseVideoView
             android:id="@+id/videoCover"
             android:layout_width="match_parent"
             android:layout_height="200dp" />

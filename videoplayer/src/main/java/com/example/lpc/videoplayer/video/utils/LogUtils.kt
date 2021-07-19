@@ -14,32 +14,33 @@ object LogUtils {
 
     var LOG_OPEN = true
 
-
+    @JvmStatic
     fun d(message: String?) {
         if (LOG_OPEN) {
             d(TAG, message)
         }
     }
-
+    @JvmStatic
     fun d(tag: String?, message: String?) {
         if (LOG_OPEN) {
             Log.d(tag, message!!)
         }
     }
 
-
+    @JvmStatic
     fun w(message: String?) {
         if (LOG_OPEN) {
             w(TAG, message)
         }
     }
 
+    @JvmStatic
     fun w(tag: String?, message: String?) {
         if (LOG_OPEN) {
             Log.w(tag, message!!)
         }
     }
-
+    @JvmStatic
     fun e(message: String?) {
         if (LOG_OPEN) {
             Log.e(TAG, message!!)
