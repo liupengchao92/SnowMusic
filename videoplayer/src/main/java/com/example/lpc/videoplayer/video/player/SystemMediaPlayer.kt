@@ -4,10 +4,10 @@ import android.media.AudioAttributes
 import android.media.AudioAttributes.CONTENT_TYPE_MUSIC
 import android.media.MediaPlayer
 import android.os.Build
-import android.text.TextUtils
 import android.util.Log
 import android.view.Surface
 import android.view.SurfaceHolder
+import com.example.lpc.videoplayer.video.entity.DataSource
 import com.example.lpc.videoplayer.video.player.base.AbstractMediaPlayer
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_END
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_ERROR
@@ -39,7 +39,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
 
     //播放地址
-    private var dataSource: String = ""
+    private var dataSource: DataSource? = null
 
     //视频宽度
     private var mVideoWidth = 0
@@ -48,8 +48,9 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     private var mVideoHeight = 0;
 
 
-    override fun setDataSource(url: String) {
-        if (TextUtils.isEmpty(url)) throw java.lang.Exception("播放地址url is empty")
+    override fun setDataSource(dataSource: DataSource) {
+
+        if (dataSource == null) throw java.lang.Exception("播放地址url is empty")
 
         mediaPlayer?.run {
             try {
@@ -57,8 +58,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
                     stop()
                     reset()
                 }
-                dataSource = url
-                setDataSource(url)
+                setDataSource(dataSource.url)
                 setScreenOnWhilePlaying(true)
                 setAudioAttributes(
                     AudioAttributes.Builder().setContentType(CONTENT_TYPE_MUSIC).build()
@@ -100,7 +100,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     }
 
 
-    override fun getDataSource(): String = dataSource
+    override fun getDataSource(): DataSource? = dataSource
 
     override fun prepareAsync() {
         try {

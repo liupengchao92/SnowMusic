@@ -3,6 +3,7 @@ package com.example.lpc.videoplayer.video.player.base
 import android.media.TimedText
 import android.view.Surface
 import android.view.SurfaceHolder
+import com.example.lpc.videoplayer.video.entity.DataSource
 
 /**
  * Author: liupengchao
@@ -28,9 +29,9 @@ interface IMediaPlayer {
 
     fun setSurface(surface: Surface?)
 
-    fun setDataSource(url: String)
+    fun setDataSource(dataSource: DataSource)
 
-    fun getDataSource(): String
+    fun getDataSource(): DataSource?
 
     fun prepareAsync()
 
@@ -104,7 +105,13 @@ interface IMediaPlayer {
     }
 
     interface OnVideoSizeChangedListener {
-        fun onVideoSizeChange(mediaPlayer: IMediaPlayer?, var1: Int, var2: Int, var3: Int, var4: Int)
+        fun onVideoSizeChange(
+            mediaPlayer: IMediaPlayer?,
+            var1: Int,
+            var2: Int,
+            var3: Int,
+            var4: Int
+        )
     }
 
     interface OnSeekCompleteListener {
