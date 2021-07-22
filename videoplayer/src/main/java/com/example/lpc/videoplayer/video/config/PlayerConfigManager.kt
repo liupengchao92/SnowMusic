@@ -20,7 +20,7 @@ object PlayerConfigManager {
 
     fun getPlayer(): AbstractMediaPlayer? {
         if (playerClass == null) {
-            playerClass == SystemMediaPlayer::class
+            playerClass = SystemMediaPlayer::class.java as Class<AbstractMediaPlayer>?
         }
         try {
             return playerClass?.newInstance()

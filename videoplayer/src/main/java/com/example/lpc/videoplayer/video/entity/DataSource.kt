@@ -12,7 +12,7 @@ import java.util.*
 data class DataSource(var url: String) {
 
     //是否循环播放
-    var looping = false
+    var isLooping = false
 
     //是否缓存
     var isCache = false

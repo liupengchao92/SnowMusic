@@ -2,6 +2,7 @@ package com.example.lpc.videoplayer.video.video
 
 import android.view.Surface
 import com.example.lpc.videoplayer.video.config.PlayerConfigManager
+import com.example.lpc.videoplayer.video.entity.DataSource
 import com.example.lpc.videoplayer.video.listener.MediaPlayerListener
 import com.example.lpc.videoplayer.video.player.base.AbstractMediaPlayer
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer
@@ -30,6 +31,10 @@ class VideoManager : IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionL
         }
     }
 
+    override fun setDataSource(dataSource: DataSource) {
+        player?.setDataSource(dataSource)
+    }
+
     override fun start() {
         player?.start()
     }
@@ -40,6 +45,10 @@ class VideoManager : IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionL
 
     override fun pause() {
         player?.pause()
+    }
+
+    override fun release() {
+        player?.release()
     }
 
     override fun getVideoWidth(): Int = player?.getVideoWidth() ?: 0

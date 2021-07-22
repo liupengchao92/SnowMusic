@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
+import com.example.lpc.videoplayer.video.utils.LogUtils
 import com.example.lpc.videoplayer.video.utils.MeasureHelper
 import com.example.lpc.videoplayer.video.view.listener.SurfaceListener
 
@@ -22,7 +23,7 @@ class LPCTextureView : TextureView, IRenderView, TextureView.SurfaceTextureListe
     private var mSurface: Surface? = null
     private var measureHelper: MeasureHelper? = null
     private var surfaceListener: SurfaceListener? = null
-    var videoParamsListener: MeasureHelper.MeasureFormVideoParamsListener? = null
+    private var videoParamsListener: MeasureHelper.MeasureFormVideoParamsListener? = null
 
 
     constructor(context: Context) : super(context) {
@@ -57,10 +58,12 @@ class LPCTextureView : TextureView, IRenderView, TextureView.SurfaceTextureListe
     }
 
     override fun setOnSurfaceListener(surfaceListener: SurfaceListener) {
+        this.surfaceTextureListener = this
         this.surfaceListener = surfaceListener
     }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
+        LogUtils.e("LPCTextureView onSurfaceTextureAvailable========>>")
         mSurface = Surface(surface).apply {
             surfaceListener?.onSurfaceAvailable(this)
         }

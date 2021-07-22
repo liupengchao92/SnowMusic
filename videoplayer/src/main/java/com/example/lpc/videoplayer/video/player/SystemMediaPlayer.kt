@@ -263,10 +263,11 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
 
     private val mOnPreparedListener: MediaPlayer.OnPreparedListener =
         MediaPlayer.OnPreparedListener {
-            LogUtils.d(TAG, "onPrepared====>>")
             mVideoWidth = it.videoWidth
             mVideoHeight = it.videoHeight
             updateStatus(STATE_PREPARED)
+
+            LogUtils.d(TAG, "onPrepared====>>videoWidth :$mVideoWidth  videoHeight :$mVideoHeight")
             notifyOnPrepared()
         }
 
@@ -292,7 +293,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
 
         updateStatus(STATE_ERROR)
 
-        LogUtils.e(TAG, "OnError==============>>$what")
+        LogUtils.e(TAG, "OnError=====what:$what    extra :$extra")
 
         when (what) {
             MediaPlayer.MEDIA_ERROR_IO -> {

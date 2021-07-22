@@ -6,7 +6,7 @@
         tools:context=".ui.mv.activity.MvDetailActivity">
 
     <com.example.lpc.videoplayer.video.video.BaseVideoView
-            android:id="@+id/videoCover"
+            android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
 

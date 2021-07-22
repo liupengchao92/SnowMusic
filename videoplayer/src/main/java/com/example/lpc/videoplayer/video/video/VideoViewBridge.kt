@@ -1,6 +1,7 @@
 package com.example.lpc.videoplayer.video.video
 
 import android.view.Surface
+import com.example.lpc.videoplayer.video.entity.DataSource
 import com.example.lpc.videoplayer.video.listener.MediaPlayerListener
 
 /**
@@ -11,11 +12,15 @@ import com.example.lpc.videoplayer.video.listener.MediaPlayerListener
  */
 interface VideoViewBridge {
 
+    fun setDataSource(dataSource: DataSource)
+
     fun start()
 
     fun stop()
 
     fun pause()
+
+    fun release()
 
     fun getVideoWidth(): Int
 

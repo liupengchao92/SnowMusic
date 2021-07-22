@@ -7,9 +7,12 @@ import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import com.example.lpc.videoplayer.R
+import com.example.lpc.videoplayer.video.entity.DataSource
 import com.example.lpc.videoplayer.video.listener.MediaPlayerListener
 import com.example.lpc.videoplayer.video.utils.LogUtils
 import com.example.lpc.videoplayer.video.view.LPCTextureRenderView
+import java.io.File
+import java.util.*
 
 /**
  * Author: liupengchao
@@ -32,7 +35,11 @@ open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener {
     }
 
     private fun init(context: Context) {
+        playerManager = VideoManager()
+        playerManager?.setMediaPlayerListener(this)
+
         videoView = createView()
+        addSurfaceView(surfaceViewContainer)
     }
 
     private fun createView(): View {
@@ -46,9 +53,46 @@ open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener {
         super.onFinishInflate()
     }
 
+    open fun setDataSource(
+        url: String,
+        isLooping: Boolean = false,
+        isCache: Boolean = false,
+        rawId: Int = -1,
+        assetsPath: String? = null,
+        cachePath: File? = null,
+        extraData: HashMap<String, String>? = null
+    ) {
+        val dataSource = DataSource(url).apply {
+            this.isLooping = isLooping
+            this.isCache = isCache
+            this.rawId = rawId
+            this.assetsPath = assetsPath
+            this.mCachePath = cachePath
+            this.extraData = extraData
+        }
+        playerManager?.setDataSource(dataSource)
+    }
+
+    open fun start() {
+        playerManager?.start()
+    }
+
+    open fun pause() {
+        playerManager?.pause()
+    }
+
+    open fun stop() {
+        playerManager?.stop()
+    }
+
+    open fun release() {
+        playerManager?.release()
+    }
+
 
     override fun setDisplay(var1: Surface?) {
-        LogUtils.e("setDisplay=====>>")
+        LogUtils.e("BaseVideoView setDisplay========>>")
+        playerManager?.setDisplay(var1)
 
     }
 
@@ -57,25 +101,30 @@ open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener {
     }
 
     override fun onPrepared() {
-
+        LogUtils.e("onPrepared=======>>")
     }
 
     override fun onCompletion() {
+        LogUtils.e("onCompletion=======>>")
+
     }
 
     override fun onBufferingUpdate(var1: Int) {
+        LogUtils.e("onBufferingUpdate=======>>")
     }
 
     override fun onSeekComplete() {
     }
 
     override fun onError(var1: Int, var2: Int) {
+        LogUtils.e("onError=======>>")
     }
 
     override fun onInfo(var1: Int, var2: Int) {
+        LogUtils.e("onInfo=======>>")
     }
 
     override fun onVideoSizeChanged() {
-
+        LogUtils.e("onVideoSizeChanged=======>>")
     }
 }
