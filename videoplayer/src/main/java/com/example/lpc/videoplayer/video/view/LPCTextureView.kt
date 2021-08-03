@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
-import com.example.lpc.videoplayer.video.utils.LogUtils
 import com.example.lpc.videoplayer.video.utils.MeasureHelper
 import com.example.lpc.videoplayer.video.view.listener.SurfaceListener
 
@@ -63,7 +62,6 @@ class LPCTextureView : TextureView, IRenderView, TextureView.SurfaceTextureListe
     }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
-        LogUtils.e("LPCTextureView onSurfaceTextureAvailable========>>")
         mSurface = Surface(surface).apply {
             surfaceListener?.onSurfaceAvailable(this)
         }

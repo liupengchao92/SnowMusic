@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.Surface
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.example.lpc.videoplayer.video.utils.LogUtils
 import com.example.lpc.videoplayer.video.view.listener.SurfaceListener
 
 /**
@@ -16,7 +17,7 @@ import com.example.lpc.videoplayer.video.view.listener.SurfaceListener
  */
 abstract class LPCTextureRenderView : FrameLayout, SurfaceListener {
 
-    var renderType: Int = IRenderView.RENDER_TYPE_TEXTURE_VIEW
+    private var renderType: Int = IRenderView.RENDER_TYPE_TEXTURE_VIEW
 
     private var renderView: IRenderView? = null
 
@@ -45,18 +46,22 @@ abstract class LPCTextureRenderView : FrameLayout, SurfaceListener {
 
     override fun onSurfaceAvailable(surface: Surface) {
         setDisplay(surface)
+        LogUtils.d("LPCTextureRenderView=======>>onSurfaceAvailable :$surface")
     }
 
     override fun onSurfaceSizeChanged(surface: Surface, width: Int, height: Int) {
+        LogUtils.d("LPCTextureRenderView=======>>onSurfaceSizeChanged :$surface")
+
     }
 
     override fun onSurfaceDestroyed(surface: Surface): Boolean {
-        setDisplay(null)
         releaseSurface(surface)
+        LogUtils.d("LPCTextureRenderView=======>>onSurfaceSizeChanged :$surface")
         return true
     }
 
     override fun onSurfaceUpdated(surface: Surface) {
+        LogUtils.d("LPCTextureRenderView=======>>onSurfaceUpdated :$surface")
 
     }
 

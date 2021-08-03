@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.lpc.videoplayer.R
 import com.example.lpc.videoplayer.video.entity.DataSource
 import com.example.lpc.videoplayer.video.listener.MediaPlayerListener
@@ -20,13 +21,17 @@ import java.util.*
  * ClassName :BaseVideoView
  * Desc:
  */
-open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener {
+open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener, View.OnClickListener {
 
     private var videoView: View? = null
 
     private var playerManager: VideoManager? = null
 
     private val surfaceViewContainer: ViewGroup by lazy { videoView?.findViewById<View>(R.id.surface_container) as ViewGroup }
+
+    //播放按钮
+    protected var startIv: ImageView? = null
+
 
     constructor(context: Context) : this(context, null)
 
@@ -40,6 +45,13 @@ open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener {
 
         videoView = createView()
         addSurfaceView(surfaceViewContainer)
+
+        //
+        rootView?.let {
+            startIv = it.findViewById(R.id.startIv)
+            startIv?.setOnClickListener(this)
+        }
+
     }
 
     private fun createView(): View {
@@ -126,5 +138,31 @@ open class BaseVideoView : LPCTextureRenderView, MediaPlayerListener {
 
     override fun onVideoSizeChanged() {
         LogUtils.e("onVideoSizeChanged=======>>")
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.startIv -> {
+                playerManager?.let {
+                    if (it.isPlaying()) {
+                        pause()
+                    } else {
+                        start()
+                    }
+                }
+
+                updatePlayStatus()
+            }
+        }
+    }
+
+    protected open fun updatePlayStatus() {
+        playerManager?.let {
+            if (it.isPlaying()) {
+                startIv?.setImageResource(R.drawable.ic_pause)
+            } else {
+                startIv?.setImageResource(R.drawable.ic_play)
+            }
+        }
     }
 }

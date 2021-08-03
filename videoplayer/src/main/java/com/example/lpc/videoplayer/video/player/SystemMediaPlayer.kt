@@ -1,7 +1,6 @@
 package com.example.lpc.videoplayer.video.player
 
 import android.media.AudioAttributes
-import android.media.AudioAttributes.CONTENT_TYPE_MUSIC
 import android.media.MediaPlayer
 import android.os.Build
 import android.util.Log
@@ -15,8 +14,8 @@ import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STAT
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_INITIALIZED
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PAUSED
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PLAYBACK_COMPLETE
+import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PLAYING
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_PREPARED
-import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_STARTED
 import com.example.lpc.videoplayer.video.player.base.IMediaPlayer.Companion.STATE_STOPPED
 import com.example.lpc.videoplayer.video.utils.LogUtils
 
@@ -38,6 +37,14 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     //MediaPlayer
     private val mediaPlayer: MediaPlayer by lazy { MediaPlayer() }
 
+    //
+    private var audioAttributes: AudioAttributes =
+        AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MOVIE).build()
+
+    //
+    private var surface: Surface? = null
+
     //播放地址
     private var dataSource: DataSource? = null
 
@@ -58,14 +65,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
                     stop()
                     reset()
                 }
-                setDataSource(dataSource.url)
-                setScreenOnWhilePlaying(true)
-                setAudioAttributes(
-                    AudioAttributes.Builder().setContentType(CONTENT_TYPE_MUSIC).build()
-                )
-                prepareAsync()
-                updateStatus(STATE_INITIALIZED)
-
+                isLooping = dataSource.isLooping
                 setOnPreparedListener(mOnPreparedListener)
                 setOnBufferingUpdateListener(mOnBufferingUpdateListener)
                 setOnVideoSizeChangedListener(mOnVideoSizeChangedListener)
@@ -73,6 +73,13 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
                 setOnInfoListener(mOnInfoListener)
                 setOnErrorListener(mOnErrorListener)
                 setOnTimedTextListener(mOnTimedTextListener)
+
+
+                setDataSource(dataSource.url)
+                setScreenOnWhilePlaying(true)
+                setAudioAttributes(audioAttributes)
+                prepareAsync()
+                updateStatus(STATE_INITIALIZED)
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -93,6 +100,11 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
 
     override fun setSurface(surface: Surface?) {
         try {
+            LogUtils.e(
+                TAG,
+                "setDisplay=====>>$surface  &&${surface?.isValid}  mediaPlayer:$mediaPlayer"
+            )
+            this.surface = surface
             mediaPlayer.setSurface(surface)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -113,14 +125,10 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
 
     override fun start() {
         try {
-            if (getPlayState() == STATE_PREPARED ||
-                getPlayState() == STATE_PAUSED ||
-                getPlayState() == STATE_PLAYBACK_COMPLETE
-            ) {
+            if (getPlayState() == STATE_PREPARED || getPlayState() == STATE_PAUSED || getPlayState() == STATE_PLAYBACK_COMPLETE) {
 
                 mediaPlayer.start()
-
-                updateStatus(STATE_STARTED)
+                updateStatus(STATE_PLAYING)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -130,7 +138,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
 
     override fun pause() {
         try {
-            if (getPlayState() == STATE_STARTED) {
+            if (getPlayState() == STATE_PLAYING) {
                 mediaPlayer.pause()
 
                 updateStatus(STATE_PAUSED)
@@ -144,14 +152,14 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     override fun resume() {
         if (getPlayState() == STATE_PAUSED) {
             mediaPlayer.start()
-            updateStatus(STATE_STARTED)
+            updateStatus(STATE_PLAYING)
         }
     }
 
     override fun seekTo(position: Int) {
         try {
             if (position > 0 && (getPlayState() == STATE_PREPARED ||
-                        getPlayState() == STATE_STARTED ||
+                        getPlayState() == STATE_PLAYING ||
                         getPlayState() == STATE_PAUSED ||
                         getPlayState() == STATE_PLAYBACK_COMPLETE)
             ) {
@@ -168,7 +176,7 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     override fun stop() {
         try {
             if (getPlayState() == STATE_PREPARED ||
-                getPlayState() == STATE_STARTED ||
+                getPlayState() == STATE_PLAYING ||
                 getPlayState() == STATE_PAUSED ||
                 getPlayState() == STATE_PLAYBACK_COMPLETE
             ) {
@@ -263,11 +271,11 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
 
     private val mOnPreparedListener: MediaPlayer.OnPreparedListener =
         MediaPlayer.OnPreparedListener {
-            mVideoWidth = it.videoWidth
-            mVideoHeight = it.videoHeight
             updateStatus(STATE_PREPARED)
-
-            LogUtils.d(TAG, "onPrepared====>>videoWidth :$mVideoWidth  videoHeight :$mVideoHeight")
+            if (currentState == STATE_PLAYING) {
+                start()
+            }
+            LogUtils.e(TAG, "onPrepared====>>videoWidth :$mVideoWidth  videoHeight :$mVideoHeight")
             notifyOnPrepared()
         }
 
@@ -323,33 +331,40 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     }
 
     private val mOnInfoListener = MediaPlayer.OnInfoListener { mp, what, extra ->
-
+        LogUtils.d(TAG, "OnInfo====>>what :$what  extra :$extra")
         when (what) {
             MediaPlayer.MEDIA_INFO_VIDEO_TRACK_LAGGING -> {
-
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_VIDEO_TRACK_LAGGING")
             }
             MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_VIDEO_RENDERING_START")
 
             }
             MediaPlayer.MEDIA_INFO_BUFFERING_START -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_BUFFERING_START")
 
             }
             MediaPlayer.MEDIA_INFO_BUFFERING_END -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_BUFFERING_END")
 
             }
             MediaPlayer.MEDIA_INFO_BAD_INTERLEAVING -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_BAD_INTERLEAVING")
 
             }
             MediaPlayer.MEDIA_INFO_NOT_SEEKABLE -> {
-
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_NOT_SEEKABLE")
             }
             MediaPlayer.MEDIA_INFO_METADATA_UPDATE -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_METADATA_UPDATE")
 
             }
             MediaPlayer.MEDIA_INFO_UNSUPPORTED_SUBTITLE -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_UNSUPPORTED_SUBTITLE")
 
             }
             MediaPlayer.MEDIA_INFO_SUBTITLE_TIMED_OUT -> {
+                LogUtils.e(TAG, "OnInfo====>>MEDIA_INFO_SUBTITLE_TIMED_OUT")
 
             }
             MEDIA_INFO_NETWORK_BANDWIDTH -> {

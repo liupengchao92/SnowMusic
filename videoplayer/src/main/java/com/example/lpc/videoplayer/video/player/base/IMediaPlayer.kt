@@ -19,7 +19,7 @@ interface IMediaPlayer {
         const val STATE_IDLE = 0
         const val STATE_INITIALIZED = 1
         const val STATE_PREPARED = 2
-        const val STATE_STARTED = 3
+        const val STATE_PLAYING = 3
         const val STATE_PAUSED = 4
         const val STATE_STOPPED = 5
         const val STATE_PLAYBACK_COMPLETE = 6

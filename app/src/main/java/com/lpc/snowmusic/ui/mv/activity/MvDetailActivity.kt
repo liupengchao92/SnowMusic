@@ -30,6 +30,10 @@ class MvDetailActivity : BaseMvpActivity<MvDetailContract.View, MvDetailContract
         super.initView()
         videoView.setDataSource(videoUrl)
 
+        val mVideoView=VideoView(this)
+        mVideoView.start()
+
+
     }
 
 
