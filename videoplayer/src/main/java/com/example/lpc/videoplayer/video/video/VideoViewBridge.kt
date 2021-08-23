@@ -42,5 +42,7 @@ interface VideoViewBridge {
 
     fun getMediaPlayerListener(): MediaPlayerListener?
 
+    fun getPlayState(): Int?
+
 
 }

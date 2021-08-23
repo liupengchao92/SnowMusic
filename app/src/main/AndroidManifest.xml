@@ -63,6 +63,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <!-- 华为刘海屏区域使用 -->
+            <meta-data android:name="android.notch_support" android:value="true"/>
+
         </activity> <!-- 主页面 -->
         <activity android:name=".ui.main.activity.MainActivity"/>
         <!-- 歌手详情 -->

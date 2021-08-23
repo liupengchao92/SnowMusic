@@ -382,9 +382,6 @@ class SystemMediaPlayer : AbstractMediaPlayer() {
     override fun updateStatus(state: Int) {
         super.updateStatus(state)
 
-        when (state) {
-
-        }
     }
 
 }

@@ -65,6 +65,8 @@ class VideoManager : IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionL
 
     override fun getDuration(): Long = player?.getDuration() ?: 0
 
+    override fun getPlayState(): Int? = player?.getPlayState()
+
     override fun setDisplay(var1: Surface?) {
         player?.setSurface(var1)
     }
@@ -78,6 +80,7 @@ class VideoManager : IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionL
     }
 
     override fun getMediaPlayerListener(): MediaPlayerListener? = mediaPlayerListener
+
 
     override fun onPrepared(mediaPlayer: IMediaPlayer?) {
         mediaPlayerListener?.onPrepared()
